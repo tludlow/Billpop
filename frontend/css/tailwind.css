@@ -1,0 +1,8 @@
+@tailwind base;
+
+html {
+    @apply font-sans antialiased text-gray-900 bg-gray-100;
+}
+
+@tailwind components;
+@tailwind utilities;
