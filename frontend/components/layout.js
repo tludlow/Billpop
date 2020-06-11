@@ -13,7 +13,7 @@ export default function Layout(props) {
                 <meta property="og:type" content="website" />
                 <meta property="og:description" content="Project management techniques made easy" />
                 <meta property="og:image" content="https://via.placeholder.com/450x200.png" />
-                <meta property="og:url" content="http://billpop.now.sh" />
+                <meta property="og:url" content="https://billpop-kohl.now.sh/" />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
 
