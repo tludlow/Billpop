@@ -33,6 +33,13 @@ export default function Login() {
                         <button className="text-white bg-black w-full py-3 font-bold">Log in</button>
                     </form>
 
+                    <div className="mt-12 w-9/12">
+                        <p className="text-center">Dont have an account?</p>
+                        <Link href="/accounts/signup">
+                            <button className="mt-4 border border-gray-500 rounded w-full py-3">Sign up</button>
+                        </Link>
+                    </div>
+
                     <p className="mt-6 text-center w-8/12">Log in using one of your other accounts</p>
                     <div className="mt-3 w-9/12 mt-6 flex justify-between">
                         <div className="w-2/12 py-2 flex items-center justify-center rounded border border-gray-200 cursor-pointer">
@@ -62,7 +69,6 @@ export default function Login() {
                                 aria-hidden="true"
                                 data-prefix="fab"
                                 data-icon="twitter-square"
-                                class="svg-inline--fa fa-twitter-square fa-w-14"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 448 512"
                             >
@@ -79,7 +85,6 @@ export default function Login() {
                                 aria-hidden="true"
                                 data-prefix="fab"
                                 data-icon="facebook-square"
-                                class="svg-inline--fa fa-facebook-square fa-w-14"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 448 512"
                             >
@@ -96,7 +101,6 @@ export default function Login() {
                                 aria-hidden="true"
                                 data-prefix="fab"
                                 data-icon="apple"
-                                class="svg-inline--fa fa-apple fa-w-12"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 384 512"
                             >

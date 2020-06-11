@@ -251,6 +251,103 @@ export default function Index() {
                 </div>
             </section>
 
+            <section className="max-w-6xl mx-auto my-24">
+                <h3 className="font-bold text-3xl tracking-wide">Things we love</h3>
+
+                <div className="mt-4 grid grid-cols-6 gap-3">
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                    <div className="h-full w-full">
+                        <img
+                            src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
+                            alt=""
+                        />
+                        <p className="text-sm font-semibold">£35.00</p>
+                    </div>
+                </div>
+            </section>
+
+            <section className="max-w-6xl mx-auto mb-48">
+                <h3 className="font-semibold text-2xl text-center">
+                    Be part of the community that's transforming fashion one item at a time.
+                </h3>
+            </section>
+
             <Footer />
         </div>
     )
