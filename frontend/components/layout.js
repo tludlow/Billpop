@@ -5,7 +5,7 @@ export default function Layout(props) {
     return (
         <div className="text-gray-900">
             <Head>
-                <title>{props.title}</title>
+                <title>{props.title || 'Billpop'}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
                 <meta charSet="utf-8" />
