@@ -4,5 +4,25 @@ html {
     @apply font-sans antialiased text-black;
 }
 
+.hl-text:before {
+    content: '';
+    height: 0.0625rem;
+    background-color: rgb(175, 175, 175);
+    position: absolute;
+    display: block;
+    left: 0px;
+    top: calc(50%-1px);
+}
+
+.hl-text:after {
+    content: '';
+    height: 0.0625rem;
+    background-color: rgb(175, 175, 175);
+    position: absolute;
+    display: block;
+    right: 0px;
+    top: calc(50%-1px);
+}
+
 @tailwind components;
 @tailwind utilities;

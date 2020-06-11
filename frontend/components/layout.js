@@ -1,17 +1,18 @@
 import Nav from '@/components/nav'
 import Head from 'next/head'
+import Footer from '@/components/footer'
 
 export default function Layout(props) {
     return (
-        <div className="text-gray-900">
+        <div className="text-gray-900 h-screen w-screen">
             <Head>
                 <title>{props.title || 'Billpop'}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
                 <meta charSet="utf-8" />
-                <meta property="og:title" content="Deliberate" />
+                <meta property="og:title" content="Billpop" />
                 <meta property="og:type" content="website" />
-                <meta property="og:description" content="Project management techniques made easy" />
+                <meta property="og:description" content="An online community driven market place" />
                 <meta property="og:image" content="https://via.placeholder.com/450x200.png" />
                 <meta property="og:url" content="https://billpop-kohl.now.sh/" />
                 <meta name="twitter:card" content="summary_large_image" />
@@ -20,6 +21,8 @@ export default function Layout(props) {
             <Nav />
 
             <div className="container mx-auto">{props.children}</div>
+
+            <Footer />
         </div>
     )
 }

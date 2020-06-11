@@ -26,7 +26,9 @@ export default function Nav() {
 
                 {/* Contents */}
                 <div className="h-full flex items-center ">
-                    <button className="text-lg font-semibold">Login</button>
+                    <Link href="/accounts/login">
+                        <button className="text-lg font-semibold">Login</button>
+                    </Link>
                 </div>
             </div>
         </nav>
