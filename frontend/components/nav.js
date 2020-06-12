@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function Nav() {
     return (
         <>
-            <nav className="sticky top-0 h-13 w-full bg-white shadow-xs border border-b border-gray-200">
+            <nav className="sticky top-0 z-10 h-13 w-full bg-white shadow-xs border border-b border-gray-200">
                 <div className="h-full px-4 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Logo */}
                     <div className="">

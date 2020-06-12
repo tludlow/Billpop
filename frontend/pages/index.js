@@ -1,8 +1,11 @@
 import Nav from '@/components/nav'
 import Head from 'next/head'
 import Footer from '@/components/footer'
+import { useState } from 'react'
 
 export default function Index() {
+    const [randomImage, setRandomImage] = useState(Math.round(Math.random()))
+
     return (
         <div>
             <Head>
@@ -222,12 +225,21 @@ export default function Index() {
                         src="https://d3170a3msf25m.cloudfront.net/assets/home-phones-2@2x.jpg"
                         alt=""
                     />
-                    <img
-                        className="relative top-3"
-                        style={{ width: '219px', left: '4.65rem' }}
-                        src="https://d3170a3msf25m.cloudfront.net/assets/gallery-1.png"
-                        alt=""
-                    />
+                    {randomImage === 1 ? (
+                        <img
+                            className="relative top-3"
+                            style={{ width: '219px', left: '4.65rem' }}
+                            src="https://d3170a3msf25m.cloudfront.net/assets/gallery-1.png"
+                            alt=""
+                        />
+                    ) : (
+                        <img
+                            className="relative top-3"
+                            style={{ width: '219px', left: '4.65rem' }}
+                            src="https://d3170a3msf25m.cloudfront.net/assets/gallery-3.png"
+                            alt=""
+                        />
+                    )}
                 </div>
             </section>
 
