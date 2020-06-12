@@ -1,7 +1,13 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { changeUser } from '../actions/userActions'
+
 export default function Nav() {
+    const user = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+
     return (
         <>
             <nav className="sticky top-0 z-10 h-13 w-full bg-white shadow-xs border border-b border-gray-200">
@@ -28,6 +34,9 @@ export default function Nav() {
 
                     {/* Contents */}
                     <div className="h-full flex items-center ">
+                        <p className="mr-4" onClick={() => dispatch(changeUser())}>
+                            {user.username}
+                        </p>
                         <Link href="/accounts/login">
                             <button className="text-lg font-semibold">Login</button>
                         </Link>

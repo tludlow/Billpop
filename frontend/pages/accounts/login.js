@@ -1,13 +1,72 @@
 import Layout from '@/components/layout'
 import Link from 'next/link'
 
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+
 export default function Login() {
     return (
         <Layout title="Login - Billpop">
             <div className="mt-12 max-w-5xl mx-auto grid grid-cols-2">
                 <div className="flex flex-col items-center p-4">
                     <h3 className="font-bold text-xl">Log in</h3>
-                    <form className="mt-6 w-9/12 space-y-6" action="">
+
+                    <Formik
+                        initialValues={{ email: '', password: '' }}
+                        validate={(values) => {
+                            const errors = {}
+                            if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                                errors.email = 'Invalid email address'
+                            }
+                            return errors
+                        }}
+                        onSubmit={(values, { setSubmitting }) => {
+                            setSubmitting(false)
+                            setTimeout(() => {
+                                alert(JSON.stringify(values, null, 2))
+                                setSubmitting(false)
+                            }, 400)
+                        }}
+                    >
+                        {({ isSubmitting }) => (
+                            <Form className="flex flex-col mt-6 w-9/12 ">
+                                <label className="mt-4" htmlFor="email">
+                                    Email address
+                                </label>
+                                <ErrorMessage className="text-red-500" name="email" component="div" />
+                                <Field
+                                    className="h-12 w-full p-4 rounded border border-gray-400 focus:outline-none placeholder-gray-500"
+                                    placeholder="johndoe@billpop.com"
+                                    type="email"
+                                    name="email"
+                                    required
+                                />
+
+                                <label className="mt-4" htmlFor="password">
+                                    Password
+                                </label>
+                                <Field
+                                    className="h-12 w-full p-4 rounded border border-gray-400 focus:outline-none placeholder-gray-500"
+                                    type="password"
+                                    name="password"
+                                    placeholder="••••••••••••••"
+                                    required
+                                />
+                                <Link href="/accounts/forgot-password">
+                                    <p className="mt-1 text-gray-600 text-right cursor-pointer hover:underline">
+                                        Forgot password?
+                                    </p>
+                                </Link>
+
+                                <button
+                                    className="mt-6 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                                    disabled={isSubmitting}
+                                >
+                                    Log in
+                                </button>
+                            </Form>
+                        )}
+                    </Formik>
+                    {/* <form className="mt-6 w-9/12 space-y-6" action="">
                         <div className="">
                             <label htmlFor="email">Email</label>
                             <input
@@ -36,7 +95,7 @@ export default function Login() {
                         </div>
 
                         <button className="text-white bg-black w-full py-3 font-bold">Log in</button>
-                    </form>
+                    </form> */}
 
                     <p className="mt-6 text-center w-8/12">Log in using one of your other accounts</p>
                     <div className="mt-3 w-9/12 mt-6 flex justify-between">
