@@ -3,7 +3,14 @@ const userReducer = (state = {}, action) => {
         case 'CHANGE_USERNAME':
             return {
                 ...state,
-                username: 'Thomas',
+                username: 'Billy',
+                loggedIn: true,
+            }
+        case 'LOGOUT':
+            return {
+                ...state,
+                username: '',
+                loggedIn: false,
             }
         default:
             return state
