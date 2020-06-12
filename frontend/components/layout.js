@@ -17,7 +17,7 @@ export default function Layout(props) {
                 <meta property="og:url" content="https://billpop-kohl.now.sh/" />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-
+                
             <Nav />
 
             <div className="container mx-auto">{props.children}</div>

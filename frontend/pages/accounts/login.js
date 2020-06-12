@@ -28,17 +28,15 @@ export default function Login() {
                                 id=""
                                 placeholder="••••••••••••"
                             />
+                            <Link href="/accounts/forgot-password">
+                                <p className="mt-1 text-gray-600 text-right cursor-pointer hover:underline">
+                                    Forgot password?
+                                </p>
+                            </Link>
                         </div>
 
                         <button className="text-white bg-black w-full py-3 font-bold">Log in</button>
                     </form>
-
-                    <div className="mt-12 w-9/12">
-                        <p className="text-center">Dont have an account?</p>
-                        <Link href="/accounts/signup">
-                            <button className="mt-4 border border-gray-500 rounded w-full py-3">Sign up</button>
-                        </Link>
-                    </div>
 
                     <p className="mt-6 text-center w-8/12">Log in using one of your other accounts</p>
                     <div className="mt-3 w-9/12 mt-6 flex justify-between">
