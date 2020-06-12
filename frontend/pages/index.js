@@ -354,6 +354,63 @@ export default function Index() {
                 </div>
             </section>
 
+            <section className="max-w-6xl mx-auto grid grid-cols-2 my-32">
+                <div className="space-y-6 my-auto">
+                    <h3 className="font-bold text-3xl tracking-wide">Sell your way</h3>
+                    <p>
+                        Sell a few items or build your empire. Whatever your vibe we’ll share our pro tips to help you
+                        get there. It's simple to get started.
+                    </p>
+                    <button className="bg-black text-white px-8 py-2 font-bold">Sell on Billpop</button>
+                </div>
+                <div className="w-full flex justify-center">
+                    <img
+                        style={{ width: '400px', height: '500px' }}
+                        src="https://d3170a3msf25m.cloudfront.net/assets/narrative/homepage-narrative-seller@2x.jpg"
+                        alt=""
+                    />
+                </div>
+            </section>
+
+            <section className="max-w-6xl mx-auto mb-48">
+                <h3 className="font-bold text-3xl tracking-wide">Meet sellers</h3>
+
+                <div className="mt-8 flex items-center justify-between space-x-8">
+                    <div className="w-64 h-64">
+                        <img
+                            className="w-64 h-64"
+                            src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
+                            alt=""
+                        />
+                        <p className="font-semibold text-sm">@JEFFSOCOOL</p>
+                    </div>
+                    <div className="w-64 h-64">
+                        <img
+                            className="w-64 h-64"
+                            src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
+                            alt=""
+                        />
+                        <p className="font-semibold text-sm">@JOSHWOW</p>
+                    </div>
+                    <div className="w-64 h-64">
+                        <img
+                            className="w-64 h-64"
+                            src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
+                            alt=""
+                        />
+                        <p className="font-semibold text-sm">@JASPIEEE</p>
+                    </div>
+                    <div className="w-64 h-64">
+                        <img
+                            className="w-64 h-64"
+                            src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
+                            alt=""
+                        />
+                        <p className="font-semibold text-sm">@SAMMIEBOY</p>
+                    </div>
+                </div>
+            </section>
+
             <section className="max-w-6xl mx-auto mb-48">
                 <h3 className="font-semibold text-2xl text-center">
                     Be part of the community that's transforming fashion one item at a time.
