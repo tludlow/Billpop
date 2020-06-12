@@ -218,9 +218,9 @@ export default function Index() {
                     </p>
                     <button className="bg-black text-white px-8 py-2 font-bold">Get started</button>
                 </div>
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-end">
                     <img
-                        className=" absolute"
+                        className="absolute"
                         style={{ width: '400px', height: '500px' }}
                         src="https://d3170a3msf25m.cloudfront.net/assets/home-phones-2@2x.jpg"
                         alt=""
@@ -228,14 +228,14 @@ export default function Index() {
                     {randomImage === 1 ? (
                         <img
                             className="relative top-3"
-                            style={{ width: '219px', left: '4.65rem' }}
+                            style={{ width: '219px', left: '-0.9rem' }}
                             src="https://d3170a3msf25m.cloudfront.net/assets/gallery-1.png"
                             alt=""
                         />
                     ) : (
                         <img
                             className="relative top-3"
-                            style={{ width: '219px', left: '4.65rem' }}
+                            style={{ width: '219px', left: '-0.9rem' }}
                             src="https://d3170a3msf25m.cloudfront.net/assets/gallery-3.png"
                             alt=""
                         />
@@ -363,7 +363,7 @@ export default function Index() {
                     </p>
                     <button className="bg-black text-white px-8 py-2 font-bold">Sell on Billpop</button>
                 </div>
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-end">
                     <img
                         style={{ width: '400px', height: '500px' }}
                         src="https://d3170a3msf25m.cloudfront.net/assets/narrative/homepage-narrative-seller@2x.jpg"
