@@ -1,6 +1,8 @@
 import Nav from '@/components/nav'
 import Head from 'next/head'
 import Footer from '@/components/footer'
+import Modal from '@/components/modal'
+
 import { useState } from 'react'
 
 export default function Index() {
@@ -18,7 +20,7 @@ export default function Index() {
                 className="w-full bg-cover bg-center overflow-x-hidden"
                 style={{
                     backgroundColor: '#7786D7',
-                    backgroundImage: `url('https://d3170a3msf25m.cloudfront.net/assets/narrative/hero.jpg')`,
+                    backgroundImage: `url('https://d3170a3msf25m.cloudfront.net/assets/narrative/hero@2x.jpg')`,
                     height: '477px',
                 }}
             >

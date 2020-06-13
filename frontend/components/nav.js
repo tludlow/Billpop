@@ -51,7 +51,7 @@ export default function Nav() {
                                 </svg>
 
                                 <img
-                                    className="h-9 w-9 rounded-full border border-gray-400 shadow select-none"
+                                    className="h-10 w-10 rounded-full border border-gray-400 shadow select-none"
                                     src="/profile_img.png"
                                     alt={`${user.username}'s Profile Photo`}
                                 />
