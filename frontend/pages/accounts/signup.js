@@ -86,8 +86,6 @@ function Stage2(props) {
 
     //Go back a stage in the sign up flow
     const handleBackClick = () => {
-        console.log('going back')
-        console.log(props)
         props.retreatStage()
     }
 
@@ -152,7 +150,10 @@ function Stage2(props) {
                         {renderCodeInputs(6)}
                     </div>
 
-                    <button className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900">
+                    <button
+                        onClick={props.advanceStage}
+                        className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                    >
                         Verify account
                     </button>
                 </form>
@@ -160,6 +161,86 @@ function Stage2(props) {
                 <p className="mt-3 text-sm">
                     Haven't received your code? <span className="underline">Check your number</span>
                 </p>
+            </div>
+        </>
+    )
+}
+
+function Stage3(props) {
+    //Go back a stage in the sign up flow
+    const handleBackClick = () => {
+        props.retreatStage()
+    }
+
+    return (
+        <>
+            <div className="hidden md:block">
+                <img style={{ height: '640px', width: '480px' }} src="/signup-pic3.jpg" alt="" />
+            </div>
+            <div className="mt-8 flex flex-col w-11/12 md:w-9/12 mx-auto">
+                <LoadingBar stage={3} loaded={60} handleClick={handleBackClick} />
+
+                <h3 className="mt-12 font-extrabold text-2xl">GET READY</h3>
+                <p className="text-gray-600 text-sm">Enter a few details to join the Billpop community</p>
+
+                <h5 className="mt-8 font-extrabold">Your details</h5>
+                <form className="mt-4">
+                    <div className="flex justify-between mb-3">
+                        <input
+                            className="p-2 w-5/12 border border-gray-400 rounded"
+                            type="text"
+                            name="firstname"
+                            placeholder="First name"
+                            id=""
+                        />
+                        <input
+                            className="p-2 w-5/12 border border-gray-400 rounded"
+                            type="text"
+                            name="lastname"
+                            placeholder="Last name"
+                            id=""
+                        />
+                    </div>
+
+                    <input
+                        className="p-2 w-full border border-gray-400 rounded"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        id=""
+                    />
+
+                    <h5 className="mt-5 mb-1 font-extrabold">Create your username and password</h5>
+                    <input
+                        className="p-2 w-full border border-gray-400 rounded"
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        id=""
+                    />
+                    <input
+                        className="mt-3 p-2 w-full border border-gray-400 rounded"
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        id=""
+                    />
+
+                    <h5 className="mt-5 mb-1 font-extrabold">Your location</h5>
+                    <select className="p-2 w-full border border-gray-400 rounded">
+                        <option>United Kingdom</option>
+                        <option>United States</option>
+                    </select>
+
+                    <div className="mt-6 flex items-center">
+                        <input className="mr-3 h-5 w-5" type="checkbox" name="updates" id="" />
+                        <label className="text-xs leading-tight" htmlFor="updates">
+                            Get emails from Depop, including special promotions and selling tips.
+                        </label>
+                    </div>
+
+                    <button className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900">Next</button>
+                </form>
             </div>
         </>
     )
@@ -201,6 +282,7 @@ export default function Signup() {
             <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2">
                 {stage === 1 && <Stage1 advanceStage={nextStage} />}
                 {stage === 2 && <Stage2 advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 3 && <Stage3 advanceStage={nextStage} retreatStage={decrementStage} />}
             </div>
         </Layout>
     )
