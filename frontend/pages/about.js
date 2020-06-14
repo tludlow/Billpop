@@ -52,6 +52,7 @@ export default function About() {
                     <img src="/about-img3.jpg" alt="Grid of Clothes" />
                 </div>
                 <div className="">
+                    okay we are ab
                     <h3 className="text-4xl font-extrabold mt-20">Our Community</h3>
                     <p className="text-sm">
                         Life is about creating. That’s why Depop is home to 15 million+ stylists, designers, artists,
