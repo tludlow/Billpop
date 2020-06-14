@@ -24,5 +24,16 @@ html {
     top: calc(50%-1px);
 }
 
+.loading-fill:after {
+    content: "";
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    right: 3px;
+    top: 2px;
+    border-radius: 6px;
+    background-color: white;
+}
+
 @tailwind components;
 @tailwind utilities;

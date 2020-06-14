@@ -1,13 +1,72 @@
 import Layout from '@/components/layout'
 import Link from 'next/link'
 
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+
 export default function Login() {
     return (
         <Layout title="Login - Billpop">
-            <div className="mt-12 max-w-5xl mx-auto grid grid-cols-2">
+            <div className="mt-10 md:max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2">
                 <div className="flex flex-col items-center p-4">
                     <h3 className="font-bold text-xl">Log in</h3>
-                    <form className="mt-6 w-9/12 space-y-6" action="">
+
+                    <Formik
+                        initialValues={{ email: '', password: '' }}
+                        validate={(values) => {
+                            const errors = {}
+                            if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                                errors.email = 'Invalid email address'
+                            }
+                            return errors
+                        }}
+                        onSubmit={(values, { setSubmitting }) => {
+                            setSubmitting(false)
+                            setTimeout(() => {
+                                alert(JSON.stringify(values, null, 2))
+                                setSubmitting(false)
+                            }, 400)
+                        }}
+                    >
+                        {({ isSubmitting }) => (
+                            <Form className="flex flex-col mt-6 w-full md:w-9/12 ">
+                                <label className="mt-4" htmlFor="email">
+                                    Email address
+                                </label>
+                                <ErrorMessage className="text-red-500" name="email" component="div" />
+                                <Field
+                                    className="h-12 w-full p-4 rounded border border-gray-400 focus:outline-none placeholder-gray-500"
+                                    placeholder="johndoe@billpop.com"
+                                    type="email"
+                                    name="email"
+                                    required
+                                />
+
+                                <label className="mt-4" htmlFor="password">
+                                    Password
+                                </label>
+                                <Field
+                                    className="h-12 w-full p-4 rounded border border-gray-400 focus:outline-none placeholder-gray-500"
+                                    type="password"
+                                    name="password"
+                                    placeholder="••••••••••••••"
+                                    required
+                                />
+                                <Link href="/accounts/forgot-password">
+                                    <p className="mt-1 text-gray-600 text-right cursor-pointer hover:underline">
+                                        Forgot password?
+                                    </p>
+                                </Link>
+
+                                <button
+                                    className="mt-6 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                                    disabled={isSubmitting}
+                                >
+                                    Log in
+                                </button>
+                            </Form>
+                        )}
+                    </Formik>
+                    {/* <form className="mt-6 w-9/12 space-y-6" action="">
                         <div className="">
                             <label htmlFor="email">Email</label>
                             <input
@@ -36,10 +95,10 @@ export default function Login() {
                         </div>
 
                         <button className="text-white bg-black w-full py-3 font-bold">Log in</button>
-                    </form>
+                    </form> */}
 
                     <p className="mt-6 text-center w-8/12">Log in using one of your other accounts</p>
-                    <div className="mt-3 w-9/12 mt-6 flex justify-between">
+                    <div className="mt-3 w-full md:w-9/12 mt-6 flex justify-between">
                         <div className="w-2/12 py-2 flex items-center justify-center rounded border border-gray-200 cursor-pointer">
                             <svg className="h-8 w-8" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -110,7 +169,7 @@ export default function Login() {
                         </div>
                     </div>
 
-                    <div className="relative mt-8 w-9/12">
+                    <div className="relative mt-8 w-full md:w-9/12">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-gray-600"></div>
                         </div>
@@ -119,14 +178,14 @@ export default function Login() {
                         </div>
                     </div>
 
-                    <div className="mt-12 w-9/12">
+                    <div className="mt-12 w-full md:w-9/12">
                         <p className="text-center">Dont have an account?</p>
                         <Link href="/accounts/signup">
                             <button className="mt-4 border border-gray-500 rounded w-full py-3">Sign up</button>
                         </Link>
                     </div>
                 </div>
-                <div className="">
+                <div className="hidden md:block">
                     <img
                         className="w-full h-full"
                         src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"

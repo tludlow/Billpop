@@ -1,148 +1,62 @@
 import Layout from '@/components/layout'
 
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-
+function LoadingBar(props) {
+    return (
+        <div className="flex relative w-full h-3 bg-gray-300 rounded-md">
+            <div
+                className="loading-fill absolute h-3 rounded-md bg-green-500"
+                style={{ width: `${props.loaded}%` }}
+            ></div>
+        </div>
+    )
+}
 export default function Signup() {
     return (
-        <Layout title="Signup - Deliberate">
-            <div className="card bg-white rounded-lg shadow p-8 w-10/12 lg:w-6/12 mx-auto mt-12 border border-gray-200">
-                <h3 className="font-bold text-xl">Sign up</h3>
-                <p className="text-gray-600">Create an account so you can have all your information under one roof</p>
+        <Layout title="Signup - Billpop">
+            <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2">
+                <div className="hidden md:block">
+                    <img src="/signup-pic1.jpg" alt="" />
+                </div>
+                <div className="mt-8 flex flex-col max-w-sm mx-auto">
+                    <LoadingBar loaded={20} />
 
-                <hr className="my-5" />
+                    <h3 className="mt-12 font-extrabold text-2xl">SIGN UP</h3>
+                    <p className="text-gray-600 text-sm">
+                        To create your account, we need to verify your phone number. We will never display this <br />{' '}
+                        number publicly
+                    </p>
 
-                {/* <form action="">
-                    <div className="my-3 flex flex-col">
-                        <label htmlFor="name">Full name</label>
-                        <input
-                            type="text"
-                            className="rounded border border-gray-400 px-3 py-1 w-8/12 focus:outline-none focus:border-gray-700 placeholder-gray-400"
-                            name="name"
-                            id="signup-fullname"
-                            placeholder="John Doe"
-                        />
-                    </div>
-
-                    <div className="my-3 flex flex-col">
-                        <label htmlFor="email">Email Address</label>
-                        <input
-                            type="email"
-                            className="rounded border border-gray-400 px-3 py-1 w-8/12 focus:outline-none focus:border-gray-700 placeholder-gray-400"
-                            name="email"
-                            id="signup-email"
-                            placeholder="johndoe@deliberate.com"
-                        />
-                    </div>
-
-                    <div className="my-3 flex flex-col">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            className="rounded border border-gray-400 px-3 py-1 w-8/12 focus:outline-none focus:border-gray-700 placeholder-gray-400"
-                            name="password"
-                            id="signup-password"
-                            placeholder="••••••••••••••"
-                        />
-                    </div>
-
-                    <div className="my-3 flex flex-col">
-                        <label htmlFor="confirmpassword">Confirm Password</label>
-                        <input
-                            type="password"
-                            className="rounded border border-gray-400 px-3 py-1 w-8/12 focus:outline-none focus:border-gray-700 placeholder-gray-400"
-                            name="confirmpassword"
-                            id="signup-confirmpassword"
-                            placeholder="••••••••••••••"
-                        />
-                    </div>
-
-                    <button
-                        className="mt-6 bg-blue-600 text-white px-3 py-2 rounded shadow hover:bg-blue-700"
-                        type="submit"
-                    >
-                        Create Account
-                    </button>
-                </form> */}
-
-                <Formik
-                    initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
-                    validate={(values) => {
-                        const errors = {}
-                        if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                            errors.email = 'Invalid email address'
-                        }
-
-                        if (values.password !== values.confirmPassword) {
-                            errors.password = 'Your passwords do not match'
-                        }
-                        return errors
-                    }}
-                    onSubmit={(values, { setSubmitting }) => {
-                        setSubmitting(false)
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2))
-                            setSubmitting(false)
-                        }, 400)
-                    }}
-                >
-                    {({ isSubmitting }) => (
-                        <Form className="flex flex-col">
-                            <label className="mt-2" htmlFor="name">
-                                Full name
-                            </label>
-                            <Field
-                                className="rounded border border-gray-400 px-3 py-1 w-full lg:w-8/12 focus:outline-none focus:border-gray-700 placeholder-gray-400"
-                                placeholder="John Doe"
-                                type="text"
-                                name="name"
-                                required
-                            ></Field>
-
-                            <label className="mt-4" htmlFor="email">
-                                Email address
-                            </label>
-                            <Field
-                                className="rounded border border-gray-400 px-3 py-1 w-full lg:w-8/12 focus:outline-none focus:border-gray-700 placeholder-gray-400"
-                                placeholder="johndoe@deliberate.com"
-                                type="email"
-                                name="email"
-                                required
-                            />
-                            <ErrorMessage className="text-red-500" name="email" component="div" />
-
-                            <label className="mt-4" htmlFor="password">
-                                Password
-                            </label>
-                            <Field
-                                className="rounded border border-gray-400 px-3 py-1 w-full lg:w-8/12 focus:outline-none focus:border-gray-700 placeholder-gray-400 my-2"
-                                type="password"
-                                name="password"
-                                placeholder="••••••••••••••"
-                                required
-                            />
-
-                            <label className="mt-4" htmlFor="confirmPassword">
-                                Confirm password
-                            </label>
-                            <Field
-                                className="rounded border border-gray-400 px-3 py-1 w-full lg:w-8/12 focus:outline-none focus:border-gray-700 placeholder-gray-400 my-2"
-                                type="password"
-                                name="confirmPassword"
-                                placeholder="••••••••••••••"
-                                required
-                            />
-                            <ErrorMessage className="text-red-500" name="password" component="div" />
-
-                            <button
-                                className="mt-6 bg-blue-600 text-white px-3 py-2 w-56 rounded shadow hover:bg-blue-700"
-                                type="submit"
-                                disabled={isSubmitting}
+                    <h5 className="mt-8 font-extrabold">Enter phone number</h5>
+                    <form className="mt-4" action="">
+                        <div className="flex h-12">
+                            <select
+                                className="w-16 px-1 border border-black rounded-l focus:outline-none"
+                                name="country-codes"
+                                id="country-codes"
+                                aria-label="[object Object]"
                             >
-                                Create Account
-                            </button>
-                        </Form>
-                    )}
-                </Formik>
+                                <option value="UK">+44 (United Kingdom)</option>
+                                <option value="US">+1 (United States)</option>
+                                <option value="FR">+33 (France)</option>
+                                <option value="GER">+49 (Germany)</option>
+                            </select>
+                            <input
+                                className="border border-gray-400 p-2 rounded-r focus:outline-none w-full"
+                                type="tel"
+                                placeholder="Phone number"
+                                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                                name="phone-number"
+                                id="phone-number"
+                            />
+                        </div>
+
+                        <input
+                            className="w-full mt-6 bg-black text-white py-2 font-extrabold"
+                            type="submit"
+                            value="Send code"
+                        />
+                    </form>
+                </div>
             </div>
         </Layout>
     )

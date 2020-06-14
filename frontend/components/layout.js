@@ -4,7 +4,7 @@ import Footer from '@/components/footer'
 
 export default function Layout(props) {
     return (
-        <div className="text-gray-900 h-screen w-screen">
+        <div className="text-black h-screen w-screen">
             <Head>
                 <title>{props.title || 'Billpop'}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -17,10 +17,13 @@ export default function Layout(props) {
                 <meta property="og:url" content="https://billpop-kohl.now.sh/" />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-                
+
             <Nav />
 
-            <div className="container mx-auto">{props.children}</div>
+            {/* Have the option to remove the container if wanted */}
+            <div className={`${props.container === false ? '' : 'container mx-auto px-4 md:px-0'}`}>
+                {props.children}
+            </div>
 
             <Footer />
         </div>
