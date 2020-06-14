@@ -67,5 +67,16 @@ html {
     left: -300px;
 }
 
+#loading-back > p {
+    transition: 0.1s;
+    transition-timing-function: ease-in-out;
+    margin-left: 0px;
+}
+#loading-back:hover > p {
+    transition: 0.1s;
+    transition-timing-function: ease-in-out;
+    margin-left: 4px;
+}
+
 @tailwind components;
 @tailwind utilities;

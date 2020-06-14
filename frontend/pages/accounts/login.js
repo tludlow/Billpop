@@ -10,6 +10,7 @@ export default function Login() {
     const dispatch = useDispatch()
     const router = useRouter()
     const [loginError, setLoginError] = useState('')
+
     return (
         <Layout title="Login - Billpop">
             <div className="mt-10 md:max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2">
@@ -40,7 +41,9 @@ export default function Login() {
                                 </label>
                                 <ErrorMessage className="text-red-500" name="email" component="div" />
                                 <Field
-                                    className="h-12 w-full p-4 rounded border border-gray-400 focus:outline-none placeholder-gray-500"
+                                    className={`h-12 w-full p-4 rounded border ${
+                                        loginError ? 'border-red-500' : 'border-gray-400'
+                                    } focus:outline-none placeholder-gray-500 active:bg-white`}
                                     placeholder="johndoe@billpop.com"
                                     type="email"
                                     name="email"
@@ -51,7 +54,9 @@ export default function Login() {
                                     Password
                                 </label>
                                 <Field
-                                    className="h-12 w-full p-4 rounded border border-gray-400 focus:outline-none placeholder-gray-500"
+                                    className={`h-12 w-full p-4 rounded border ${
+                                        loginError ? 'border-red-500' : 'border-gray-400'
+                                    } focus:outline-none placeholder-gray-500`}
                                     type="password"
                                     name="password"
                                     placeholder="••••••••••••••"
@@ -62,9 +67,20 @@ export default function Login() {
                                         Forgot password?
                                     </p>
                                 </Link>
-                                {loginError}
+
+                                <p className="text-red-500 mt-6 flex items-center">
+                                    <svg className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                            clipRule="evenodd"
+                                        ></path>
+                                    </svg>{' '}
+                                    {loginError}
+                                </p>
+
                                 <button
-                                    className="mt-6 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                                    className="mt-1 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
                                     disabled={isSubmitting}
                                 >
                                     Log in
