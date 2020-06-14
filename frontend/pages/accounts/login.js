@@ -6,7 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 export default function Login() {
     return (
         <Layout title="Login - Billpop">
-            <div className="mt-12 max-w-5xl mx-auto grid grid-cols-2">
+            <div className="mt-10 md:max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2">
                 <div className="flex flex-col items-center p-4">
                     <h3 className="font-bold text-xl">Log in</h3>
 
@@ -28,7 +28,7 @@ export default function Login() {
                         }}
                     >
                         {({ isSubmitting }) => (
-                            <Form className="flex flex-col mt-6 w-9/12 ">
+                            <Form className="flex flex-col mt-6 w-full md:w-9/12 ">
                                 <label className="mt-4" htmlFor="email">
                                     Email address
                                 </label>
@@ -98,7 +98,7 @@ export default function Login() {
                     </form> */}
 
                     <p className="mt-6 text-center w-8/12">Log in using one of your other accounts</p>
-                    <div className="mt-3 w-9/12 mt-6 flex justify-between">
+                    <div className="mt-3 w-full md:w-9/12 mt-6 flex justify-between">
                         <div className="w-2/12 py-2 flex items-center justify-center rounded border border-gray-200 cursor-pointer">
                             <svg className="h-8 w-8" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -169,7 +169,7 @@ export default function Login() {
                         </div>
                     </div>
 
-                    <div className="relative mt-8 w-9/12">
+                    <div className="relative mt-8 w-full md:w-9/12">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-gray-600"></div>
                         </div>
@@ -178,14 +178,14 @@ export default function Login() {
                         </div>
                     </div>
 
-                    <div className="mt-12 w-9/12">
+                    <div className="mt-12 w-full md:w-9/12">
                         <p className="text-center">Dont have an account?</p>
                         <Link href="/accounts/signup">
                             <button className="mt-4 border border-gray-500 rounded w-full py-3">Sign up</button>
                         </Link>
                     </div>
                 </div>
-                <div className="">
+                <div className="hidden md:block">
                     <img
                         className="w-full h-full"
                         src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"

@@ -21,7 +21,9 @@ export default function Layout(props) {
             <Nav />
 
             {/* Have the option to remove the container if wanted */}
-            <div className={`${props.container === false ? '' : 'container mx-auto'}`}>{props.children}</div>
+            <div className={`${props.container === false ? '' : 'container mx-auto px-4 md:px-0'}`}>
+                {props.children}
+            </div>
 
             <Footer />
         </div>

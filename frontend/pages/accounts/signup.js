@@ -13,8 +13,8 @@ function LoadingBar(props) {
 export default function Signup() {
     return (
         <Layout title="Signup - Billpop">
-            <div className="max-w-5xl mx-auto mt-8 grid grid-cols-2">
-                <div className="">
+            <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2">
+                <div className="hidden md:block">
                     <img src="/signup-pic1.jpg" alt="" />
                 </div>
                 <div className="mt-8 flex flex-col max-w-sm mx-auto">
@@ -30,7 +30,7 @@ export default function Signup() {
                     <form className="mt-4" action="">
                         <div className="flex h-12">
                             <select
-                                className="w-15 border border-black rounded-l focus:outline-none"
+                                className="w-16 px-1 border border-black rounded-l focus:outline-none"
                                 name="country-codes"
                                 id="country-codes"
                                 aria-label="[object Object]"

@@ -1,15 +1,14 @@
 import Nav from '@/components/nav'
 import Head from 'next/head'
 import Footer from '@/components/footer'
-import Modal from '@/components/modal'
 
 import { useState } from 'react'
 
 export default function Index() {
-    const [randomImage, setRandomImage] = useState(Math.round(Math.random()))
+    const [randomImage] = useState(Math.round(Math.random()))
 
     return (
-        <div>
+        <div className="">
             <Head>
                 <title>Billpop</title>
             </Head>
@@ -17,7 +16,7 @@ export default function Index() {
             {/* Hero */}
             <div
                 id="hero"
-                className="w-full bg-cover bg-center overflow-x-hidden"
+                className="w-full bg-cover bg-center"
                 style={{
                     backgroundColor: '#7786D7',
                     backgroundImage: `url('https://d3170a3msf25m.cloudfront.net/assets/narrative/hero@2x.jpg')`,
@@ -25,7 +24,7 @@ export default function Index() {
                 }}
             >
                 <div className="h-full container mx-auto grid grid-cols-2">
-                    <div className="w-full py-16 space-y-4 my-auto">
+                    <div className="pl-4 md:pl-0 w-full py-16 space-y-4 my-auto">
                         <h1 className="font-black text-4xl leading-tight">
                             BUY. SELL. <br />
                             DISCOVER UNIQUE FASHION.
@@ -210,8 +209,8 @@ export default function Index() {
                 </div>
             </div>
             {/* What is billpop */}
-            <section className="max-w-6xl mx-auto grid grid-cols-2 my-32">
-                <div className="space-y-6 my-auto">
+            <section className="px-4 md:px-0 w-full md:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 my-32">
+                <div className="space-y-6 my-auto order-1 md:order-0">
                     <h3 className="font-bold text-3xl tracking-wide">What is Billpop</h3>
                     <p>
                         Depop is the fashion marketplace app where the next generation come to discover unique items.
@@ -220,7 +219,7 @@ export default function Index() {
                     </p>
                     <button className="bg-black text-white px-8 py-2 font-bold">Get started</button>
                 </div>
-                <div className="w-full flex justify-end">
+                <div className="hidden md:block w-full flex md:justify-end order-0 md:order-1">
                     <img
                         className="absolute"
                         style={{ width: '400px', height: '500px' }}
@@ -238,14 +237,14 @@ export default function Index() {
                         <img
                             className="relative top-3"
                             style={{ width: '219px', left: '-0.9rem' }}
-                            src="https://d3170a3msf25m.cloudfront.net/assets/gallery-3.png"
+                            src="https://d3170a3msf25m.cloudfront.net/assets/gallery-1.png"
                             alt=""
                         />
                     )}
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto grid grid-cols-2 my-24">
+            <section className="px-4 md:px-0 w-full md:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 my-24">
                 <div className="">
                     <img
                         style={{ width: '400px', height: '500px' }}
@@ -265,10 +264,10 @@ export default function Index() {
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto my-24">
+            <section className="px-4 md:px-0 w-full md:max-w-6xl mx-auto my-24">
                 <h3 className="font-bold text-3xl tracking-wide">Things we love</h3>
 
-                <div className="mt-4 grid grid-cols-6 gap-3">
+                <div className="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
                     <div className="h-full w-full">
                         <img
                             src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
@@ -356,8 +355,8 @@ export default function Index() {
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto grid grid-cols-2 my-32">
-                <div className="space-y-6 my-auto">
+            <section className="px-4 md:px-0 w-full md:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 my-32">
+                <div className="space-y-6 my-auto order-1 md:order-0">
                     <h3 className="font-bold text-3xl tracking-wide">Sell your way</h3>
                     <p>
                         Sell a few items or build your empire. Whatever your vibe we’ll share our pro tips to help you
@@ -365,7 +364,7 @@ export default function Index() {
                     </p>
                     <button className="bg-black text-white px-8 py-2 font-bold">Sell on Billpop</button>
                 </div>
-                <div className="w-full flex justify-end">
+                <div className="w-full flex order-0 md:order-1 md:justify-end">
                     <img
                         style={{ width: '400px', height: '500px' }}
                         src="https://d3170a3msf25m.cloudfront.net/assets/narrative/homepage-narrative-seller@2x.jpg"
@@ -374,46 +373,30 @@ export default function Index() {
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto mb-48">
+            <section className="px-4 md:px-0 w-full md:max-w-6xl mx-auto mb-20 md:mb-48">
                 <h3 className="font-bold text-3xl tracking-wide">Meet sellers</h3>
 
-                <div className="mt-8 flex items-center justify-between space-x-8">
-                    <div className="w-64 h-64">
-                        <img
-                            className="w-64 h-64"
-                            src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                            alt=""
-                        />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="w-full h-full">
+                        <img src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg" alt="" />
                         <p className="font-semibold text-sm">@JEFFSOCOOL</p>
                     </div>
-                    <div className="w-64 h-64">
-                        <img
-                            className="w-64 h-64"
-                            src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                            alt=""
-                        />
+                    <div className="w-full h-full">
+                        <img src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg" alt="" />
                         <p className="font-semibold text-sm">@JOSHWOW</p>
                     </div>
-                    <div className="w-64 h-64">
-                        <img
-                            className="w-64 h-64"
-                            src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                            alt=""
-                        />
+                    <div className="w-full h-full">
+                        <img src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg" alt="" />
                         <p className="font-semibold text-sm">@JASPIEEE</p>
                     </div>
-                    <div className="w-64 h-64">
-                        <img
-                            className="w-64 h-64"
-                            src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                            alt=""
-                        />
+                    <div className="w-full h-full">
+                        <img src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg" alt="" />
                         <p className="font-semibold text-sm">@SAMMIEBOY</p>
                     </div>
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto mb-48">
+            <section className="w-full md:max-w-3xl lg:max-w-6xl mx-auto mb-48">
                 <h3 className="font-semibold text-2xl text-center">
                     Be part of the community that's transforming fashion one item at a time.
                 </h3>
