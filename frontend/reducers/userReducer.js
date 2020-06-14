@@ -6,12 +6,31 @@ const userReducer = (state = {}, action) => {
                 username: 'Billy',
                 loggedIn: true,
             }
-        case 'LOGOUT':
+        case 'LOGOUT_SUCCESS':
             return {
                 ...state,
                 username: '',
                 loggedIn: false,
             }
+        case 'LOGIN_SUCCESS':
+            return {
+                ...state,
+                ...action.payload,
+                loggedIn: true,
+            }
+        case 'GOOGLEAUTH_SUCCESS':
+            if (action.payload.registered) {
+                return {
+                    ...state,
+                    ...action.payload,
+                    loggedIn: true,
+                }
+            }
+            return {
+                ...state,
+                registrationInfo: action.payload,
+            }
+
         default:
             return state
     }
