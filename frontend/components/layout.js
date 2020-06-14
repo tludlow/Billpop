@@ -7,15 +7,6 @@ export default function Layout(props) {
         <div className="text-black h-screen w-screen">
             <Head>
                 <title>{props.title || 'Billpop'}</title>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-
-                <meta charSet="utf-8" />
-                <meta property="og:title" content="Billpop" />
-                <meta property="og:type" content="website" />
-                <meta property="og:description" content="An online community driven market place" />
-                <meta property="og:image" content="https://via.placeholder.com/450x200.png" />
-                <meta property="og:url" content="https://billpop-kohl.now.sh/" />
-                <meta name="twitter:card" content="summary_large_image" />
             </Head>
 
             <Nav />

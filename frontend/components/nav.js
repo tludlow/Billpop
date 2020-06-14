@@ -19,7 +19,13 @@ export default function Nav() {
                     {/* Mobile flyout menu button */}
                     <div className="flex md:hidden items-center">
                         <button className="font-extrabold" onClick={() => setMobileFlyoutActive(true)}>
-                            Menu
+                            <svg className="h-6 w-6 tex-gray-900" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    fillRule="evenodd"
+                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                    clipRule="evenodd"
+                                ></path>
+                            </svg>
                         </button>
                     </div>
 
@@ -50,20 +56,19 @@ export default function Nav() {
                                 className="relative flex items-center cursor-pointer"
                                 onClick={() => setDropdownActive(!dropdownActive)}
                             >
+                                <img
+                                    className="h-10 w-10 mr-3 rounded-full border border-gray-400 shadow select-none"
+                                    src="/profile_img.png"
+                                    alt={`${user.username}'s Profile Photo`}
+                                />
                                 <p className="mr-1">{user.username}</p>
-                                <svg className="h-4 w-5 text-gray-700 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <svg className="h-4 w-5 text-gray-700 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path
                                         fillRule="evenodd"
                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                         clipRule="evenodd"
                                     ></path>
                                 </svg>
-
-                                <img
-                                    className="h-10 w-10 rounded-full border border-gray-400 shadow select-none"
-                                    src="/profile_img.png"
-                                    alt={`${user.username}'s Profile Photo`}
-                                />
 
                                 {/* Dropdown */}
                                 <div
