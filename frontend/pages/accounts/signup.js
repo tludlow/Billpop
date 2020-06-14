@@ -121,6 +121,8 @@ function Stage2(props) {
                     }`}
                     type="text"
                     name={`code${i}`}
+                    pattern="[0-9]"
+                    inputMode="numeric"
                     id="phone-code-input"
                     maxLength="1"
                     autoComplete="off"
