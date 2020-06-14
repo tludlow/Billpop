@@ -203,13 +203,10 @@ export default function Index() {
                             </svg>
                         </div>
                     </div>
-                    <div className="w-full py-12">
-                        <picture></picture>
-                    </div>
                 </div>
             </div>
             {/* What is billpop */}
-            <section className="px-4 md:px-0 w-full md:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 my-32">
+            <section className="px-4 md:px-0 w-full md:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 my-16 md:my-32">
                 <div className="space-y-6 my-auto order-1 md:order-0">
                     <h3 className="font-bold text-3xl tracking-wide">What is Billpop</h3>
                     <p>
@@ -219,7 +216,7 @@ export default function Index() {
                     </p>
                     <button className="bg-black text-white px-8 py-2 font-bold">Get started</button>
                 </div>
-                <div className="hidden md:block w-full flex md:justify-end order-0 md:order-1">
+                <div className="hidden md:flex w-full justify-end order-0 md:order-1">
                     <img
                         className="absolute"
                         style={{ width: '400px', height: '500px' }}
@@ -237,7 +234,7 @@ export default function Index() {
                         <img
                             className="relative top-3"
                             style={{ width: '219px', left: '-0.9rem' }}
-                            src="https://d3170a3msf25m.cloudfront.net/assets/gallery-1.png"
+                            src="https://d3170a3msf25m.cloudfront.net/assets/gallery-3.png"
                             alt=""
                         />
                     )}

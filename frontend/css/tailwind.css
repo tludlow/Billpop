@@ -35,5 +35,37 @@ html {
     background-color: white;
 }
 
+/* @keyframes open-menu {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 41.7%;
+    }
+}
+@keyframes close-menu {
+    0% {
+        width: 41.7%;
+    }
+    100% {
+        width: 0%;
+    }
+} */
+
+.flyout-menu {
+    box-shadow: rgba(0, 0, 0, 0.2) 8px 0px 48px;
+}
+.flyout-menu-open {
+    transition: 0.3s;
+    transition-timing-function: ease-in-out;
+    left: 0px;
+}
+
+.flyout-menu-closed {
+    transition: 0.3s;
+    transition-timing-function: ease-in-out;
+    left: -300px;
+}
+
 @tailwind components;
 @tailwind utilities;

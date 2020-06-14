@@ -10,10 +10,19 @@ export default function Nav() {
 
     const [dropdownActive, setDropdownActive] = useState(false)
 
+    const [mobileFlyoutActive, setMobileFlyoutActive] = useState(false)
+
     return (
         <>
             <nav className="sticky top-0 z-10 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
                 <div className="h-full px-4 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
+                    {/* Mobile flyout menu button */}
+                    <div className="flex md:hidden items-center">
+                        <button className="font-extrabold" onClick={() => setMobileFlyoutActive(true)}>
+                            Menu
+                        </button>
+                    </div>
+
                     {/* Logo */}
                     <div className="">
                         <Link href="/">
@@ -103,6 +112,27 @@ export default function Nav() {
                                 </button>
                             </Link>
                         )}
+                    </div>
+
+                    {/* Mobile flyout */}
+                    <div
+                        className={`${
+                            mobileFlyoutActive ? 'flyout-menu-open' : 'flyout-menu-closed'
+                        } fixed flyout-menu md:hidden top-0 bottom w-5/12 h-screen z-25 shadow-md bg-white pl-6 pt-5`}
+                    >
+                        <button onClick={() => setMobileFlyoutActive(false)}>
+                            <svg className="h-6 w-6 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    fillRule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clipRule="evenodd"
+                                ></path>
+                            </svg>
+                        </button>
+
+                        <ul>
+                            <h1>Todo add the footer links here for the mobile users</h1>
+                        </ul>
                     </div>
                 </div>
             </nav>
