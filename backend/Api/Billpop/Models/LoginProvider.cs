@@ -4,7 +4,7 @@ namespace Billpop.Models
 {
     public class LoginProvider
     {
-        public string Id { get; set; }
+        public string ExternalId { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }
         public string Picture { get; set; }
@@ -14,10 +14,20 @@ namespace Billpop.Models
         {
             return new LoginProvider
             {
-                Id = v.Sub,
+                ExternalId = v.Sub,
                 Email = v.Email,
                 Username = v.Name,
                 Picture = v.Picture
+            };
+        }
+
+        public static explicit operator LoginProvider(FacebookToken v)
+        {
+            return new LoginProvider
+            {
+                ExternalId = v.Id,
+                Email = v.Email,
+                Username = v.Name,
             };
         }
     }

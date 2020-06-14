@@ -26,6 +26,8 @@ namespace Api.Controllers
         private readonly IConfiguration _configuration;
         private readonly string _googleClientId;
         private readonly string _googleClientSecret;
+        private readonly string _facebookClientId;
+        private readonly string _facebookClientSecret;
 
         public UserController(IUserService userService, IConfiguration configuration)
         {
@@ -34,7 +36,9 @@ namespace Api.Controllers
             _configuration = configuration;
             _googleClientId = _configuration["google:clientId"];
             _googleClientSecret = _configuration["google:clientSecret"];
-    }
+            _facebookClientId = _configuration["facebook:clientId"];
+            _facebookClientSecret = _configuration["facebook:clientSecret"];
+        }
 
     private async void AssignCookie(User user)
         {
@@ -137,12 +141,12 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        //https://accounts.google.com/o/oauth2/v2/auth?client_id=782331995857-acdjkm1gq4pqv46blcmi02b3is34spjd.apps.googleusercontent.com&redirect_uri=http://localhost:3000/accounts/tempAuthExample&response_type=code&scope=openid email profile
+        //https://accounts.google.com/o/oauth2/v2/auth?client_id=782331995857-acdjkm1gq4pqv46blcmi02b3is34spjd.apps.googleusercontent.com&redirect_uri=http://localhost:3000/accounts/googleauth&response_type=code&scope=openid email profile
         [HttpPost("googleauth")]
-        public async Task<IActionResult> GoogleAuth([FromBody] GoogleAuthRequest request)
+        public async Task<IActionResult> GoogleAuth([FromBody] ExternalProviderAuthRequest request)
         {
             string sessionId = RandomStringService.GenerateString(30, new Random());
-            var tokenResponse = await _client.PostAsync($"https://oauth2.googleapis.com/token?code={request.Code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri=http://localhost:3000/accounts/tempAuthExample&grant_type=authorization_code&state={sessionId}", null);
+            var tokenResponse = await _client.PostAsync($"https://oauth2.googleapis.com/token?code={request.Code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri=http://localhost:3000/accounts/googleauth&grant_type=authorization_code&state={sessionId}", null);
             string tokenJson = await tokenResponse.Content.ReadAsStringAsync();
             var tokenResult = JsonConvert.DeserializeObject<GoogleToken>(tokenJson);
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResult.Access_Token);
@@ -158,6 +162,31 @@ namespace Api.Controllers
             {
                 AssignCookie(user);
                 return Ok(new {username = user.Username, registered = true});
+            }
+            return Ok((LoginProvider)profileResult);
+        }
+
+        //https://www.facebook.com/v7.0/dialog/oauth?client_id={app-id}&redirect_uri=&state={testTokenPlsChangeNotSecure}
+        [HttpPost("facebookauth")]
+        public async Task<IActionResult> FacebookAuth([FromBody] ExternalProviderAuthRequest request)
+        {
+            string sessionId = RandomStringService.GenerateString(30, new Random());
+            var tokenResponse = await _client.GetAsync($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri=http://localhost:3000/accounts/facebookauth&client_secret={_facebookClientSecret}&code={request.Code}");
+            string tokenJson = await tokenResponse.Content.ReadAsStringAsync();
+            var tokenResult = JsonConvert.DeserializeObject<FacebookToken>(tokenJson);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResult.Access_Token);
+            var profileResponse = await _client.GetAsync($"https://graph.facebook.com/me?fields=email,name,picture&access_token={tokenResult.Access_Token}");
+            string profileJson = await profileResponse.Content.ReadAsStringAsync();
+            var profileResult = JsonConvert.DeserializeObject<FacebookToken>(profileJson);
+            if (profileResult.Email == null)
+            {
+                return BadRequest(new { error = "Problem authenicating access token" });
+            }
+            User user = await _userService.GetUserIfEmailExists(profileResult.Email);
+            if (user != null)
+            {
+                AssignCookie(user);
+                return Ok(new { username = user.Username, registered = true });
             }
             return Ok((LoginProvider)profileResult);
         }

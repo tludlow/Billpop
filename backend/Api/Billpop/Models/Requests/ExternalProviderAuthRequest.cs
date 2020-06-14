@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Billpop.Models.Requests
 {
-    public class GoogleAuthRequest
+    public class ExternalProviderAuthRequest
     {
         public string Code { get; set; }
     }

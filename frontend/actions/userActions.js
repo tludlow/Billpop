@@ -40,3 +40,16 @@ export function googleAuth(code) {
         },
     }
 }
+
+export function facebookAuth(code) {
+    return {
+        [RSAA]: {
+            endpoint: domain + '/user/facebookauth',
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ code }),
+            types: ['FACEBOOKAUTH_REQUEST', 'FACEBOOKAUTH_SUCCESS', 'FACEBOOKAUTH_FAIL'],
+            credentials: 'include',
+        },
+    }
+}

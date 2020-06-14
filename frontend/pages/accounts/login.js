@@ -106,7 +106,9 @@ export default function Login() {
                     <p className="mt-6 text-center w-8/12">Log in using one of your other accounts</p>
                     <div className="mt-3 w-9/12 mt-6 flex justify-between">
                         <div className="w-2/12 py-2 flex items-center justify-center rounded border border-gray-200 cursor-pointer">
-                            <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=782331995857-acdjkm1gq4pqv46blcmi02b3is34spjd.apps.googleusercontent.com&redirect_uri=http://localhost:3000/accounts/tempAuthExample&response_type=code&scope=openid email profile">
+                            <a
+                                href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENTID}&redirect_uri=http://localhost:3000/accounts/googleauth&response_type=code&scope=openid email profile`}
+                            >
                                 <svg className="h-8 w-8" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"
@@ -145,19 +147,23 @@ export default function Login() {
                         </div>
 
                         <div className="w-2/12 py-2 flex items-center justify-center rounded border border-gray-200 cursor-pointer">
-                            <svg
-                                className="h-8 w-8 text-blue-600"
-                                aria-hidden="true"
-                                data-prefix="fab"
-                                data-icon="facebook-square"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512"
+                            <a
+                                href={`https://www.facebook.com/v7.0/dialog/oauth?client_id=${process.env.NEXT_PUBLIC_FACEBOOK_CLIENTID}&redirect_uri=http://localhost:3000/accounts/facebookauth&state={testTokenPlsChangeNotSecure}&scope=email`}
                             >
-                                <path
-                                    fill="currentColor"
-                                    d="M400 32H48A48 48 0 000 80v352a48 48 0 0048 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0048-48V80a48 48 0 00-48-48z"
-                                />
-                            </svg>
+                                <svg
+                                    className="h-8 w-8 text-blue-600"
+                                    aria-hidden="true"
+                                    data-prefix="fab"
+                                    data-icon="facebook-square"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 448 512"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M400 32H48A48 48 0 000 80v352a48 48 0 0048 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0048-48V80a48 48 0 00-48-48z"
+                                    />
+                                </svg>
+                            </a>
                         </div>
 
                         <div className="w-2/12 py-2 flex items-center justify-center rounded border border-gray-200 cursor-pointer">

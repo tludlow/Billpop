@@ -19,10 +19,11 @@ const userReducer = (state = {}, action) => {
                 loggedIn: true,
             }
         case 'GOOGLEAUTH_SUCCESS':
+        case 'FACEBOOKAUTH_SUCCESS':
             if (action.payload.registered) {
                 return {
                     ...state,
-                    ...action.payload,
+                    username: action.payload.username,
                     loggedIn: true,
                 }
             }
@@ -30,7 +31,6 @@ const userReducer = (state = {}, action) => {
                 ...state,
                 registrationInfo: action.payload,
             }
-
         default:
             return state
     }
