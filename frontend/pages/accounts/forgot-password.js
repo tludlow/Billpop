@@ -16,7 +16,7 @@ export default function ForgotPassword() {
                         id=""
                         required
                     />
-                    <input className="w-full bg-black text-white font-extrabold py-2 mt-2" type="submit" value="Send" />
+                    <input className="w-full bg-black text-white font-extrabold py-3 mt-2" type="submit" value="Send" />
                 </form>
             </div>
         </Layout>

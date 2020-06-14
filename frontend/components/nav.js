@@ -16,7 +16,7 @@ export default function Nav() {
         <>
             <nav className="sticky top-0 z-10 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
                 <div className="h-full px-4 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
-                    {/* Mobile flyout menu button */}
+                    {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
                     <div className="flex md:hidden items-center">
                         <button className="font-extrabold" onClick={() => setMobileFlyoutActive(true)}>
                             <svg className="h-6 w-6 tex-gray-900" fill="currentColor" viewBox="0 0 20 20">
@@ -117,7 +117,7 @@ export default function Nav() {
                         )}
                     </div>
 
-                    {/* Mobile flyout */}
+                    {/* Mobile flyout (only shown on mobile, hidden on medium and up)*/}
                     <div
                         className={`${
                             mobileFlyoutActive ? 'flyout-menu-open' : 'flyout-menu-closed'

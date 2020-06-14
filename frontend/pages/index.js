@@ -383,7 +383,7 @@ export default function Index() {
                         <p className="font-semibold text-sm">@JOSHWOW</p>
                     </div>
                     <div className="w-full h-full">
-                        <img src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg" alt="" />
+                        <img src="/jasper.jpg" alt="" />
                         <p className="font-semibold text-sm">@JASPIEEE</p>
                     </div>
                     <div className="w-full h-full">

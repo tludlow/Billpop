@@ -52,6 +52,7 @@ html {
     }
 } */
 
+/* Mobile nav menu flyout open/close effects */
 .flyout-menu {
     box-shadow: rgba(0, 0, 0, 0.2) 8px 0px 48px;
 }
@@ -67,6 +68,7 @@ html {
     left: -300px;
 }
 
+/* Animation for the back button on loading bars */
 #loading-back > p {
     transition: 0.1s;
     transition-timing-function: ease-in-out;
@@ -76,6 +78,19 @@ html {
     transition: 0.1s;
     transition-timing-function: ease-in-out;
     margin-left: 4px;
+}
+
+
+/* Hide the up and down arrow in the phone number input boxes */
+#phone-code-input::-webkit-outer-spin-button,
+#phone-code-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#phone-code-input[type=number] {
+  -moz-appearance: textfield;
 }
 
 @tailwind components;
