@@ -9,6 +9,7 @@ using Api.Models.Domain;
 using Api.Models.Requests;
 using Api.Services;
 using Billpop.Models;
+using Billpop.Models.Requests;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,8 @@ namespace Api.Controllers
         private readonly IConfiguration _configuration;
         private readonly string _googleClientId;
         private readonly string _googleClientSecret;
+        private readonly string _facebookClientId;
+        private readonly string _facebookClientSecret;
 
         public UserController(IUserService userService, IConfiguration configuration)
         {
@@ -33,7 +36,9 @@ namespace Api.Controllers
             _configuration = configuration;
             _googleClientId = _configuration["google:clientId"];
             _googleClientSecret = _configuration["google:clientSecret"];
-    }
+            _facebookClientId = _configuration["facebook:clientId"];
+            _facebookClientSecret = _configuration["facebook:clientSecret"];
+        }
 
     private async void AssignCookie(User user)
         {
@@ -66,8 +71,8 @@ namespace Api.Controllers
         [HttpPost("auth")]
         public IActionResult Auth()
         {
-            var userName = User.Claims.FirstOrDefault(x => x.Type == "UserName")?.Value;
-            return Ok(new { userName });
+            var username = User.Claims.FirstOrDefault(x => x.Type == "Username")?.Value;
+            return Ok(new { username });
         }
 
         [HttpPost("register")]
@@ -75,7 +80,7 @@ namespace Api.Controllers
         {
             if (!Regex.IsMatch(request.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
             {
-                return BadRequest("Email does not have a valid format");
+                return BadRequest(new { error = "Email does not have a valid format" });
             }
             //if (!Regex.IsMatch(request.Password, @"^(?:(?=.*?[A-Z])(?:(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=])|(?=.*?[a-z])(?:(?=.*?[0-9])|(?=.*?[-!@#$%^&*()_[\]{},.<>+=])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=]))[A-Za-z0-9!@#$%^&*()_[\]{},.<>+=-]{7,50}$"))
             //{
@@ -83,11 +88,11 @@ namespace Api.Controllers
             //}
             if(request.Password == null && request.ExternalId == null)
             {
-                return BadRequest("The user must have at least a password or external provider id");
+                return BadRequest(new {error = "The user must have at least a password or external provider id"});
             }
             if (await _userService.GetUserIfEmailExists(request.Email) != null)
             {
-                return BadRequest("A user with that email already exists");
+                return BadRequest(new {error = "A user with that email already exists"});
             }
             string hashedPassword = request.Password == null
                 ? null
@@ -95,7 +100,7 @@ namespace Api.Controllers
             var user = new User
             {
                 Email = request.Email,
-                UserName = request.UserName,
+                Username = request.Username,
                 Password = hashedPassword,
                 ExternalId = request.ExternalId
             };
@@ -104,7 +109,7 @@ namespace Api.Controllers
             {
                 ClaimsPrincipal claimsPrincipal = _userService.CreateClaimsPrinciple(user);
                 await Request.HttpContext.SignInAsync("Cookies", claimsPrincipal);
-                return Ok(new { test = "test" });
+                return Ok(new {test = "test"});
             }
             return BadRequest();
         }
@@ -113,16 +118,20 @@ namespace Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             User user = await _userService.GetUserIfEmailExists(request.Email);
-            if(user == null)
+            if (user == null)
             {
-                return BadRequest("No user is registered with this email");
+                return BadRequest(new {error = "No user is registered with this email"});
+            }
+            if(user.Password == null)
+            {
+                return BadRequest(new { error = "User has only registered with an external provider"});
             }
             if (!PasswordHashService.ValidatePassword(request.Password, user.Password))
             {
-                return BadRequest("Incorrect password");
+                return BadRequest(new {error = "Incorrect password"});
             }
             AssignCookie(user);
-            return Ok(new {userName = user.UserName});
+            return Ok(new {username = user.Username});
         }
 
         [HttpPost("logout")]
@@ -132,12 +141,12 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        //https://accounts.google.com/o/oauth2/v2/auth?client_id=782331995857-acdjkm1gq4pqv46blcmi02b3is34spjd.apps.googleusercontent.com&redirect_uri=https://localhost:5001/api/user/googleauth&response_type=code&scope=openid email profile
-        [HttpGet("googleauth")]
-        public async Task<IActionResult> GoogleAuth(string code)
+        //https://accounts.google.com/o/oauth2/v2/auth?client_id=782331995857-acdjkm1gq4pqv46blcmi02b3is34spjd.apps.googleusercontent.com&redirect_uri=http://localhost:3000/accounts/googleauth&response_type=code&scope=openid email profile
+        [HttpPost("googleauth")]
+        public async Task<IActionResult> GoogleAuth([FromBody] ExternalProviderAuthRequest request)
         {
             string sessionId = RandomStringService.GenerateString(30, new Random());
-            var tokenResponse = await _client.PostAsync($"https://oauth2.googleapis.com/token?code={code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri=https://localhost:5001/api/user/googleauth&grant_type=authorization_code&state={sessionId}", null);
+            var tokenResponse = await _client.PostAsync($"https://oauth2.googleapis.com/token?code={request.Code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri=http://localhost:3000/accounts/googleauth&grant_type=authorization_code&state={sessionId}", null);
             string tokenJson = await tokenResponse.Content.ReadAsStringAsync();
             var tokenResult = JsonConvert.DeserializeObject<GoogleToken>(tokenJson);
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResult.Access_Token);
@@ -146,13 +155,38 @@ namespace Api.Controllers
             var profileResult = JsonConvert.DeserializeObject<GoogleToken>(profileJson);
             if (profileResult.Email == null)
             {
-                return BadRequest();
+                return BadRequest(new { error = "Problem authenicating access token" });
             }
             User user = await _userService.GetUserIfEmailExists(profileResult.Email);
             if (user != null)
             {
                 AssignCookie(user);
-                return Ok(new {userName = user.UserName, registered = true});
+                return Ok(new {username = user.Username, registered = true});
+            }
+            return Ok((LoginProvider)profileResult);
+        }
+
+        //https://www.facebook.com/v7.0/dialog/oauth?client_id={app-id}&redirect_uri=&state={testTokenPlsChangeNotSecure}
+        [HttpPost("facebookauth")]
+        public async Task<IActionResult> FacebookAuth([FromBody] ExternalProviderAuthRequest request)
+        {
+            string sessionId = RandomStringService.GenerateString(30, new Random());
+            var tokenResponse = await _client.GetAsync($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri=http://localhost:3000/accounts/facebookauth&client_secret={_facebookClientSecret}&code={request.Code}");
+            string tokenJson = await tokenResponse.Content.ReadAsStringAsync();
+            var tokenResult = JsonConvert.DeserializeObject<FacebookToken>(tokenJson);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResult.Access_Token);
+            var profileResponse = await _client.GetAsync($"https://graph.facebook.com/me?fields=email,name,picture&access_token={tokenResult.Access_Token}");
+            string profileJson = await profileResponse.Content.ReadAsStringAsync();
+            var profileResult = JsonConvert.DeserializeObject<FacebookToken>(profileJson);
+            if (profileResult.Email == null)
+            {
+                return BadRequest(new { error = "Problem authenicating access token" });
+            }
+            User user = await _userService.GetUserIfEmailExists(profileResult.Email);
+            if (user != null)
+            {
+                AssignCookie(user);
+                return Ok(new { username = user.Username, registered = true });
             }
             return Ok((LoginProvider)profileResult);
         }

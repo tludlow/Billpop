@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import thunkMiddleware from 'redux-thunk'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import reducer from './reducers/indexReducer'
+import { apiMiddleware } from 'redux-api-middleware'
 
 let store
 
@@ -12,6 +12,7 @@ const exampleInitialState = {
     user: {
         username: '',
         loggedIn: false,
+        registrationInfo: {},
     },
 }
 
@@ -24,7 +25,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reducer)
 
 function makeStore(initialState = exampleInitialState) {
-    return createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+    return createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(apiMiddleware)))
 }
 
 export const initializeStore = (preloadedState) => {

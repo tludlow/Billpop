@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace Billpop.Models
 {
-    public class GoogleToken
+    public class FacebookToken
     {
         public string Access_Token { get; set; }
-        public string Sub { get; set; }
+        public string Id { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
-        public string Picture { get; set; }
     }
 }

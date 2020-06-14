@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { changeUser, logoutUser } from '../actions/userActions'
+import { changeUser, logout } from '../actions/userActions'
 
 export default function Nav() {
     const user = useSelector((state) => state.user)
@@ -102,7 +102,7 @@ export default function Nav() {
                                             <button
                                                 className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                                 role="menuitem"
-                                                onClick={() => dispatch(logoutUser())}
+                                                onClick={() => dispatch(logout())}
                                             >
                                                 Sign out
                                             </button>
@@ -112,9 +112,7 @@ export default function Nav() {
                             </div>
                         ) : (
                             <Link href="/accounts/login">
-                                <button onClick={() => dispatch(changeUser())} className="text-lg font-semibold">
-                                    Login
-                                </button>
+                                <button className="text-lg font-semibold">Login</button>
                             </Link>
                         )}
                     </div>
