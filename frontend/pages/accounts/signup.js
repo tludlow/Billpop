@@ -69,7 +69,7 @@ function Stage1(props) {
 
                     <input
                         onClick={props.advanceStage}
-                        className="w-full mt-6 bg-black text-white py-2 font-extrabold cursor-pointer"
+                        className="w-full mt-6 bg-black text-white py-2 font-extrabold cursor-pointer hover:bg-gray-900"
                         type="submit"
                         value="Send code"
                     />
@@ -116,7 +116,7 @@ function Stage2(props) {
                     key={i}
                     className={`h-12 w-12 text-center font-semibold text-lg rounded border ${
                         codeValues[i] === '' ? 'border-gray-400' : 'border-black'
-                    }`}
+                        }`}
                     type="text"
                     name={`code${i}`}
                     pattern="[0-9]"

@@ -223,21 +223,12 @@ export default function Index() {
                         src="https://d3170a3msf25m.cloudfront.net/assets/home-phones-2@2x.jpg"
                         alt=""
                     />
-                    {randomImage === 1 ? (
-                        <img
-                            className="relative top-3"
-                            style={{ width: '219px', left: '-0.9rem' }}
-                            src="https://d3170a3msf25m.cloudfront.net/assets/gallery-1.png"
-                            alt=""
-                        />
-                    ) : (
-                        <img
-                            className="relative top-3"
-                            style={{ width: '219px', left: '-0.9rem' }}
-                            src="https://d3170a3msf25m.cloudfront.net/assets/gallery-3.png"
-                            alt=""
-                        />
-                    )}
+                    <img
+                        className="relative top-3"
+                        style={{ width: '219px', left: '-0.9rem' }}
+                        src="https://d3170a3msf25m.cloudfront.net/assets/gallery-1.png"
+                        alt=""
+                    />
                 </div>
             </section>
 

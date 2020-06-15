@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;531;600;700;800;900&display=swap" rel="stylesheet" />
                 <link rel="icon" href="/favicon.ico" />
 
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
