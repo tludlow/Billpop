@@ -9,30 +9,43 @@ export default function Nav() {
     const dispatch = useDispatch()
 
     const dropdownRef = useRef()
+    const flyoutRef = useRef()
     const [dropdownActive, setDropdownActive] = useState(false)
 
     const [mobileFlyoutActive, setMobileFlyoutActive] = useState(false)
 
-    const handleClickOutside = (e) => {
+    const handleClickOutsideDropdown = (e) => {
         if (dropdownRef.current.contains(e.target)) {
-            //clicking the dropdown
             return
         }
-        //not clicking the dropdown, close it
         setDropdownActive(false)
+    }
+
+    const handleClickOutsideFlyout = (e) => {
+        if (flyoutRef.current.contains(e.target)) {
+            return
+        }
+        setMobileFlyoutActive(false)
     }
 
     useEffect(() => {
         if (dropdownActive) {
-            document.addEventListener('mousedown', handleClickOutside)
+            document.addEventListener('mousedown', handleClickOutsideDropdown)
         } else {
-            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('mousedown', handleClickOutsideDropdown)
+        }
+
+        if (mobileFlyoutActive) {
+            document.addEventListener('mousedown', handleClickOutsideFlyout)
+        } else {
+            document.removeEventListener('mousedown', handleClickOutsideFlyout)
         }
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('mousedown', handleClickOutsideDropdown)
+            document.removeEventListener('mousedown', handleClickOutsideFlyout)
         }
-    }, [dropdownActive])
+    }, [dropdownActive, mobileFlyoutActive])
     return (
         <>
             <nav className="sticky top-0 z-10 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
@@ -149,6 +162,7 @@ export default function Nav() {
 
                     {/* Mobile flyout (only shown on mobile, hidden on medium and up)*/}
                     <div
+                        ref={flyoutRef}
                         className={`${
                             mobileFlyoutActive ? 'flyout-menu-open' : 'flyout-menu-closed'
                         } fixed flyout-menu md:hidden top-0 bottom w-5/12 h-screen z-25 shadow-md bg-white pl-6 pr-3 pt-5`}
