@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -10,11 +8,13 @@ using Api.Models.Requests;
 using Api.Services;
 using Billpop.Models;
 using Billpop.Models.Requests;
+using Billpop.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace Api.Controllers
 {
@@ -22,18 +22,18 @@ namespace Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly HttpClient _client;
+        private readonly IHttpService _httpService;
         private readonly IConfiguration _configuration;
         private readonly string _googleClientId;
         private readonly string _googleClientSecret;
         private readonly string _facebookClientId;
         private readonly string _facebookClientSecret;
 
-        public UserController(IUserService userService, IConfiguration configuration)
+        public UserController(IUserService userService, IHttpService httpService, IConfiguration configuration)
         {
             _userService = userService;
-            _client = new HttpClient();
             _configuration = configuration;
+            _httpService = httpService;
             _googleClientId = _configuration["google:clientId"];
             _googleClientSecret = _configuration["google:clientSecret"];
             _facebookClientId = _configuration["facebook:clientId"];
@@ -145,50 +145,79 @@ namespace Api.Controllers
         [HttpPost("googleauth")]
         public async Task<IActionResult> GoogleAuth([FromBody] ExternalProviderAuthRequest request)
         {
-            string sessionId = RandomStringService.GenerateString(30, new Random());
-            var tokenResponse = await _client.PostAsync($"https://oauth2.googleapis.com/token?code={request.Code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri=http://localhost:3000/accounts/googleauth&grant_type=authorization_code&state={sessionId}", null);
-            string tokenJson = await tokenResponse.Content.ReadAsStringAsync();
-            var tokenResult = JsonConvert.DeserializeObject<GoogleToken>(tokenJson);
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResult.Access_Token);
-            var profileResponse = await _client.GetAsync("https://openidconnect.googleapis.com/v1/userinfo?state={state}&scope=email profile email");
-            string profileJson = await profileResponse.Content.ReadAsStringAsync();
-            var profileResult = JsonConvert.DeserializeObject<GoogleToken>(profileJson);
-            if (profileResult.Email == null)
+            string sessionId = RandomStringService.GenerateAlphaNumeric(30, new Random());
+            GoogleToken token = await _httpService.Post<GoogleToken>($"https://oauth2.googleapis.com/token?code={request.Code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri=http://localhost:3000/accounts/googleauth&grant_type=authorization_code&state={sessionId}");
+            _httpService.AddBearerToken(token.Access_Token);
+            GoogleToken profile = await _httpService.Get<GoogleToken>($"https://openidconnect.googleapis.com/v1/userinfo?state={sessionId}&scope=email profile email");
+            if (profile.Email == null)
             {
                 return BadRequest(new { error = "Problem authenicating access token" });
             }
-            User user = await _userService.GetUserIfEmailExists(profileResult.Email);
+            User user = await _userService.GetUserIfEmailExists(profile.Email);
             if (user != null)
             {
                 AssignCookie(user);
                 return Ok(new {username = user.Username, registered = true});
             }
-            return Ok((LoginProvider)profileResult);
+            return Ok((LoginProvider)profile);
         }
 
         //https://www.facebook.com/v7.0/dialog/oauth?client_id={app-id}&redirect_uri=&state={testTokenPlsChangeNotSecure}
         [HttpPost("facebookauth")]
         public async Task<IActionResult> FacebookAuth([FromBody] ExternalProviderAuthRequest request)
         {
-            string sessionId = RandomStringService.GenerateString(30, new Random());
-            var tokenResponse = await _client.GetAsync($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri=http://localhost:3000/accounts/facebookauth&client_secret={_facebookClientSecret}&code={request.Code}");
-            string tokenJson = await tokenResponse.Content.ReadAsStringAsync();
-            var tokenResult = JsonConvert.DeserializeObject<FacebookToken>(tokenJson);
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResult.Access_Token);
-            var profileResponse = await _client.GetAsync($"https://graph.facebook.com/me?fields=email,name,picture&access_token={tokenResult.Access_Token}");
-            string profileJson = await profileResponse.Content.ReadAsStringAsync();
-            var profileResult = JsonConvert.DeserializeObject<FacebookToken>(profileJson);
-            if (profileResult.Email == null)
+            FacebookToken token = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri=http://localhost:3000/accounts/facebookauth&client_secret={_facebookClientSecret}&code={request.Code}");
+            FacebookToken profile = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/me?fields=email,name,picture&access_token={token.Access_Token}");
+            if (profile.Email == null)
             {
                 return BadRequest(new { error = "Problem authenicating access token" });
             }
-            User user = await _userService.GetUserIfEmailExists(profileResult.Email);
+            User user = await _userService.GetUserIfEmailExists(profile.Email);
             if (user != null)
             {
                 AssignCookie(user);
                 return Ok(new { username = user.Username, registered = true });
             }
-            return Ok((LoginProvider)profileResult);
+            return Ok((LoginProvider)profile);
+        }
+
+        [HttpPost("createregistrationsms")]
+        public IActionResult CreateRegistrationSms(string phoneNumber)
+        {
+            if(phoneNumber == null)
+            {
+                return BadRequest(new { error = "User's phone number is required" });
+            }
+            string verificationCode = RandomStringService.GenerateNumericString(6, new Random());
+            TwilioClient.Init(_configuration["twilio:accountSid"], _configuration["twilio:authToken"]);
+            var message = MessageResource.Create(
+                body: "Billpop verification code: " + verificationCode,
+                from: new Twilio.Types.PhoneNumber(_configuration["twilio:phone1"]),
+                to: new Twilio.Types.PhoneNumber(phoneNumber)
+            );
+            var claims = new[]
+            {
+                new Claim("verificationCode", verificationCode),
+            };
+            string token = _userService.GenerateJwt(claims);
+            return Ok(new { token });
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("verifyregistrationsms")]
+        public IActionResult VerifyRegistrationSms(string code)
+        {
+            string verificationCode = User.Claims.FirstOrDefault(x => x.Type == "verificationCode").Value;
+            if(verificationCode == null)
+            {
+                return BadRequest(new { error = "Invalid bearer token" });
+            }
+            if (code != verificationCode)
+            {
+                return BadRequest(new { error = "Incorrect code" });
+            }
+
+            return Ok();
         }
     }
 }
