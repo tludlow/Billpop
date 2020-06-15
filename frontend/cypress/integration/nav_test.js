@@ -1,3 +1,11 @@
+Cypress.Commands.add('mockLoggedIn', () => {
+    cy.clearLocalStorage()
+    localStorage.setItem('billpop', {
+        user: '{"username":"Tommy","loggedIn":true,"registrationInfo":{}}',
+        _persist: '{"version":-1,"rehydrated":true}',
+    })
+})
+
 describe('Tests nav button functionality on desktop', () => {
     beforeEach(() => {
         cy.viewport(1920, 1080)
@@ -21,6 +29,38 @@ describe('Tests nav button functionality on desktop', () => {
 
     it('Checks that the nav flyout hamburger is not visible', () => {
         cy.get('button#nav-flyout-toggle').should('not.be.visible')
+    })
+
+    it('Should open and close the user nav dropdown on clicking the toggle', () => {
+        before(() => {
+            //Set the user to be "logged in" by changing local storage
+            cy.exec('mockLoggedIn')
+        })
+        cy.visit('http://localhost:3000/')
+
+        cy.get('#dropdown-menu').click()
+
+        cy.get('#dropdown-contents').should('be.visible')
+
+        cy.get('#dropdown-menu').click()
+
+        cy.get('#dropdown-contents').should('not.be.visible')
+    })
+
+    it('Should close the user nav dropdown when clicking outside the element', () => {
+        before(() => {
+            //Set the user to be "logged in" by changing local storage
+            cy.exec('mockLoggedIn')
+        })
+        cy.visit('http://localhost:3000/')
+
+        cy.get('#dropdown-menu').click()
+
+        cy.get('#dropdown-contents').should('be.visible')
+
+        cy.get('h3').contains('What is Billpop').click()
+
+        cy.get('#dropdown-contents').should('not.be.visible')
     })
 })
 
@@ -69,5 +109,40 @@ describe('Tests nav button functionality on mobile', () => {
         cy.get('button#flyout-toggle-close').click()
         cy.wait(500)
         cy.get('.flyout-menu').should('not.be.visible')
+    })
+
+    // it('Should close dropdown if a user clicks outside the dropdown', () => {
+    //     cy.visit('http://localhost:3000/')
+
+    //      TODO: IMPLEMENT LOGIN SO WE CAN TEST THIS
+    //     //Click the dropdown
+    //     cy.get('div#dropdown-menu').click()
+
+    //     cy.get('#dropdown-contents').should('be.visible')
+
+    //     //Click outside the dropdown
+    //     cy.get('h3').contains('What is Billpop').click()
+
+    //     cy.get('#dropdown-contents').should('not.be.visible')
+    // })
+
+    it('Should close the nav flyout when clicking outside the flyout', () => {
+        cy.visit('http://localhost:3000/')
+
+        cy.get('button#nav-flyout-toggle').click()
+
+        cy.wait(320)
+
+        cy.get('div.flyout-menu').should('not.have.class', 'flyout-menu-closed')
+        cy.get('div.flyout-menu').should('have.class', 'flyout-menu-open')
+        cy.get('div.flyout-menu').should('be.visible')
+
+        //Click outside the flyout
+        cy.get('h3').contains('What is Billpop').click()
+        cy.wait(320)
+
+        cy.get('div.flyout-menu').should('not.have.class', 'flyout-menu-open')
+        cy.get('div.flyout-menu').should('have.class', 'flyout-menu-closed')
+        cy.get('div.flyout-menu').should('not.be.visible')
     })
 })
