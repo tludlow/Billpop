@@ -18,7 +18,11 @@ export default function Nav() {
                 <div className="h-full px-4 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
                     <div className="flex md:hidden items-center">
-                        <button className="font-extrabold" onClick={() => setMobileFlyoutActive(true)}>
+                        <button
+                            id="nav-flyout-toggle"
+                            className="font-extrabold"
+                            onClick={() => setMobileFlyoutActive(true)}
+                        >
                             <svg className="h-6 w-6 tex-gray-900" fill="currentColor" viewBox="0 0 20 20">
                                 <path
                                     fillRule="evenodd"
@@ -124,7 +128,7 @@ export default function Nav() {
                         } fixed flyout-menu md:hidden top-0 bottom w-5/12 h-screen z-25 shadow-md bg-white pl-6 pr-3 pt-5`}
                     >
                         <div className="flex items-center justify-between">
-                            <button onClick={() => setMobileFlyoutActive(false)}>
+                            <button id="flyout-toggle-close" onClick={() => setMobileFlyoutActive(false)}>
                                 <svg className="h-6 w-6 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
                                     <path
                                         fillRule="evenodd"
