@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { changeUser, logout } from '../actions/userActions'
@@ -8,10 +8,31 @@ export default function Nav() {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
+    const dropdownRef = useRef()
     const [dropdownActive, setDropdownActive] = useState(false)
 
     const [mobileFlyoutActive, setMobileFlyoutActive] = useState(false)
 
+    const handleClickOutside = (e) => {
+        if (dropdownRef.current.contains(e.target)) {
+            //clicking the dropdown
+            return
+        }
+        //not clicking the dropdown, close it
+        setDropdownActive(false)
+    }
+
+    useEffect(() => {
+        if (dropdownActive) {
+            document.addEventListener('mousedown', handleClickOutside)
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [dropdownActive])
     return (
         <>
             <nav className="sticky top-0 z-10 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
@@ -57,7 +78,11 @@ export default function Nav() {
                     <div className="h-full flex items-center ">
                         {user.loggedIn ? (
                             <div
+                                ref={dropdownRef}
+                                id="dropdown-menu"
                                 className="relative flex items-center cursor-pointer"
+                                aria-haspopup="true"
+                                aria-expanded="true"
                                 onClick={() => setDropdownActive(!dropdownActive)}
                             >
                                 <img
@@ -76,6 +101,7 @@ export default function Nav() {
 
                                 {/* Dropdown */}
                                 <div
+                                    tabIndex="0"
                                     className={`${
                                         dropdownActive
                                             ? 'block transition ease-out duration-100 transform opacity-100 scale-100'
@@ -87,7 +113,7 @@ export default function Nav() {
                                             className="py-1"
                                             role="menu"
                                             aria-orientation="vertical"
-                                            aria-labelledby="options-menu"
+                                            aria-labelledby="dropdown-menu"
                                         >
                                             <a
                                                 href="#"
