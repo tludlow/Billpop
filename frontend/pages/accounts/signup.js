@@ -191,14 +191,14 @@ function Stage3(props) {
                             type="text"
                             name="firstname"
                             placeholder="First name"
-                            id=""
+                            id="firstname"
                         />
                         <input
                             className="p-2 w-5/12 border border-gray-400 rounded"
                             type="text"
                             name="lastname"
                             placeholder="Last name"
-                            id=""
+                            id="lastname"
                         />
                     </div>
 
@@ -207,7 +207,7 @@ function Stage3(props) {
                         type="email"
                         name="email"
                         placeholder="Email"
-                        id=""
+                        id="email"
                     />
 
                     <h5 className="mt-5 mb-1 font-extrabold">Create your username and password</h5>
@@ -216,14 +216,14 @@ function Stage3(props) {
                         type="text"
                         name="username"
                         placeholder="Username"
-                        id=""
+                        id="username"
                     />
                     <input
                         className="mt-3 p-2 w-full border border-gray-400 rounded"
                         type="password"
                         name="password"
                         placeholder="Password"
-                        id=""
+                        id="password"
                     />
 
                     <h5 className="mt-5 mb-1 font-extrabold">Your location</h5>
@@ -233,7 +233,7 @@ function Stage3(props) {
                     </select>
 
                     <div className="mt-6 flex items-center">
-                        <input className="mr-3 h-5 w-5" type="checkbox" name="updates" id="" />
+                        <input className="mr-3 h-5 w-5" type="checkbox" name="updates" id="updates" />
                         <label className="text-xs leading-tight" htmlFor="updates">
                             Get emails from Depop, including special promotions and selling tips.
                         </label>

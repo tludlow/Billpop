@@ -1,7 +1,7 @@
 {
-    "name": "deliberate",
+    "name": "billpop",
     "version": "0.1.0",
-    "description": "An automated small team project management solution",
+    "description": "An online community driven marketplace",
     "main": "index.js",
     "scripts": {
         "dev": "next",

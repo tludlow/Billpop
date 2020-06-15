@@ -6,6 +6,15 @@ module.exports = {
         pagesBufferLength: 5,
     },
 
+    webpackDevMiddleware: config => {
+        config.watchOptions = {
+            poll: 1000,
+            aggregateTimeout: 300,
+        }
+
+        return config
+    },
+
     webpack: (config) => {
         config.node = {
             fs: 'empty',
