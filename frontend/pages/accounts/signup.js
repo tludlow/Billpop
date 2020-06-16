@@ -58,7 +58,7 @@ function Stage1(props) {
                             <option value="GER">+49 (Germany)</option>
                         </select>
                         <input
-                            className="border border-gray-400 p-2 rounded-r focus:outline-none w-full"
+                            className="form-input border border-gray-400 p-2 rounded-r focus:outline-none w-full"
                             type="tel"
                             placeholder="Phone number"
                             pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
@@ -114,9 +114,9 @@ function Stage2(props) {
             codeInputs.push(
                 <input
                     key={i}
-                    className={`h-12 w-12 text-center font-semibold text-lg rounded border ${
+                    className={`form-input h-12 w-12 text-center font-semibold text-lg rounded focus:border-black border ${
                         codeValues[i] === '' ? 'border-gray-400' : 'border-black'
-                        }`}
+                    }`}
                     type="text"
                     name={`code${i}`}
                     pattern="[0-9]"
@@ -187,14 +187,14 @@ function Stage3(props) {
                 <form className="mt-4">
                     <div className="flex justify-between mb-3">
                         <input
-                            className="p-2 w-5/12 border border-gray-400 rounded"
+                            className="form-input p-2 w-5/12 border border-gray-400 rounded"
                             type="text"
                             name="firstname"
                             placeholder="First name"
                             id="firstname"
                         />
                         <input
-                            className="p-2 w-5/12 border border-gray-400 rounded"
+                            className="form-input p-2 w-5/12 border border-gray-400 rounded"
                             type="text"
                             name="lastname"
                             placeholder="Last name"
@@ -203,7 +203,7 @@ function Stage3(props) {
                     </div>
 
                     <input
-                        className="p-2 w-full border border-gray-400 rounded"
+                        className="form-input p-2 w-full border border-gray-400 rounded"
                         type="email"
                         name="email"
                         placeholder="Email"
@@ -212,14 +212,14 @@ function Stage3(props) {
 
                     <h5 className="mt-5 mb-1 font-extrabold">Create your username and password</h5>
                     <input
-                        className="p-2 w-full border border-gray-400 rounded"
+                        className="form-input p-2 w-full border border-gray-400 rounded"
                         type="text"
                         name="username"
                         placeholder="Username"
                         id="username"
                     />
                     <input
-                        className="mt-3 p-2 w-full border border-gray-400 rounded"
+                        className="form-input mt-3 p-2 w-full border border-gray-400 rounded"
                         type="password"
                         name="password"
                         placeholder="Password"

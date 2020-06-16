@@ -41,7 +41,7 @@ export default function Login() {
                                 </label>
                                 <ErrorMessage className="text-red-500" name="email" component="div" />
                                 <Field
-                                    className={`h-12 w-full p-4 rounded border ${
+                                    className={`form-input h-12 w-full p-4 rounded border ${
                                         loginError ? 'border-red-500' : 'border-gray-400'
                                     } focus:outline-none placeholder-gray-500 active:bg-white`}
                                     placeholder="johndoe@billpop.com"
@@ -54,7 +54,7 @@ export default function Login() {
                                     Password
                                 </label>
                                 <Field
-                                    className={`h-12 w-full p-4 rounded border ${
+                                    className={`form-input h-12 w-full p-4 rounded border ${
                                         loginError ? 'border-red-500' : 'border-gray-400'
                                     } focus:outline-none placeholder-gray-500`}
                                     type="password"

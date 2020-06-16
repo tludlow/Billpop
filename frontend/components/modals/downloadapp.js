@@ -92,7 +92,7 @@ export default function DownloadApp(props) {
                                 <option value="+2">+2</option>
                             </select>
                             <input
-                                className="w-full border border-gray-400 p-2 rounded-r focus:outline-none w-full"
+                                className="form-input w-full border border-gray-400 p-2 rounded-r focus:outline-none w-full"
                                 type="tel"
                                 placeholder="Phone Number"
                                 name="phone-number"
