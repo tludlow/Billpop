@@ -2,8 +2,7 @@ import axios from 'axios'
 
 //The URL for the API which is the standard part, all endpoints are additions to this API
 //const LOCAL_TESTING = "http://localhost:6789"
-const API_BASE_URL = 'https://localhost:5001/api'
-
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_DOMAIN
 //Request/response default settings
 let config = {
     baseURL: API_BASE_URL,

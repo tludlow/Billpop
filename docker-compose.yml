@@ -14,8 +14,10 @@ services:
         build:
             context: ./backend/Api
             dockerfile: Dockerfile
+        volumes:
+            - ./backend:/app/publish
         ports:
-            - 5000:5000
+            - 5001:5000
 
     # db:
     #     image: 'mcr.microsoft.com/mssql/server'

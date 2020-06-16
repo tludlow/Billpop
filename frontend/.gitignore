@@ -13,8 +13,6 @@
 
 /cypress/integration/examples
 
-# Only want to track the the yarn lock not the npm lock
-package-lock.json
 
 # misc
 .DS_Store
