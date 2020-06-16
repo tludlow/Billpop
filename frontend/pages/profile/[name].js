@@ -1,6 +1,7 @@
 import Layout from '@/components/layout'
-
+import DownloadAppModal from '@/components/modals/downloadapp'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 function Star() {
     return (
@@ -25,66 +26,80 @@ export default function ProfilePage() {
     const router = useRouter()
     const { name } = router.query
 
+    const [downloadModalOpen, setDownloadModalOpen] = useState(false)
+
+    function handleClose() {
+        setDownloadModalOpen(false)
+    }
+
     return (
-        <Layout title={`${name}'s Shop - Billpop`}>
-            <section className="mt-8 flex space-x-6">
-                <img className="rounded-full h-24 w-24" src="/profile_img.png" alt="Profile" />
-                <div className="flex flex-col justify-between">
-                    <div className="">
-                        <h2 className="font-bold text-3xl leading-tight">{name}</h2>
-                        <p className="text-gray-400">@{name}</p>
+        <>
+            <Layout title={`${name}'s Shop - Billpop`}>
+                <section className="mt-8 flex space-x-6">
+                    <img className="rounded-full h-24 w-24" src="/profile_img.png" alt="Profile" />
+                    <div className="flex flex-col justify-between">
+                        <div className="">
+                            <h2 className="font-bold text-3xl leading-tight">{name}</h2>
+                            <p className="text-gray-400">@{name}</p>
+                        </div>
+
+                        <div className="flex items-center space-x-4">
+                            <span className="flex space-x-1">
+                                <Star /> <Star />
+                            </span>
+                            <p className="cursor-pointer hover:underline">
+                                <span className="font-bold">101</span> Reviews
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div className="mt-8 flex items-center space-x-4">
+                        <p>
+                            <span className="font-bold">982</span> Followers
+                        </p>
+                        <p>
+                            <span className="font-bold">1820</span> Following
+                        </p>
+                        <button
+                            onClick={() => setDownloadModalOpen(!downloadModalOpen)}
+                            className="bg-purple-700 text-white font-bold px-6 py-1 hover:bg-green-700"
+                        >
+                            Follow
+                        </button>
                     </div>
 
-                    <div className="flex items-center space-x-4">
-                        <span className="flex space-x-1">
-                            <Star /> <Star />
-                        </span>
-                        <p className="cursor-pointer hover:underline">
-                            <span className="font-bold">101</span> Reviews
+                    <div className="mt-3">
+                        <p className="font-light">
+                            This is the description theoretically we should make it include spaces and formatting?
                         </p>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section>
-                <div className="mt-8 flex items-center space-x-4">
-                    <p>
-                        <span className="font-bold">982</span> Followers
-                    </p>
-                    <p>
-                        <span className="font-bold">1820</span> Following
-                    </p>
-                    <button className="bg-purple-700 text-white font-bold px-6 py-1 hover:bg-green-700">Follow</button>
-                </div>
-
-                <div className="mt-3">
-                    <p className="font-light">
-                        This is the description theoretically we should make it include spaces and formatting?
-                    </p>
-                </div>
-            </section>
-
-            <section className="mt-8">
-                <div className="flex space-x-3">
-                    <h4 className="text-lg font-bold">Selling</h4>
-                    <h4 className="text-lg">Likes</h4>
-                </div>
-
-                <div className="mt-2 grid grid-cols-6 gap-3">
-                    <div className="">
-                        <div className="bg-red-400 h-48 w-full"></div>
-                        <p>£11.00</p>
+                <section className="mt-8">
+                    <div className="flex space-x-3">
+                        <h4 className="text-lg font-bold">Selling</h4>
+                        <h4 className="text-lg">Likes</h4>
                     </div>
-                    <div className="">
-                        <div className="bg-red-400 h-48 w-full"></div>
-                        <p>£11.00</p>
+
+                    <div className="mt-2 grid grid-cols-6 gap-3">
+                        <div className="">
+                            <div className="bg-red-400 h-48 w-full"></div>
+                            <p>£11.00</p>
+                        </div>
+                        <div className="">
+                            <div className="bg-red-400 h-48 w-full"></div>
+                            <p>£11.00</p>
+                        </div>
+                        <div className=""></div>
+                        <div className=""></div>
+                        <div className=""></div>
+                        <div className=""></div>
                     </div>
-                    <div className=""></div>
-                    <div className=""></div>
-                    <div className=""></div>
-                    <div className=""></div>
-                </div>
-            </section>
-        </Layout>
+                </section>
+            </Layout>
+            <DownloadAppModal modalOpen={downloadModalOpen} closeModal={handleClose} />
+        </>
     )
 }
