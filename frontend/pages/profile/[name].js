@@ -5,19 +5,16 @@ import { useState } from 'react'
 
 function Star() {
     return (
-        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 11">
-            <title>Full Star</title>
-            <defs>
-                <linearGradient id="review-star-0">
-                    <stop offset="100%" stopColor="#ff2300"></stop>
-                    <stop offset="0%" stopColor="#d7d7d7"></stop>
-                </linearGradient>
-            </defs>
-            <path
-                fill="url(#review-star-0)"
-                fillRule="evenodd"
-                d="M11.514 3.84H8.007a.486.486 0 01-.463-.322L6.464.322A.49.49 0 006 0a.49.49 0 00-.464.322l-1.08 3.196a.486.486 0 01-.463.322H.486a.475.475 0 00-.461.316.455.455 0 00.173.522l2.845 1.988a.45.45 0 01.176.516l-1.085 3.21c-.046.143-.02.3.073.42.092.12.238.19.393.188a.496.496 0 00.286-.092l2.826-1.974a.507.507 0 01.576 0l2.826 1.974c.083.06.183.091.286.092.155.002.3-.067.393-.188a.457.457 0 00.073-.42L8.78 7.182a.451.451 0 01.176-.516l2.845-1.988c.17-.118.24-.33.173-.522a.475.475 0 00-.461-.316z"
-            ></path>
+        <svg className="h-6 w-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+        </svg>
+    )
+}
+
+function EmptyStar() {
+    return (
+        <svg className="h-6 w-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
         </svg>
     )
 }
@@ -45,7 +42,7 @@ export default function ProfilePage() {
 
                         <div className="flex items-center space-x-4">
                             <span className="flex space-x-1">
-                                <Star /> <Star />
+                                <Star /> <Star /> <EmptyStar /> <EmptyStar /> <EmptyStar />
                             </span>
                             <p className="cursor-pointer hover:underline">
                                 <span className="font-bold">101</span> Reviews
@@ -84,11 +81,15 @@ export default function ProfilePage() {
                     </div>
 
                     <div className="mt-2 grid grid-cols-6 gap-3">
-                        <div className="">
+                        <div className="relative">
+                            <div className="opacity-0 hover:opacity-25 absolute bg-gray-800 h-48 w-full"></div>
                             <div className="bg-red-400 h-48 w-full"></div>
                             <p>£11.00</p>
                         </div>
-                        <div className="">
+                        <div className="relative">
+                            <p className="w-full h-24 absolute mx-auto text-center top-20 text-yellow-200 font-semibold text-xl">
+                                SOLD
+                            </p>
                             <div className="bg-red-400 h-48 w-full"></div>
                             <p>£11.00</p>
                         </div>

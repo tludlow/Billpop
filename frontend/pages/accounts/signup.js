@@ -58,7 +58,7 @@ function Stage1(props) {
                             <option value="GER">+49 (Germany)</option>
                         </select>
                         <input
-                            className="form-input border border-gray-400 p-2 rounded-r focus:outline-none w-full"
+                            className="form-input border border-gray-400 p-2 rounded-r rounded-l-none focus:outline-none w-full"
                             type="tel"
                             placeholder="Phone number"
                             pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
@@ -239,8 +239,117 @@ function Stage3(props) {
                         </label>
                     </div>
 
-                    <button className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900">Next</button>
+                    <button
+                        onClick={props.advanceStage}
+                        className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                    >
+                        Next
+                    </button>
                 </form>
+            </div>
+        </>
+    )
+}
+
+function Stage4(props) {
+    //Go back a stage in the sign up flow
+    const handleBackClick = () => {
+        props.retreatStage()
+    }
+
+    return (
+        <>
+            <div className="hidden md:block">
+                <img style={{ height: '640px', width: '480px' }} src="/signup-pic4.jpg" alt="" />
+            </div>
+            <div className="mt-8 flex flex-col w-11/12 md:w-9/12 mx-auto">
+                <LoadingBar stage={4} loaded={80} handleClick={handleBackClick} />
+
+                <h3 className="mt-12 font-extrabold text-2xl">DEPOP TERMS</h3>
+                <p className="text-md mt-4">
+                    Depop is a social media-inspired marketplace which uses artificial intelligence to suggest buyers,
+                    sellers and items based on user preferences and other information submitted to us.
+                </p>
+                <p className="mt-4">
+                    Your use of Depop is subject to our Terms of Service and our Privacy Police which sets out how we
+                    use your personal data
+                </p>
+
+                <div className="flex space-x-5 mt-4">
+                    <p className="underline">Terms of Service</p>
+                    <p className="underline">Privacy Policy</p>
+                </div>
+
+                <button
+                    onClick={props.advanceStage}
+                    className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                >
+                    Create Account
+                </button>
+
+                <p className="mt-3 text-xs text-center text-gray-500">
+                    By continuining you accept Billpop's Terms of Service
+                </p>
+            </div>
+        </>
+    )
+}
+
+function Stage5(props) {
+    return (
+        <>
+            <div className="hidden md:block">
+                <img style={{ height: '640px', width: '480px' }} src="/signup-pic5.jpg" alt="" />
+            </div>
+            <div className="mt-8 flex flex-col items-center w-11/12 md:w-9/12 mx-auto">
+                <div className="relative h-16 w-16 rounded-full border-2 border-green-500">
+                    <svg
+                        className="absolute left-3 top-3 h-9 w-9 text-green-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                    >
+                        <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                        ></path>
+                    </svg>
+                </div>
+
+                <h3 className="mt-8 font-extrabold text-2xl">GET READY</h3>
+                <p className="text-gray-600 text-sm">Now you cann buy and sell unique items of Billpop.</p>
+
+                <h5 className="mt-8 font-extrabold">Download the app</h5>
+                <form className="mt-3 w-full" action="">
+                    <div className="flex w-full">
+                        <select
+                            className="w-16 px-1 border border-gray-400 rounded-l border-r-0 focus:outline-none"
+                            name="phone-prefix"
+                            id="phone-prexix"
+                        >
+                            <option value="+44">+44</option>
+                            <option value="+1">+1</option>
+                            <option value="+2">+2</option>
+                        </select>
+                        <input
+                            className="form-input w-full border border-gray-400 p-2 rounded-l-none focus:outline-none w-full"
+                            type="tel"
+                            placeholder="Phone Number"
+                            name="phone-number"
+                            id="phone-number"
+                        />
+                    </div>
+
+                    <input
+                        className="w-full mt-2 py-2 border border-black font-bold text-black text-lg bg-white"
+                        type="submit"
+                        value="Get the app"
+                    />
+                </form>
+
+                <button className="mt-12 text-white bg-black w-full py-3 font-bold hover:bg-gray-900">
+                    Back to Billpop
+                </button>
             </div>
         </>
     )
@@ -283,6 +392,8 @@ export default function Signup() {
                 {stage === 1 && <Stage1 advanceStage={nextStage} />}
                 {stage === 2 && <Stage2 advanceStage={nextStage} retreatStage={decrementStage} />}
                 {stage === 3 && <Stage3 advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 4 && <Stage4 advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 5 && <Stage5 advanceStage={nextStage} retreatStage={decrementStage} />}
             </div>
         </Layout>
     )

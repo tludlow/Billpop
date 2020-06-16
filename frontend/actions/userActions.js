@@ -4,6 +4,7 @@ const domain = process.env.NEXT_PUBLIC_API_DOMAIN
 export const changeUser = () => ({ type: 'CHANGE_USERNAME' })
 
 export const logout = () => {
+    
     return {
         [RSAA]: {
             endpoint: domain + '/user/logout',

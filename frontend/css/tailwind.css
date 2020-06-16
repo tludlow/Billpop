@@ -93,5 +93,12 @@ html {
   -moz-appearance: textfield;
 }
 
+#modal-background {
+    transition: 0.2s;
+}
+#modal-panel {
+    transition: 0.3s;
+}
+
 @tailwind components;
 @tailwind utilities;
