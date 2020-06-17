@@ -49,7 +49,7 @@ export default function Nav() {
     return (
         <>
             <nav className="sticky top-0 z-10 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
-                <div className="h-full px-4 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
+                <div className="h-full px-2 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
                     <div className="flex md:hidden items-center">
                         <button
@@ -89,22 +89,34 @@ export default function Nav() {
 
                     {/* Contents */}
                     <div className="h-full flex items-center ">
+                        <ul className="hidden md:flex items-center space-x-5 mr-12">
+                            <li className="font-bold text-lg cursor-pointer hover:text-gray-600">
+                                <Link href="/search">
+                                    <a>Search</a>
+                                </Link>
+                            </li>
+                            <li className="font-bold text-lg cursor-pointer hover:text-gray-600">
+                                <Link href="/sell">
+                                    <a>Sell</a>
+                                </Link>
+                            </li>
+                        </ul>
+
                         {user.loggedIn ? (
                             <div
                                 ref={dropdownRef}
                                 id="dropdown-menu"
                                 className="relative flex items-center cursor-pointer"
                                 aria-haspopup="true"
-                                aria-expanded="true"
+                                aria-expanded={dropdownActive}
                                 onClick={() => setDropdownActive(!dropdownActive)}
                             >
                                 <img
-                                    className="h-10 w-10 mr-3 rounded-full border border-gray-400 shadow select-none"
+                                    className="h-10 w-10 mr-1 md:mr-3 rounded-full border border-gray-400 shadow select-none"
                                     src="/profile_img.png"
                                     alt={`${user.username}'s Profile Photo`}
                                 />
-                                <p className="mr-1">{user.username}</p>
-                                <svg className="h-4 w-5 text-gray-700 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <svg className="h-4 w-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
                                     <path
                                         fillRule="evenodd"
                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -195,6 +207,12 @@ export default function Nav() {
                                     />
                                 </svg>
                             </div>
+                        </div>
+
+                        <div className="mt-6">
+                            <Link href="/search">
+                                <h4 className="font-bold text-xl">Search</h4>
+                            </Link>
                         </div>
 
                         <ul className="mt-6 text-md space-y-3">

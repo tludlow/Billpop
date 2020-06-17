@@ -65,7 +65,7 @@ html {
 .flyout-menu-closed {
     transition: 0.3s;
     transition-timing-function: ease-in-out;
-    left: -300px;
+    left: -500px;
 }
 
 /* Animation for the back button on loading bars */

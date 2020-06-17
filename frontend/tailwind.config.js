@@ -7,6 +7,9 @@ module.exports = {
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
+            inset: {
+                "19": '4.75rem'
+            }
         },
     },
     variants: {},
