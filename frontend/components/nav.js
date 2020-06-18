@@ -48,7 +48,7 @@ export default function Nav() {
     }, [dropdownActive, mobileFlyoutActive])
     return (
         <>
-            <nav className="sticky top-0 z-10 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
+            <nav className="sticky top-0 z-50 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
                 <div className="h-full px-2 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
                     <div className="flex md:hidden items-center">
@@ -180,7 +180,7 @@ export default function Nav() {
                         ref={flyoutRef}
                         className={`${
                             mobileFlyoutActive ? 'flyout-menu-open' : 'flyout-menu-closed'
-                        } fixed flyout-menu md:hidden top-0 bottom w-5/12 h-screen z-25 shadow-md bg-white pl-6 pr-3 pt-5`}
+                        } fixed flyout-menu md:hidden top-0 bottom w-5/12 h-screen z-50 shadow-md bg-white pl-6 pr-3 pt-5`}
                     >
                         <div className="flex items-center justify-between">
                             <button id="flyout-toggle-close" onClick={() => setMobileFlyoutActive(false)}>

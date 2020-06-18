@@ -12,7 +12,7 @@ export default function Search() {
                 />
             </form>
 
-            <div className="mt-6 grid grid-cols-6 gap-4">
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <ClothesImage
                     src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
                     cost="15.12"
