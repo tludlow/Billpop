@@ -6,7 +6,7 @@ import CookieWarning from '@/components/cookie-warning'
 
 export default function Layout(props) {
     return (
-        <div className="text-black h-screen w-screen">
+        <div className="text-black h-screen w-full">
             <Head>
                 <title>{props.title || 'Billpop'}</title>
             </Head>
