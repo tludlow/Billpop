@@ -12,7 +12,7 @@ export default function Login() {
     const [loginError, setLoginError] = useState('')
 
     return (
-        <Layout title="Login - Billpop">
+        <Layout title="Login - Billpop" contained>
             <div className="mt-10 md:max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2">
                 <div className="flex flex-col items-center p-4">
                     <h3 className="font-bold text-xl">Log in</h3>

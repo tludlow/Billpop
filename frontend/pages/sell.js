@@ -2,7 +2,7 @@ import Layout from '@/components/layout'
 
 export default function Sell() {
     return (
-        <Layout title="Sell - Billpop">
+        <Layout title="Sell - Billpop" contained>
             <div className="mt-5 grid grid-cols-6">
                 {/* Aspect ratio image, where the height is 100% of the width */}
                 <div className="relative bg-gray-400 pb-full">

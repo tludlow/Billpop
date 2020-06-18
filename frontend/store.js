@@ -14,12 +14,15 @@ const exampleInitialState = {
         loggedIn: true,
         registrationInfo: {},
     },
+    cookies: {
+        acceptCookies: false,
+    },
 }
 
 const persistConfig = {
     key: 'billpop',
     storage,
-    whitelist: ['user'], // place to select which state you want to persist
+    whitelist: ['user', 'cookies'], // place to select which state you want to persist
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)

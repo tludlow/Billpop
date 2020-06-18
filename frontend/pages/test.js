@@ -2,7 +2,7 @@ import Layout from '@/components/layout'
 
 export default function Test() {
     return (
-        <Layout title="Testing - Billpop" container={false}>
+        <Layout title="Testing - Billpop">
             <div
                 className="hero bg-cover bg-center w-full grid grid-cols-2 object-cover"
                 style={{

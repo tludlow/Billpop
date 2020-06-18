@@ -5,7 +5,7 @@ import Router from 'next/router'
 
 export default function Selling() {
     return (
-        <Layout title="Selling - Billpop">
+        <Layout title="Selling - Billpop" contained>
             <div
                 id="hero"
                 className="min-w-max-content bg-cover bg-center overflow-x-hidden"

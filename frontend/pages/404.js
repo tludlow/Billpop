@@ -5,7 +5,7 @@ import Router from 'next/router'
 
 export default function FourOFour() {
     return (
-        <Layout title="Page Not Found - Billpop">
+        <Layout title="Page Not Found - Billpop" contained>
             <div className="mt-12 flex flex-col items-center justify-center">
                 <div className="flex items-center justify-center space-x-1">
                     <svg

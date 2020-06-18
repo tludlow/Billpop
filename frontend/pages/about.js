@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function About() {
     return (
-        <Layout title="About - Billpop">
+        <Layout title="About - Billpop" contained>
             <h3 className="text-2xl font-extrabold text-center my-20 leading-tight">
                 Join 15 million+ users to buy, sell, discover and explore <br /> the most inspiring and unique things in
                 the world.

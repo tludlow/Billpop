@@ -6,6 +6,8 @@ import { useStore } from '../store'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 
+import CookieWarning from '@/components/cookie-warning'
+
 export default function App({ Component, pageProps }) {
     const store = useStore(pageProps.initialReduxState)
     const persistor = persistStore(store)

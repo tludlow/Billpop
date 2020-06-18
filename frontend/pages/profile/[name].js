@@ -31,7 +31,7 @@ export default function ProfilePage() {
 
     return (
         <>
-            <Layout title={`${name}'s Shop - Billpop`}>
+            <Layout title={`${name}'s Shop - Billpop`} contained>
                 <section className="mt-8 flex space-x-6">
                     <img className="rounded-full h-24 w-24" src="/profile_img.png" alt="Profile" />
                     <div className="flex flex-col justify-between">

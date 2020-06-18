@@ -3,7 +3,7 @@ import ClothesImage from '@/components/clothes-image'
 
 export default function Search() {
     return (
-        <Layout title="Search - Billpop">
+        <Layout title="Search - Billpop" contained>
             <form className="mt-6 w-full" action="">
                 <input
                     className="w-full border-b border-gray-300 placeholder-gray-300 text-5xl font-bold focus:outline-none focus:border-gray-600"

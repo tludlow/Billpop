@@ -356,7 +356,7 @@ export default function Signup() {
     }
 
     return (
-        <Layout title="Signup - Billpop">
+        <Layout title="Signup - Billpop" contained>
             <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2">
                 {stage === 1 && <Stage1 advanceStage={nextStage} />}
                 {stage === 2 && <Stage2 advanceStage={nextStage} retreatStage={decrementStage} />}

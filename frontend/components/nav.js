@@ -46,9 +46,10 @@ export default function Nav() {
             document.removeEventListener('mousedown', handleClickOutsideFlyout)
         }
     }, [dropdownActive, mobileFlyoutActive])
+
     return (
         <>
-            <nav className="sticky top-0 z-50 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
+            <nav className="sticky top-0 z-30 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
                 <div className="h-full px-2 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
                     <div className="flex md:hidden items-center">

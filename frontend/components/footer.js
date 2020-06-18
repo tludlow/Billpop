@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Footer() {
     return (
-        <div className="hidden md:block w-full h-12 fixed z-50 bottom-0 bg-white border-t border-gray-300 overflow-x-hidden">
+        <div className="hidden md:block w-full h-12 fixed z-30 bottom-0 bg-white border-t border-gray-300 overflow-x-hidden">
             <div className="max-w-6xl h-full mx-auto flex items-center justify-between">
                 <div className="">
                     <li className="flex items-center space-x-3 text-sm">
