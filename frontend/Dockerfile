@@ -1,10 +1,17 @@
+FROM node:10-alpine as builder
+
+ENV NODE_ENV=development
+
+COPY package.json ./
+RUN npm install
+
+
+# The instructions for second stage
 FROM node:10-alpine
 
 WORKDIR /usr/src/app
+COPY --from=builder node_modules node_modules
 
 COPY . .
-
-#Dont want to install cypress its way too big...
-RUN npm install --production
 
 CMD [ "npm", "run", "dev" ]

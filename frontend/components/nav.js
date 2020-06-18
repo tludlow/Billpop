@@ -88,7 +88,7 @@ export default function Nav() {
                     </div>
 
                     {/* Contents */}
-                    <div className="h-full flex items-center ">
+                    <div className="h-full flex items-center">
                         <ul className="hidden md:flex items-center space-x-5 mr-12">
                             <li className="font-bold text-lg cursor-pointer hover:text-gray-600">
                                 <Link href="/search">
@@ -112,7 +112,7 @@ export default function Nav() {
                                 onClick={() => setDropdownActive(!dropdownActive)}
                             >
                                 <img
-                                    className="h-10 w-10 mr-1 md:mr-3 rounded-full border border-gray-400 shadow select-none"
+                                    className="h-10 w-10 mr-1 md:mr-1 rounded-full border border-gray-400 shadow select-none"
                                     src="/profile_img.png"
                                     alt={`${user.username}'s Profile Photo`}
                                 />
