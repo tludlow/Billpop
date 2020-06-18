@@ -15,30 +15,30 @@ export default function Search() {
             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <ClothesImage
                     src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost="15.12"
+                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
                 />
                 <ClothesImage
                     src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost="15.12"
+                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
                 />
                 <ClothesImage
                     src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost="15.12"
+                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
                     sold={true}
                 />
                 <ClothesImage
                     src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost="15.12"
+                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
                 />
 
                 <ClothesImage
                     src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost="15.12"
+                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
                     sold={true}
                 />
                 <ClothesImage
                     src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost="15.12"
+                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
                 />
             </div>
         </Layout>

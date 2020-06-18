@@ -4,7 +4,6 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-#Dont want to install cypress its way too big...
-RUN npm install --production
+RUN npm install
 
 CMD [ "npm", "run", "dev" ]

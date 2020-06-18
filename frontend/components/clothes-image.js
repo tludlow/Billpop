@@ -6,7 +6,7 @@ export default function ClothesImages(props) {
                 <div
                     className={`absolute w-full h-full z-10 ${
                         props.sold ? 'opacity-25' : 'opacity-0'
-                    } hover:opacity-25 bg-black`}
+                    } hover:opacity-25 bg-black z-10`}
                 ></div>
 
                 {/* Sold text */}

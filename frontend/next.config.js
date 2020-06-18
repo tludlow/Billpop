@@ -6,7 +6,7 @@ module.exports = {
         pagesBufferLength: 5,
     },
 
-    webpackDevMiddleware: config => {
+    webpackDevMiddleware: (config) => {
         config.watchOptions = {
             poll: 1000,
             aggregateTimeout: 300,
