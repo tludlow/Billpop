@@ -67,7 +67,8 @@ namespace Api.Services
                 Email = request.Email,
                 Username = request.Username,
                 Password = hashedPassword,
-                ExternalId = request.ExternalId
+                ExternalId = request.ExternalId,
+                PhoneNumber = request.PhoneNumber
             };
             return await _userRepository.AddUser(user);
         }

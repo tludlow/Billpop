@@ -13,6 +13,7 @@ const userReducer = (state = {}, action) => {
                 loggedIn: false,
             }
         case 'LOGIN_SUCCESS':
+        case 'REGISTER_SUCCESS':
             return {
                 ...state,
                 ...action.payload,

@@ -1,10 +1,7 @@
 import { RSAA } from 'redux-api-middleware'
 const domain = process.env.NEXT_PUBLIC_API_DOMAIN
 
-export const changeUser = () => ({ type: 'CHANGE_USERNAME' })
-
 export const logout = () => {
-    
     return {
         [RSAA]: {
             endpoint: domain + '/user/logout',
@@ -12,6 +9,39 @@ export const logout = () => {
             headers: { 'content-type': 'application/json' },
             types: ['LOGOUT_REQUEST', 'LOGOUT_SUCCESS', 'LOGOUT_FAIL'],
             credentials: 'include',
+        },
+    }
+}
+
+export function register(registrationInfo) {
+    return {
+        [RSAA]: {
+            endpoint: domain + '/user/register',
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ registraionInfo }),
+            types: ['REGISTER_REQUEST', 'REGISTER_SUCCESS', 'REGISTER_FAIL'],
+        },
+    }
+}
+
+export function createRegistrationSms(phoneNumber) {
+    return {
+        [RSAA]: {
+            endpoint: domain + `/user/createregistrationsms?${phoneNumber}`,
+            method: 'POST',
+            types: ['CREATEREGISTRATIONSMS_REQUEST', 'CREATEREGISTRATIONSMS_SUCCESS', 'CREATEREGISTRATIONSMS_FAIL'],
+        },
+    }
+}
+
+export function verifyRegistrationSms(verificationCode, smsVerificationToken) {
+    return {
+        [RSAA]: {
+            endpoint: domain + `/user/verifyregistrationsms?${verificationCode}`,
+            method: 'POST',
+            headers: { Bearer: 'smsVerificationToken' },
+            types: ['VERIFYREGISTRATIONSMS_REQUEST', 'VERIFYREGISTRATIONSMS_SUCCESS', 'VERIFYREGISTRATIONSMS_FAIL'],
         },
     }
 }
