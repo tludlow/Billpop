@@ -14,7 +14,9 @@ export default function Layout(props) {
             <Nav />
 
             {/* Have the option to remove the container if wanted */}
-            <div className={`${props.contained ? 'container mx-auto px-4 md:px-0' : ''}`}>{props.children}</div>
+            <div className={`${props.contained ? 'container mx-auto px-4 mb-12 md:mb-0 md:px-0' : ''}`}>
+                {props.children}
+            </div>
 
             <CookieWarning />
             <Footer />

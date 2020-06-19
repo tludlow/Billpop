@@ -86,6 +86,7 @@ export default function ProductPage() {
                 </div>
 
                 {/* Carousel */}
+                {/* Documentation at: https://github.com/express-labs/pure-react-carousel/tree/3222d64c4d92c1f1d726a4a3c34847bbe5b59981 */}
                 <CarouselProvider
                     className="mt-2 relative mb-5"
                     naturalSlideWidth={100}
