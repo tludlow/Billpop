@@ -1,5 +1,6 @@
 ﻿using Api.Data;
 using Api.Services;
+using Billpop.Repositories;
 using Billpop.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ namespace Api.Installers
             services.AddDbContext<DataContext>(options => { options.UseSqlServer(configuration.GetConnectionString("Database")); });
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IHttpService, HttpService>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
