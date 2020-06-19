@@ -100,5 +100,20 @@ html {
     transition: 0.3s;
 }
 
+
+.carousel__dot--selected {
+    width: 10px !important;
+    height: 10px !important;
+    background: red !important;
+    border-radius: 100% !important;
+}
+
+.carousel__dot {
+    width: 6px;
+    height: 6px;
+    background: gray;
+    border-radius: 100%;
+}
+
 @tailwind components;
 @tailwind utilities;
