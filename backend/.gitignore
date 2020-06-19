@@ -2,4 +2,6 @@
 /Api/Billpop/appsettings.Development.json
 /Api/Billpop/bin
 /Api/Billpop/obj
+/Api/BillpopTests/bin
+/Api/BillpopTests/obj
 /Api/.vs

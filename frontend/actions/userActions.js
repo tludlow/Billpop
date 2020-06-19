@@ -32,10 +32,9 @@ export function login(email, password) {
 export function googleAuth(code) {
     return {
         [RSAA]: {
-            endpoint: domain + '/user/googleauth',
+            endpoint: domain + `/user/googleauth?code=${code}`,
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ code }),
             types: ['GOOGLEAUTH_REQUEST', 'GOOGLEAUTH_SUCCESS', 'GOOGLEAUTH_FAIL'],
             credentials: 'include',
         },
@@ -45,10 +44,9 @@ export function googleAuth(code) {
 export function facebookAuth(code) {
     return {
         [RSAA]: {
-            endpoint: domain + '/user/facebookauth',
+            endpoint: domain + `/user/facebookauth?code=${code}`,
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ code }),
             types: ['FACEBOOKAUTH_REQUEST', 'FACEBOOKAUTH_SUCCESS', 'FACEBOOKAUTH_FAIL'],
             credentials: 'include',
         },

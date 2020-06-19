@@ -2,10 +2,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Api.Data;
 using Api.Models.Domain;
-using Microsoft.EntityFrameworkCore;
+using Api.Models.Requests;
+using Billpop.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,25 +14,13 @@ namespace Api.Services
 {
     public class UserService : IUserService
     {
-        private readonly DataContext _dataContext;
+        private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
-        public UserService(DataContext dataContext, IConfiguration configuration)
+        public UserService(IUserRepository userRepository, IConfiguration configuration)
         {
-            _dataContext = dataContext;
+            _userRepository = userRepository;
             _configuration = configuration;
-        }
-
-        public async Task<User> RegisterAsync(User user)
-        {
-            var registeredUser = await _dataContext.Users.AddAsync(user);
-            var registered = await _dataContext.SaveChangesAsync();
-            if (registered > 0)
-            {
-                return registeredUser.Entity;
-            }
-
-            return null;
         }
 
         public ClaimsPrincipal CreateClaimsPrinciple(User user)
@@ -46,8 +35,7 @@ namespace Api.Services
         }
         public async Task<User> GetUserIfEmailExists(string email)
         {
-            return await _dataContext.Users.FirstOrDefaultAsync(x => x.Email.Equals(email));
-
+            return await _userRepository.GetUserIfEmailExists(email);
         }
 
         public bool Verify(int level)
@@ -67,6 +55,60 @@ namespace Api.Services
             signingCredentials: credentials
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public async Task<User> RegisterUser(RegisterRequest request)
+        {
+            string hashedPassword = request.Password == null
+                ? null
+                : PasswordHashService.HashPassword(request.Password);
+            var user = new User
+            {
+                Email = request.Email,
+                Username = request.Username,
+                Password = hashedPassword,
+                ExternalId = request.ExternalId
+            };
+            return await _userRepository.AddUser(user);
+        }
+
+        public async Task<string> ValidateRegistrationRequest(RegisterRequest request)
+        {
+            if (!Regex.IsMatch(request.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+            {
+                return "Email does not have a valid format";
+            }
+            //if (!Regex.IsMatch(request.Password, @"^(?:(?=.*?[A-Z])(?:(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=])|(?=.*?[a-z])(?:(?=.*?[0-9])|(?=.*?[-!@#$%^&*()_[\]{},.<>+=])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=]))[A-Za-z0-9!@#$%^&*()_[\]{},.<>+=-]{7,50}$"))
+            //{
+            //    return BadRequest("Password is not strong enough");
+            //}
+            if (request.Password == null && request.ExternalId == null)
+            {
+                return "The user must have at least a password or external provider id";
+            }
+            if (await GetUserIfEmailExists(request.Email) != null)
+            {
+                return "A user with that email already exists";
+            }
+
+            return null;
+        }
+
+        public string ValidateLoginRequest(LoginRequest request, User user)
+        {
+            if (user == null)
+            {
+                return "No user is registered with this email";
+            }
+            if (user.Password == null)
+            {
+                return "User has only registered with an external provider" ;
+            }
+            if (!PasswordHashService.ValidatePassword(request.Password, user.Password))
+            {
+                return "Incorrect password";
+            }
+            return null;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Billpop.Models.ExternalProvider;
 
 namespace Billpop.Models
 {
