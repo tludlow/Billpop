@@ -40,7 +40,7 @@ export function verifyRegistrationSms(verificationCode, smsVerificationToken) {
         [RSAA]: {
             endpoint: domain + `/user/verifyregistrationsms?${verificationCode}`,
             method: 'POST',
-            headers: { Bearer: 'smsVerificationToken' },
+            headers: { Bearer: smsVerificationToken },
             types: ['VERIFYREGISTRATIONSMS_REQUEST', 'VERIFYREGISTRATIONSMS_SUCCESS', 'VERIFYREGISTRATIONSMS_FAIL'],
         },
     }
