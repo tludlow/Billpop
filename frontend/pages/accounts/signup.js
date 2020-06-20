@@ -41,134 +41,6 @@ function SubLayout(props) {
 }
 
 function Stage1(props) {
-    return (
-        <SubLayout imgUrl="/signup-pic1.jpg">
-            <LoadingBar stage={1} loaded={20} />
-
-            <h3 className="mt-12 font-extrabold text-2xl">SIGN UP</h3>
-            <p className="text-gray-600 text-sm">
-                To create your account, we need to verify your phone number. We will never display this <br /> number
-                publicly
-            </p>
-
-            <h5 className="mt-8 font-extrabold">Enter phone number</h5>
-            <form className="mt-4" action="" onSubmit={(e) => e.preventDefault()}>
-                <div className="flex h-12">
-                    <select
-                        className="w-16 px-1 border border-black rounded-l focus:outline-none"
-                        name="country-codes"
-                        id="country-codes"
-                        aria-label="[object Object]"
-                    >
-                        <option value="UK">+44 (United Kingdom)</option>
-                        <option value="US">+1 (United States)</option>
-                        <option value="FR">+33 (France)</option>
-                        <option value="GER">+49 (Germany)</option>
-                    </select>
-                    <input
-                        className="form-input border border-gray-400 p-2 rounded-r rounded-l-none focus:outline-none w-full"
-                        type="tel"
-                        placeholder="Phone number"
-                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                        name="phone-number"
-                        id="phone-number"
-                    />
-                </div>
-
-                <input
-                    onClick={props.advanceStage}
-                    className="w-full mt-6 bg-black text-white py-2 font-extrabold cursor-pointer hover:bg-gray-900"
-                    type="submit"
-                    value="Send code"
-                />
-            </form>
-        </SubLayout>
-    )
-}
-
-function Stage2(props) {
-    const codesParent = useRef(null)
-
-    const [codeValues, setCodeValues] = useState(['', '', '', '', '', ''])
-
-    //Go back a stage in the sign up flow
-    const handleBackClick = () => {
-        props.retreatStage()
-    }
-
-    //When focusing the code input, select all text
-    const handleFocus = (event) => {
-        event.target.select()
-    }
-
-    const handleChange = (event, index) => {
-        //Check that the input is a number or nothing (if they are deleting their input)
-        if (/(^[0-9]+$|^$)/.test(event.target.value)) {
-            let newCodeValues = [...codeValues]
-            newCodeValues[index] = event.target.value
-            setCodeValues(newCodeValues)
-
-            //Focus the next code input once the current one has an input provided
-            if (event.target.value != '' && index != 5) {
-                codesParent.current.children[index + 1].focus()
-            }
-        }
-    }
-
-    const renderCodeInputs = (n) => {
-        let codeInputs = []
-        for (let i = 0; i < n; i++) {
-            codeInputs.push(
-                <input
-                    key={i}
-                    className={`form-input h-12 w-12 text-center font-semibold text-lg rounded focus:border-black border ${
-                        codeValues[i] === '' ? 'border-gray-400' : 'border-black'
-                    }`}
-                    type="text"
-                    name={`code${i}`}
-                    pattern="[0-9]"
-                    inputMode="numeric"
-                    id="phone-code-input"
-                    maxLength="1"
-                    autoComplete="off"
-                    onFocus={handleFocus}
-                    onChange={(e) => handleChange(e, i)}
-                    value={codeValues[i]}
-                />
-            )
-        }
-        return codeInputs
-    }
-
-    return (
-        <SubLayout imgUrl="/signup-pic2.jpg">
-            <LoadingBar stage={2} loaded={40} handleClick={handleBackClick} />
-
-            <h3 className="mt-12 font-extrabold text-2xl">GOT YOUR CODE?</h3>
-            <p className="text-gray-600 text-sm">We've sent a 6-digit code to +44XXXXXXXXXXX</p>
-
-            <h5 className="mt-8 font-extrabold">Enter the code</h5>
-            <form className="mt-4">
-                <div className="flex justify-between" ref={codesParent}>
-                    {renderCodeInputs(6)}
-                </div>
-
-                <button
-                    onClick={props.advanceStage}
-                    className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
-                >
-                    Verify account
-                </button>
-            </form>
-
-            <p className="mt-3 text-sm">
-                Haven't received your code? <span className="underline">Check your number</span>
-            </p>
-        </SubLayout>
-    )
-}
-
-function Stage3(props) {
     //Go back a stage in the sign up flow
     const handleBackClick = () => {
         props.retreatStage()
@@ -176,7 +48,7 @@ function Stage3(props) {
 
     return (
         <SubLayout imgUrl="/signup-pic3.jpg">
-            <LoadingBar stage={3} loaded={60} handleClick={handleBackClick} />
+            <LoadingBar stage={1} loaded={20} handleClick={handleBackClick} />
 
             <h3 className="mt-12 font-extrabold text-2xl">GET READY</h3>
             <p className="text-gray-600 text-sm">Enter a few details to join the Billpop community</p>
@@ -244,6 +116,134 @@ function Stage3(props) {
                     Next
                 </button>
             </form>
+        </SubLayout>
+    )
+}
+
+function Stage2(props) {
+    return (
+        <SubLayout imgUrl="/signup-pic1.jpg">
+            <LoadingBar stage={2} loaded={40} />
+
+            <h3 className="mt-12 font-extrabold text-2xl">SIGN UP</h3>
+            <p className="text-gray-600 text-sm">
+                To create your account, we need to verify your phone number. We will never display this <br /> number
+                publicly
+            </p>
+
+            <h5 className="mt-8 font-extrabold">Enter phone number</h5>
+            <form className="mt-4" action="" onSubmit={(e) => e.preventDefault()}>
+                <div className="flex h-12">
+                    <select
+                        className="w-16 px-1 border border-black rounded-l focus:outline-none"
+                        name="country-codes"
+                        id="country-codes"
+                        aria-label="[object Object]"
+                    >
+                        <option value="UK">+44 (United Kingdom)</option>
+                        <option value="US">+1 (United States)</option>
+                        <option value="FR">+33 (France)</option>
+                        <option value="GER">+49 (Germany)</option>
+                    </select>
+                    <input
+                        className="form-input border border-gray-400 p-2 rounded-r rounded-l-none focus:outline-none w-full"
+                        type="tel"
+                        placeholder="Phone number"
+                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                        name="phone-number"
+                        id="phone-number"
+                    />
+                </div>
+
+                <input
+                    onClick={props.advanceStage}
+                    className="w-full mt-6 bg-black text-white py-2 font-extrabold cursor-pointer hover:bg-gray-900"
+                    type="submit"
+                    value="Send code"
+                />
+            </form>
+        </SubLayout>
+    )
+}
+
+function Stage3(props) {
+    const codesParent = useRef(null)
+
+    const [codeValues, setCodeValues] = useState(['', '', '', '', '', ''])
+
+    //Go back a stage in the sign up flow
+    const handleBackClick = () => {
+        props.retreatStage()
+    }
+
+    //When focusing the code input, select all text
+    const handleFocus = (event) => {
+        event.target.select()
+    }
+
+    const handleChange = (event, index) => {
+        //Check that the input is a number or nothing (if they are deleting their input)
+        if (/(^[0-9]+$|^$)/.test(event.target.value)) {
+            let newCodeValues = [...codeValues]
+            newCodeValues[index] = event.target.value
+            setCodeValues(newCodeValues)
+
+            //Focus the next code input once the current one has an input provided
+            if (event.target.value != '' && index != 5) {
+                codesParent.current.children[index + 1].focus()
+            }
+        }
+    }
+
+    const renderCodeInputs = (n) => {
+        let codeInputs = []
+        for (let i = 0; i < n; i++) {
+            codeInputs.push(
+                <input
+                    key={i}
+                    className={`form-input h-12 w-12 text-center font-semibold text-lg rounded focus:border-black border ${
+                        codeValues[i] === '' ? 'border-gray-400' : 'border-black'
+                    }`}
+                    type="text"
+                    name={`code${i}`}
+                    pattern="[0-9]"
+                    inputMode="numeric"
+                    id="phone-code-input"
+                    maxLength="1"
+                    autoComplete="off"
+                    onFocus={handleFocus}
+                    onChange={(e) => handleChange(e, i)}
+                    value={codeValues[i]}
+                />
+            )
+        }
+        return codeInputs
+    }
+
+    return (
+        <SubLayout imgUrl="/signup-pic2.jpg">
+            <LoadingBar stage={3} loaded={60} handleClick={handleBackClick} />
+
+            <h3 className="mt-12 font-extrabold text-2xl">GOT YOUR CODE?</h3>
+            <p className="text-gray-600 text-sm">We've sent a 6-digit code to +44XXXXXXXXXXX</p>
+
+            <h5 className="mt-8 font-extrabold">Enter the code</h5>
+            <form className="mt-4">
+                <div className="flex justify-between" ref={codesParent}>
+                    {renderCodeInputs(6)}
+                </div>
+
+                <button
+                    onClick={props.advanceStage}
+                    className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                >
+                    Verify account
+                </button>
+            </form>
+
+            <p className="mt-3 text-sm">
+                Haven't received your code? <span className="underline">Check your number</span>
+            </p>
         </SubLayout>
     )
 }

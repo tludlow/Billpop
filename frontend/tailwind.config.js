@@ -8,10 +8,12 @@ module.exports = {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
             inset: {
-                "19": '4.75rem'
-            }
+                '19': '4.75rem',
+            },
         },
     },
-    variants: {},
+    variants: {
+        borderColor: ['responsive', 'hover', 'focus', 'disabled'],
+    },
     plugins: [require('@tailwindcss/ui')],
 }

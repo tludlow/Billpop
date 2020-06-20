@@ -6,19 +6,21 @@ export default function ProductPage() {
     return (
         <Layout title="PRODUCT SLUG HERE - Billpop" contained>
             <div className="hidden md:block md:mt-8 md:grid md:grid-cols-2">
-                <div className="bg-red-500 w-full">
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
+                <div className="w-full space-y-4">
+                    <img
+                        src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                        alt=""
+                    />
 
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
-                    <div className="bg-red-500 h-96 w-full"></div>
+                    <img
+                        src="https://images.unsplash.com/photo-1530651079803-50c9ac969e90?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                        alt=""
+                    />
+
+                    <img
+                        src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                        alt=""
+                    />
                 </div>
 
                 <div className="px-6 md:w-full lg:w-8/12">
@@ -43,7 +45,7 @@ export default function ProductPage() {
                         </div>
 
                         <select className="mt-2 form-select w-full" name="sizing" id="sizing-select">
-                            <option value="Choose size" defaultValue disabled>
+                            <option value="Choose size" selected disabled>
                                 Choose size
                             </option>
                             <option value="6">6</option>
@@ -94,6 +96,7 @@ export default function ProductPage() {
                     totalSlides={3}
                     isPlaying={true}
                     interval={4000}
+                    infinite={true}
                 >
                     <Slider>
                         <Slide index={0}>
@@ -153,7 +156,7 @@ export default function ProductPage() {
                 </div>
 
                 <select className="mt-2 form-select w-full" name="sizing" id="sizing-select">
-                    <option value="Choose size" defaultValue disabled>
+                    <option value="Choose size" selected disabled>
                         Choose size
                     </option>
                     <option value="6">6</option>

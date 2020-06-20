@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }) {
 
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <meta charSet="utf-8" />
+                <meta name="description" content="An online community driven market place" />
                 <meta property="og:title" content="Billpop" />
                 <meta property="og:type" content="website" />
                 <meta property="og:description" content="An online community driven market place" />
