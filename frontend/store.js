@@ -12,7 +12,7 @@ const exampleInitialState = {
     user: {
         username: 'Tommy',
         loggedIn: true,
-        registrationInfo: {},
+        registrationInfo: null,
     },
     cookies: {
         acceptCookies: false,

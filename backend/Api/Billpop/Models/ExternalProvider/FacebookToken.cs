@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Billpop.Models.ExternalProvider
 {
-    public class FacebookToken : IExternalProviderToken
+    public class FacebookToken
     {
         public string Access_Token { get; set; }
         public string Id { get; set; }

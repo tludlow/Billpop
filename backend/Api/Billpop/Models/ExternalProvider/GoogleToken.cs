@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Billpop.Models
 {
-    public class GoogleToken : IExternalProviderToken
+    public class GoogleToken
     {
         public string Access_Token { get; set; }
         public string Sub { get; set; }

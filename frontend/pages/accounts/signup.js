@@ -1,11 +1,13 @@
 import Layout from '@/components/layout'
+import ExternalProviders from '@/components/external-providers'
 import { useState, useRef } from 'react'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 function LoadingBar(props) {
     return (
         <>
-            {props.stage > 1 && (
+            {props.stage > 0 && (
                 <div id="loading-back" className="mr-4 flex items-center cursor-pointer" onClick={props.handleClick}>
                     <svg className="h-3 w-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                         <path
@@ -40,61 +42,58 @@ function SubLayout(props) {
     )
 }
 
+function Stage0(props) {
+    //Go back a stage in the sign up flow
+    const handleBackClick = () => {
+        props.retreatStage()
+    }
+    return (
+        <SubLayout imgUrl="/signup-pic3.jpg">
+            <LoadingBar stage={0} loaded={0} handleClick={handleBackClick} />
+            <h5 className="mt-8 font-extrabold">You can register with one of your other accounts:</h5>
+            <ExternalProviders />
+            <button onClick={props.advanceStage}>Skip</button>
+        </SubLayout>
+    )
+}
+
 function Stage1(props) {
     //Go back a stage in the sign up flow
     const handleBackClick = () => {
         props.retreatStage()
     }
-
     return (
         <SubLayout imgUrl="/signup-pic3.jpg">
             <LoadingBar stage={1} loaded={20} handleClick={handleBackClick} />
-
-            <h3 className="mt-12 font-extrabold text-2xl">GET READY</h3>
-            <p className="text-gray-600 text-sm">Enter a few details to join the Billpop community</p>
-
             <h5 className="mt-8 font-extrabold">Your details</h5>
             <form className="mt-4">
-                <div className="flex justify-between mb-3">
-                    <input
-                        className="form-input p-2 w-5/12 border border-gray-400 rounded"
-                        type="text"
-                        name="firstname"
-                        placeholder="First name"
-                        id="firstname"
-                    />
-                    <input
-                        className="form-input p-2 w-5/12 border border-gray-400 rounded"
-                        type="text"
-                        name="lastname"
-                        placeholder="Last name"
-                        id="lastname"
-                    />
-                </div>
-
                 <input
-                    className="form-input p-2 w-full border border-gray-400 rounded"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    id="email"
-                />
-
-                <h5 className="mt-5 mb-1 font-extrabold">Create your username and password</h5>
-                <input
-                    className="form-input p-2 w-full border border-gray-400 rounded"
+                    className="form-input mt-3 p-2 w-full border border-gray-400 rounded"
                     type="text"
                     name="username"
                     placeholder="Username"
+                    value={props.details.username !== null ? props.details.username : ''}
                     id="username"
                 />
-                <input
-                    className="form-input mt-3 p-2 w-full border border-gray-400 rounded"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    id="password"
-                />
+                {props.details.externalId === null && (
+                    <div>
+                        <input
+                            className="form-input p-2 w-full border border-gray-400 rounded"
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            id="email"
+                        />
+                        <input
+                            className="form-input mt-3 p-2 w-full border border-gray-400 rounded"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            id="password"
+                        />
+                        /
+                    </div>
+                )}
 
                 <h5 className="mt-5 mb-1 font-extrabold">Your location</h5>
                 <select className="p-2 w-full border border-gray-400 rounded">
@@ -121,9 +120,12 @@ function Stage1(props) {
 }
 
 function Stage2(props) {
+    const handleBackClick = () => {
+        props.retreatStage()
+    }
     return (
         <SubLayout imgUrl="/signup-pic1.jpg">
-            <LoadingBar stage={2} loaded={40} />
+            <LoadingBar stage={2} loaded={40} handleClick={handleBackClick} />
 
             <h3 className="mt-12 font-extrabold text-2xl">SIGN UP</h3>
             <p className="text-gray-600 text-sm">
@@ -342,7 +344,9 @@ function Stage5() {
 }
 
 export default function Signup() {
-    const [stage, setStage] = useState(1)
+    const details = useSelector((state) => state.user.registrationInfo)
+    console.log(details)
+    const [stage, setStage] = useState(details === null ? 0 : 1)
     const [phoneNumber, setPhoneNumber] = useState('')
 
     // Don't need to restrict the ability to go below stage 1 and above stage 5 because only exposing the ability to
@@ -358,11 +362,12 @@ export default function Signup() {
     return (
         <Layout title="Signup - Billpop" contained>
             <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2">
-                {stage === 1 && <Stage1 advanceStage={nextStage} />}
-                {stage === 2 && <Stage2 advanceStage={nextStage} retreatStage={decrementStage} />}
-                {stage === 3 && <Stage3 advanceStage={nextStage} retreatStage={decrementStage} />}
-                {stage === 4 && <Stage4 advanceStage={nextStage} retreatStage={decrementStage} />}
-                {stage === 5 && <Stage5 retreatStage={decrementStage} />}
+                {stage === 0 && <Stage0 advanceStage={nextStage} />}
+                {stage === 1 && <Stage1 details={details} advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 2 && <Stage2 details={details} advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 3 && <Stage3 details={details} advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 4 && <Stage4 details={details} advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 5 && <Stage5 details={details} retreatStage={decrementStage} />}
             </div>
         </Layout>
     )

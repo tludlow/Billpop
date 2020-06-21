@@ -18,6 +18,7 @@ const userReducer = (state = {}, action) => {
                 ...state,
                 ...action.payload,
                 loggedIn: true,
+                registrationInfo: null,
             }
         case 'GOOGLEAUTH_SUCCESS':
         case 'FACEBOOKAUTH_SUCCESS':

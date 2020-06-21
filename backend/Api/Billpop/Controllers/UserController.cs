@@ -52,7 +52,7 @@ namespace Api.Controllers
                 });
         }
 
-        private async Task<IActionResult> HandleExternalProviderProfile(IExternalProviderToken profile)
+        private async Task<IActionResult> HandleExternalProviderProfile(LoginProvider profile)
         {
             if (profile.Email == null)
             {
@@ -64,7 +64,7 @@ namespace Api.Controllers
                 AssignCookie(user);
                 return Ok(new { username = user.Username, registered = true });
             }
-            return Ok((LoginProvider)profile);
+            return Ok(profile);
         }
 
         [HttpGet("test")]
@@ -138,7 +138,7 @@ namespace Api.Controllers
             GoogleToken token = await _httpService.Post<GoogleToken>($"https://oauth2.googleapis.com/token?code={code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri=http://localhost:3000/accounts/googleauth&grant_type=authorization_code&state={sessionId}");
             _httpService.AddBearerToken(token.Access_Token);
             GoogleToken profile = await _httpService.Get<GoogleToken>($"https://openidconnect.googleapis.com/v1/userinfo?state={sessionId}&scope=email profile email");
-            return await HandleExternalProviderProfile(profile);
+            return await HandleExternalProviderProfile((LoginProvider)profile);
         }
 
         //https://www.facebook.com/v7.0/dialog/oauth?client_id={app-id}&redirect_uri=&state={testTokenPlsChangeNotSecure}
@@ -151,7 +151,7 @@ namespace Api.Controllers
             }
             FacebookToken token = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri=http://localhost:3000/accounts/facebookauth&client_secret={_facebookClientSecret}&code={code}");
             FacebookToken profile = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/me?fields=email,name,picture&access_token={token.Access_Token}");
-            return await HandleExternalProviderProfile(profile);
+            return await HandleExternalProviderProfile((LoginProvider)profile);
         }
 
         [HttpPost("createregistrationsms")]
