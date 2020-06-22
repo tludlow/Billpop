@@ -32,6 +32,8 @@ const userReducer = (state = {}, action) => {
                     ...state.registrationInfo,
                     phoneNumber: action.meta.phoneNumber,
                     smsVerifcationToken: action.payload.token,
+                    //for testing only
+                    verificationCode: action.payload.verificationCode,
                 },
             }
         case 'VERIFYREGISTRATIONSMS_SUCCESS':

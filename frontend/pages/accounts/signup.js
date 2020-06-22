@@ -252,6 +252,7 @@ function Stage2(props) {
 function Stage3(props) {
     const dispatch = useDispatch()
     const smsVerifcationToken = useSelector((state) => state.user.registrationInfo.smsVerifcationToken)
+    const verificationCode = useSelector((state) => state.user.registrationInfo.verificationCode)
     const codesParent = useRef(null)
 
     const [codeValues, setCodeValues] = useState(['', '', '', '', '', ''])
@@ -330,6 +331,7 @@ function Stage3(props) {
                         {error}
                     </p>
                 )}
+                Can only register one number with twilio dev, so here's the code: {verificationCode}
                 <button
                     onClick={async (e) => {
                         e.preventDefault()
