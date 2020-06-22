@@ -149,7 +149,7 @@ namespace Api.Controllers
                 return BadRequest(new { Error = "Authentication code required" });
             }
             string sessionId = RandomStringService.GenerateAlphaNumeric(30, new Random());
-            GoogleToken token = await _httpService.Post<GoogleToken>($"https://oauth2.googleapis.com/token?code={code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri=http://localhost:3000/accounts/googleauth&grant_type=authorization_code&state={sessionId}");
+            GoogleToken token = await _httpService.Post<GoogleToken>($"https://oauth2.googleapis.com/token?code={code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri={_configuration["url:ui"]}/accounts/google-auth&grant_type=authorization_code&state={sessionId}");
             _httpService.AddBearerToken(token.Access_Token);
             GoogleToken profile = await _httpService.Get<GoogleToken>($"https://openidconnect.googleapis.com/v1/userinfo?state={sessionId}&scope=email profile email");
             return await HandleExternalProviderProfile((LoginProvider)profile);
@@ -163,7 +163,7 @@ namespace Api.Controllers
             {
                 return BadRequest(new { Error = "Authentication code required" });
             }
-            FacebookToken token = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri=http://localhost:3000/accounts/facebookauth&client_secret={_facebookClientSecret}&code={code}");
+            FacebookToken token = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri={_configuration["url:ui"]}/accounts/facebookauth&client_secret={_facebookClientSecret}&code={code}");
             FacebookToken profile = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/me?fields=email,name,picture&access_token={token.Access_Token}");
             return await HandleExternalProviderProfile((LoginProvider)profile);
         }
