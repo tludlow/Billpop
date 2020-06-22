@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { func } from 'prop-types'
 
-export default function TempAuthExample(props) {
+export default function EternalAuthRedirect(props) {
     const router = useRouter()
     const dispatch = useDispatch()
     const { externalProviderAuthAction } = props
@@ -23,6 +23,6 @@ export default function TempAuthExample(props) {
     return <Layout title={`test - Billpop`}>Test</Layout>
 }
 
-TempAuthExample.propTypes = {
+EternalAuthRedirect.propTypes = {
     externalProviderAuthAction: func,
 }
