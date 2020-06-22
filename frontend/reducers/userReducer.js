@@ -12,6 +12,36 @@ const userReducer = (state = {}, action) => {
                 username: '',
                 loggedIn: false,
             }
+        case 'EMAILUSERNAMEEXIST_SUCCESS':
+            if (action.payload.error === '') {
+                return {
+                    ...state,
+                    registrationInfo: {
+                        ...state.registrationInfo,
+                        email: action.meta.email,
+                        username: action.meta.username,
+                        password: action.meta.password,
+                    },
+                }
+            }
+            return { ...state }
+        case 'CREATEREGISTRATIONSMS_SUCCESS':
+            return {
+                ...state,
+                registrationInfo: {
+                    ...state.registrationInfo,
+                    phoneNumber: action.meta.phoneNumber,
+                    smsVerifcationToken: action.payload.token,
+                },
+            }
+        case 'VERIFYREGISTRATIONSMS_SUCCESS':
+            return {
+                ...state,
+                registrationInfo: {
+                    ...state.registrationInfo,
+                    smsVerified: true,
+                },
+            }
         case 'LOGIN_SUCCESS':
         case 'REGISTER_SUCCESS':
             return {

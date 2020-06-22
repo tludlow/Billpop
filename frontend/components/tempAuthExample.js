@@ -2,7 +2,6 @@ import Layout from '@/components/layout'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { googleAuth } from 'actions/userActions'
 import { func } from 'prop-types'
 
 export default function TempAuthExample(props) {

@@ -112,6 +112,7 @@ export default function Nav() {
                                 aria-expanded={dropdownActive}
                                 onClick={() => setDropdownActive(!dropdownActive)}
                             >
+                                {user.username}
                                 <img
                                     className="h-10 w-10 mr-1 md:mr-1 rounded-full border border-gray-400 shadow select-none"
                                     src="/profile_img.png"

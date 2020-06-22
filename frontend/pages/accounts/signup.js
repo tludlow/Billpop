@@ -2,7 +2,10 @@ import Layout from '@/components/layout'
 import ExternalProviders from '@/components/external-providers'
 import { useState, useRef } from 'react'
 import Link from 'next/link'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { emailUsernameExist, createRegistrationSms, verifyRegistrationSms, register } from '../../actions/userActions'
+import { red } from '@tailwindcss/ui/colors'
 
 function LoadingBar(props) {
     return (
@@ -62,59 +65,131 @@ function Stage1(props) {
     const handleBackClick = () => {
         props.retreatStage()
     }
+    const dispatch = useDispatch()
+    const details = useSelector((state) => state.user.registrationInfo)
+    console.log(details)
+    const email = details && details.email ? details.email : ''
+    const username = details && details.username ? details.username : ''
+    const password = details && details.password ? details.password : ''
+    const [existsError, setExistsError] = useState('')
+    console.log(existsError)
     return (
         <SubLayout imgUrl="/signup-pic3.jpg">
             <LoadingBar stage={1} loaded={20} handleClick={handleBackClick} />
-            <h5 className="mt-8 font-extrabold">Your details</h5>
-            <form className="mt-4">
-                <input
-                    className="form-input mt-3 p-2 w-full border border-gray-400 rounded"
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={props.details.username !== null ? props.details.username : ''}
-                    id="username"
-                />
-                {props.details.externalId === null && (
-                    <div>
-                        <input
-                            className="form-input p-2 w-full border border-gray-400 rounded"
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            id="email"
+            <Formik
+                initialValues={{ email, username, password }}
+                validate={(values) => {
+                    const errors = {}
+                    if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                        errors.email = 'Invalid email address'
+                    }
+                    if (values.username && !/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/i.test(values.username)) {
+                        errors.username = 'Invalid username'
+                    }
+                    if (
+                        values.password &&
+                        !/^(?:(?=.*?[A-Z])(?:(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=])|(?=.*?[a-z])(?:(?=.*?[0-9])|(?=.*?[-!@#$%^&*()_[\]{},.<>+=])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=]))[A-Za-z0-9!@#$%^&*()_[\]{},.<>+=-]{7,50}$/i.test(
+                            values.password
+                        )
+                    ) {
+                        errors.password = 'Password is not strong enough'
+                    }
+                    return errors
+                }}
+                onSubmit={async (values, { setSubmitting }) => {
+                    const res = await dispatch(emailUsernameExist(values.email, values.username, values.password))
+                    if (res.payload.error !== '') {
+                        return setExistsError(res.payload.error)
+                    }
+                    setExistsError('')
+                    props.advanceStage()
+                }}
+            >
+                {({ isSubmitting }) => (
+                    <Form className="flex flex-col mt-6 w-full md:w-9/12 ">
+                        <h5 className="mt-8 font-extrabold">Your details</h5>
+                        <label className="mt-8 font-extrabold" htmlFor="email">
+                            Username
+                        </label>
+                        <ErrorMessage className="text-red-500" name="username" component="div" />
+                        <Field
+                            className={`form-input p-2 w-full border border-gray-400 rounded ${
+                                existsError === 'username' ? 'border-red-500' : 'border-gray-400'
+                            } focus:outline-none placeholder-gray-500 active:bg-white`}
+                            placeholder="Username"
+                            type="text"
+                            name="username"
+                            defaultValue={username}
+                            id="username"
+                            required
                         />
-                        <input
-                            className="form-input mt-3 p-2 w-full border border-gray-400 rounded"
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            id="password"
-                        />
-                        /
-                    </div>
+                        {(details === null || details.externalId === undefined) && (
+                            <div>
+                                <label className="mt-8 font-extrabold" htmlFor="email">
+                                    Email address
+                                </label>
+                                <ErrorMessage className="text-red-500" name="email" component="div" />
+                                <Field
+                                    className={`form-input p-2 w-full border border-gray-400 rounded${
+                                        existsError === 'email' ? 'border-red-500' : 'border-gray-400'
+                                    } focus:outline-none placeholder-gray-500 active:bg-white`}
+                                    placeholder="Email"
+                                    type="email"
+                                    name="email"
+                                    defaultValue={email}
+                                    id="email"
+                                    required
+                                />
+                                <label className="mt-8 font-extrabold" htmlFor="email">
+                                    Password
+                                </label>
+                                <ErrorMessage className="text-red-500" name="password" component="div" />
+                                <Field
+                                    className={`form-input p-2 w-full border border-gray-400 rounded focus:outline-none placeholder-gray-500 active:bg-white`}
+                                    placeholder="••••••••••••••"
+                                    type="password"
+                                    name="password"
+                                    defaultValue={password}
+                                    id="password"
+                                    required
+                                />
+                            </div>
+                        )}
+
+                        <h5 className="mt-5 mb-1 font-extrabold">Your location</h5>
+                        <select className="p-2 w-full border border-gray-400 rounded">
+                            <option>United Kingdom</option>
+                            <option>United States</option>
+                        </select>
+
+                        <div className="mt-6 flex items-center">
+                            <input className="mr-3 h-5 w-5" type="checkbox" name="updates" id="updates" />
+                            <label className="text-xs leading-tight" htmlFor="updates">
+                                Get emails from Depop, including special promotions and selling tips.
+                            </label>
+                        </div>
+                        {existsError.length > 0 && (
+                            <p className="text-red-500 mt-6 flex items-center">
+                                <svg className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>{' '}
+                                {existsError} is taken
+                            </p>
+                        )}
+                        <button
+                            className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                            disabled={isSubmitting}
+                            type="submit"
+                        >
+                            Next
+                        </button>
+                    </Form>
                 )}
-
-                <h5 className="mt-5 mb-1 font-extrabold">Your location</h5>
-                <select className="p-2 w-full border border-gray-400 rounded">
-                    <option>United Kingdom</option>
-                    <option>United States</option>
-                </select>
-
-                <div className="mt-6 flex items-center">
-                    <input className="mr-3 h-5 w-5" type="checkbox" name="updates" id="updates" />
-                    <label className="text-xs leading-tight" htmlFor="updates">
-                        Get emails from Depop, including special promotions and selling tips.
-                    </label>
-                </div>
-
-                <button
-                    onClick={props.advanceStage}
-                    className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
-                >
-                    Next
-                </button>
-            </form>
+            </Formik>
         </SubLayout>
     )
 }
@@ -123,6 +198,8 @@ function Stage2(props) {
     const handleBackClick = () => {
         props.retreatStage()
     }
+    const dispatch = useDispatch()
+    const [phoneNumber, setPhoneNumber] = useState('')
     return (
         <SubLayout imgUrl="/signup-pic1.jpg">
             <LoadingBar stage={2} loaded={40} handleClick={handleBackClick} />
@@ -154,11 +231,15 @@ function Stage2(props) {
                         pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                         name="phone-number"
                         id="phone-number"
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                 </div>
 
                 <input
-                    onClick={props.advanceStage}
+                    onClick={() => {
+                        dispatch(createRegistrationSms(phoneNumber))
+                        props.advanceStage()
+                    }}
                     className="w-full mt-6 bg-black text-white py-2 font-extrabold cursor-pointer hover:bg-gray-900"
                     type="submit"
                     value="Send code"
@@ -169,9 +250,12 @@ function Stage2(props) {
 }
 
 function Stage3(props) {
+    const dispatch = useDispatch()
+    const smsVerifcationToken = useSelector((state) => state.user.registrationInfo.smsVerifcationToken)
     const codesParent = useRef(null)
 
     const [codeValues, setCodeValues] = useState(['', '', '', '', '', ''])
+    const [error, setError] = useState('')
 
     //Go back a stage in the sign up flow
     const handleBackClick = () => {
@@ -234,9 +318,28 @@ function Stage3(props) {
                 <div className="flex justify-between" ref={codesParent}>
                     {renderCodeInputs(6)}
                 </div>
-
+                {error.length > 0 && (
+                    <p className="text-red-500 mt-6 flex items-center">
+                        <svg className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                fillRule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                            ></path>
+                        </svg>{' '}
+                        {error}
+                    </p>
+                )}
                 <button
-                    onClick={props.advanceStage}
+                    onClick={async (e) => {
+                        e.preventDefault()
+                        const code = codeValues.join('')
+                        const res = await dispatch(verifyRegistrationSms(code, smsVerifcationToken))
+                        if (res.type !== 'VERIFYREGISTRATIONSMS_SUCCESS') {
+                            return setError('Invalid code')
+                        }
+                        props.advanceStage()
+                    }}
                     className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
                 >
                     Verify account
@@ -251,10 +354,14 @@ function Stage3(props) {
 }
 
 function Stage4(props) {
+    const details = useSelector((state) => state.user.registrationInfo)
+    const dispatch = useDispatch()
     //Go back a stage in the sign up flow
     const handleBackClick = () => {
         props.retreatStage()
     }
+
+    const [error, setError] = useState('')
 
     return (
         <SubLayout imgUrl="/signup-pic4.jpg">
@@ -275,8 +382,40 @@ function Stage4(props) {
                 <p className="underline">Privacy Policy</p>
             </div>
 
+            {error.length > 0 && (
+                <p className="text-red-500 mt-6 flex items-center">
+                    <svg className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            fillRule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                            clipRule="evenodd"
+                        ></path>
+                    </svg>{' '}
+                    {error}
+                </p>
+            )}
+
             <button
-                onClick={props.advanceStage}
+                onClick={() => {
+                    if (!details.smsVerified) {
+                        setError('There was a problem registering your account')
+                    }
+                    dispatch(
+                        register({
+                            email: details.email,
+                            phoneNumber: details.phoneNumber,
+                            externalId:
+                                details.externalId === undefined || details.externalId === ''
+                                    ? null
+                                    : details.externalId,
+                            password:
+                                details.password === undefined || details.password === '' ? null : details.password,
+                            username:
+                                details.username === undefined || details.username === '' ? null : details.username,
+                        })
+                    )
+                    props.advanceStage()
+                }}
                 className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
             >
                 Create Account
@@ -345,7 +484,6 @@ function Stage5() {
 
 export default function Signup() {
     const details = useSelector((state) => state.user.registrationInfo)
-    console.log(details)
     const [stage, setStage] = useState(details === null ? 0 : 1)
     const [phoneNumber, setPhoneNumber] = useState('')
 
@@ -363,11 +501,11 @@ export default function Signup() {
         <Layout title="Signup - Billpop" contained>
             <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2">
                 {stage === 0 && <Stage0 advanceStage={nextStage} />}
-                {stage === 1 && <Stage1 details={details} advanceStage={nextStage} retreatStage={decrementStage} />}
-                {stage === 2 && <Stage2 details={details} advanceStage={nextStage} retreatStage={decrementStage} />}
-                {stage === 3 && <Stage3 details={details} advanceStage={nextStage} retreatStage={decrementStage} />}
-                {stage === 4 && <Stage4 details={details} advanceStage={nextStage} retreatStage={decrementStage} />}
-                {stage === 5 && <Stage5 details={details} retreatStage={decrementStage} />}
+                {stage === 1 && <Stage1 advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 2 && <Stage2 advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 3 && <Stage3 advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 4 && <Stage4 advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 5 && <Stage5 retreatStage={decrementStage} />}
             </div>
         </Layout>
     )

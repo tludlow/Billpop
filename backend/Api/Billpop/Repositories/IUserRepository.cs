@@ -9,6 +9,7 @@ namespace Billpop.Repositories
     public interface IUserRepository
     {
         public Task<User> GetUserIfEmailExists(string email);
+        public Task<User> GetUserIfUsernameExists(string username);
         public Task<User> AddUser(User user);
     }
 }

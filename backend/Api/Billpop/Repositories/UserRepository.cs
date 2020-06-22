@@ -19,6 +19,11 @@ namespace Billpop.Repositories
             return await _dataContext.Users.FirstOrDefaultAsync(x => x.Email.Equals(email));
         }
 
+        public async Task<User> GetUserIfUsernameExists(string username)
+        {
+            return await _dataContext.Users.FirstOrDefaultAsync(x => x.Username.Equals(username));
+        }
+
         public async Task<User> AddUser(User user)
         {
             var registeredUser = await _dataContext.Users.AddAsync(user);

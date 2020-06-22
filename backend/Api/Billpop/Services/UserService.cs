@@ -38,6 +38,11 @@ namespace Api.Services
             return await _userRepository.GetUserIfEmailExists(email);
         }
 
+        public async Task<User> GetUserIfUsernameExists(string username)
+        {
+            return await _userRepository.GetUserIfUsernameExists(username);
+        }
+
         public bool Verify(int level)
         {
             throw new System.NotImplementedException();
@@ -79,10 +84,10 @@ namespace Api.Services
             {
                 return "Email does not have a valid format";
             }
-            //if (!Regex.IsMatch(request.Password, @"^(?:(?=.*?[A-Z])(?:(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=])|(?=.*?[a-z])(?:(?=.*?[0-9])|(?=.*?[-!@#$%^&*()_[\]{},.<>+=])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=]))[A-Za-z0-9!@#$%^&*()_[\]{},.<>+=-]{7,50}$"))
-            //{
-            //    return BadRequest("Password is not strong enough");
-            //}
+            if (request.Password != null && !Regex.IsMatch(request.Password, @"^(?:(?=.*?[A-Z])(?:(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=])|(?=.*?[a-z])(?:(?=.*?[0-9])|(?=.*?[-!@#$%^&*()_[\]{},.<>+=])))|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-!@#$%^&*()_[\]{},.<>+=]))[A-Za-z0-9!@#$%^&*()_[\]{},.<>+=-]{7,50}$"))
+            {
+                return "Password is not strong enough";
+            }
             if (request.Password == null && request.ExternalId == null)
             {
                 return "The user must have at least a password or external provider id";

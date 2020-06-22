@@ -89,6 +89,20 @@ namespace Api.Controllers
             return Ok(new { username });
         }
 
+        [HttpPost("emailusernameexist")]
+        public async Task<IActionResult> EmailUsernameExist(string email, string username)
+        {
+            if(await _userService.GetUserIfUsernameExists(username) != null)
+            {
+                return Ok(new { error = "username" });
+            }
+            if(email != null && await _userService.GetUserIfEmailExists(email) != null)
+            {
+                return Ok(new { error = "email" });
+            }
+            return Ok(new { error = "" });
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
@@ -173,7 +187,23 @@ namespace Api.Controllers
                 new Claim("verificationCode", verificationCode),
             };
             string token = _userService.GenerateJwt(claims);
-            return Ok(new { token });
+            return Ok(new { token, verificationCode });
+        }
+
+        [HttpPost("createregistrationsmstest")]
+        public IActionResult CreateRegistrationSmsTest(string phoneNumber)
+        {
+            if (phoneNumber == null)
+            {
+                return BadRequest(new { error = "User's phone number is required" });
+            }
+            string verificationCode = RandomStringService.GenerateNumericString(6, new Random());
+            var claims = new[]
+            {
+                new Claim("verificationCode", verificationCode),
+            };
+            string token = _userService.GenerateJwt(claims);
+            return Ok(new { token, verificationCode });
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
