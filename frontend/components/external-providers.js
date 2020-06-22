@@ -3,7 +3,7 @@ export default function ExternalProviders() {
         <div className="mt-3 w-9/12 mt-6 flex justify-between">
             <div className="w-2/12 py-2 flex items-center justify-center rounded border border-gray-200 cursor-pointer">
                 <a
-                    href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENTID}&redirect_uri=${process.env.NEXT_PUBLIC_UI_DOMAIN}/accounts/googleauth&response_type=code&scope=openid email profile`}
+                    href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENTID}&redirect_uri=${process.env.NEXT_PUBLIC_UI_DOMAIN}/accounts/google-auth&response_type=code&scope=openid email profile`}
                 >
                     <svg className="h-8 w-8" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -44,7 +44,7 @@ export default function ExternalProviders() {
 
             <div className="w-2/12 py-2 flex items-center justify-center rounded border border-gray-200 cursor-pointer">
                 <a
-                    href={`https://www.facebook.com/v7.0/dialog/oauth?client_id=${process.env.NEXT_PUBLIC_FACEBOOK_CLIENTID}&redirect_uri=${process.env.NEXT_PUBLIC_UI_DOMAIN}/accounts/facebookauth&state={testTokenPlsChangeNotSecure}&scope=email`}
+                    href={`https://www.facebook.com/v7.0/dialog/oauth?client_id=${process.env.NEXT_PUBLIC_FACEBOOK_CLIENTID}&redirect_uri=${process.env.NEXT_PUBLIC_UI_DOMAIN}/accounts/facebook-auth&state={testTokenPlsChangeNotSecure}&scope=email`}
                 >
                     <svg
                         className="h-8 w-8 text-blue-600"
