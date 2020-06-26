@@ -52,7 +52,7 @@ export default function Nav() {
             <nav className="sticky top-0 z-30 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
                 <div className="h-full px-2 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
-                    <div className="flex md:hidden items-center w-1/3">
+                    <div className="flex flex-1 md:hidden items-center ">
                         <button
                             id="nav-flyout-toggle"
                             className="font-extrabold"
@@ -69,7 +69,7 @@ export default function Nav() {
                     </div>
 
                     {/* Logo */}
-                    <div className="w-1/3 flex justify-center">
+                    <div className="flex justify-center">
                         <Link href="/">
                             <div className="h-full flex items-center space-x-2 cursor-pointer">
                                 <svg
@@ -89,7 +89,7 @@ export default function Nav() {
                     </div>
 
                     {/* Contents */}
-                    <div className="h-full flex items-center w-1/3 justify-end">
+                    <div className="h-full flex items-center justify-end flex-1">
                         <ul className="hidden md:flex items-center space-x-5 mr-12">
                             <li className="font-bold text-lg cursor-pointer hover:text-gray-600">
                                 <Link href="/search">
