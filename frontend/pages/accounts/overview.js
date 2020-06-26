@@ -126,49 +126,139 @@ export default function AccountOverview() {
     return (
         <Layout title="Account Overview - Billpop" contained>
             <section className="mt-6 grid grid-cols-12 gap-3 row-gap-2">
-                <div className="w-full col-span-8 p-3 rounded-lg shadow border border-gray-300">
-                    <div className="grid grid-cols-1 divide-y-2 divide-gray-200">
-                        <div className="h-20 p-2 flex justify-between cursor-pointer">
-                            <div className="flex items-center">
-                                <img
-                                    className="h-16 w-16 shadow mr-3"
-                                    src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80"
-                                    alt=""
-                                />
-                                <div>
-                                    <h5 className="w-12 text-green-800 bg-green-300 bg-opacity-50 rounded-lg py-0.5 px-2 font-semibold text-center">
-                                        Sale
-                                    </h5>
-                                    <p className="w-32 truncate">Cool blue hat that is truncated</p>
+                <div className="w-full col-span-8">
+                    <div className="px-3 py-1 rounded-lg rounded-b-none shadow border border-gray-300">
+                        <div className="grid grid-cols-1 divide-y-2 divide-gray-200">
+                            <div className="h-20 p-2 flex justify-between cursor-pointer">
+                                <div className="flex items-center">
+                                    <img
+                                        className="h-16 w-16 shadow mr-3"
+                                        src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80"
+                                        alt=""
+                                    />
+                                    <div>
+                                        <h5 className="w-12 text-green-800 bg-green-300 bg-opacity-50 rounded-lg py-0.5 px-2 font-semibold text-center">
+                                            Sale
+                                        </h5>
+                                        <p className="w-32 truncate">Cool blue hat that is truncated</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center">
+                                    <div className="flex flex-col items-end mr-3">
+                                        <div className="flex items-center space-x-2">
+                                            <svg
+                                                className="h-5 w-5 text-gray-400"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                    clip-rule="evenodd"
+                                                ></path>
+                                            </svg>
+                                            <p className="text-gray-500">12 June 2020 - 21:08</p>
+                                        </div>
+                                        <p className="text-gray-500">£12.99</p>
+                                    </div>
+                                    <svg className="h-5 w-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd"
+                                        ></path>
+                                    </svg>
                                 </div>
                             </div>
-                            <div className="flex items-center">
-                                <div className="flex flex-col items-end mr-3">
-                                    <div className="flex items-center space-x-2">
-                                        <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                        <p className="text-gray-500">12 June 2020 - 21:08</p>
+                            <div className="h-20 p-2 flex justify-between cursor-pointer">
+                                <div className="flex items-center">
+                                    <img
+                                        className="h-16 w-16 shadow mr-3"
+                                        src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80"
+                                        alt=""
+                                    />
+                                    <div>
+                                        <h5 className="w-12 text-green-800 bg-green-300 bg-opacity-50 rounded-lg py-0.5 px-2 font-semibold text-center">
+                                            Sale
+                                        </h5>
+                                        <p className="w-32 truncate">Cool blue hat that is truncated</p>
                                     </div>
-                                    <p className="text-gray-500">£12.99</p>
                                 </div>
-                                <svg className="h-5 w-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                        clip-rule="evenodd"
-                                    ></path>
-                                </svg>
+                                <div className="flex items-center">
+                                    <div className="flex flex-col items-end mr-3">
+                                        <div className="flex items-center space-x-2">
+                                            <svg
+                                                className="h-5 w-5 text-gray-400"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                    clip-rule="evenodd"
+                                                ></path>
+                                            </svg>
+                                            <p className="text-gray-500">12 June 2020 - 21:08</p>
+                                        </div>
+                                        <p className="text-gray-500">£12.99</p>
+                                    </div>
+                                    <svg className="h-5 w-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div className="h-20 p-2 flex justify-between cursor-pointer">
+                                <div className="flex items-center">
+                                    <img
+                                        className="h-16 w-16 shadow mr-3"
+                                        src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80"
+                                        alt=""
+                                    />
+                                    <div>
+                                        <h5 className="w-12 text-green-800 bg-green-300 bg-opacity-50 rounded-lg py-0.5 px-2 font-semibold text-center">
+                                            Sale
+                                        </h5>
+                                        <p className="w-32 truncate">Cool blue hat that is truncated</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center">
+                                    <div className="flex flex-col items-end mr-3">
+                                        <div className="flex items-center space-x-2">
+                                            <svg
+                                                className="h-5 w-5 text-gray-400"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                    clip-rule="evenodd"
+                                                ></path>
+                                            </svg>
+                                            <p className="text-gray-500">12 June 2020 - 21:08</p>
+                                        </div>
+                                        <p className="text-gray-500">£12.99</p>
+                                    </div>
+                                    <svg className="h-5 w-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd"
+                                        ></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
-                        <div className="h-20 p-2"></div>
-                        <div className="h-20 p-2"></div>
+                    </div>
+                    <div className="w-full h-8 flex justify-center items-center bg-gray-100 rounded-lg shadow border border-gray-200 border-t-0 rounded-t-none">
+                        <p>View more</p>
                     </div>
                 </div>
+
                 <div className="w-full col-span-3 col-start-10 p-3 flex flex-col items-center rounded-lg shadow border border-gray-300">
                     <h5>Sales This Month</h5>
                     <p className="text-sm text-gray-600">By Week</p>
