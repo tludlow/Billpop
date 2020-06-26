@@ -85,6 +85,7 @@ export default function Login() {
                                 <button
                                     className="mt-5 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
                                     disabled={isSubmitting}
+                                    type="submit"
                                 >
                                     Log in
                                 </button>

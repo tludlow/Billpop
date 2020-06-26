@@ -38,7 +38,7 @@ export default function TagList(props) {
                     <div
                         onClick={() => removeTag(index)}
                         key={index}
-                        className="tag flex items-center bg-white shadow rounded px-3 py-1 border border-gray-200 mr-2 mt-1"
+                        className="tag flex items-center bg-white shadow rounded px-3 py-1 border border-gray-200 mr-2 mt-1 cursor-pointer"
                     >
                         <p>{tag}</p>
 

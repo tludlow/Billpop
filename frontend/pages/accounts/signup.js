@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { emailUsernameExist, createRegistrationSms, verifyRegistrationSms, register } from '../../actions/userActions'
-import { red } from '@tailwindcss/ui/colors'
 
 function LoadingBar(props) {
     return (
@@ -52,10 +51,16 @@ function Stage0(props) {
     }
     return (
         <SubLayout imgUrl="/signup-pic3.jpg">
-            <LoadingBar stage={0} loaded={0} handleClick={handleBackClick} />
-            <h5 className="mt-8 font-extrabold">You can register with one of your other accounts:</h5>
-            <ExternalProviders />
-            <button onClick={props.advanceStage}>Skip</button>
+            <LoadingBar stage={0} loaded={5} handleClick={handleBackClick} />
+            <h5 className="mt-5 font-semibold text-lg">Sign up method</h5>
+            <p>You can sign up manually or use an account on another platform</p>
+            <div className="flex justify-center">
+                <ExternalProviders />
+            </div>
+
+            <button className="mt-4 bg-black text-white font-bold w-full py-2" onClick={props.advanceStage}>
+                Skip
+            </button>
         </SubLayout>
     )
 }
@@ -76,6 +81,9 @@ function Stage1(props) {
     return (
         <SubLayout imgUrl="/signup-pic3.jpg">
             <LoadingBar stage={1} loaded={20} handleClick={handleBackClick} />
+
+            <h3 className="mt-12 font-extrabold text-2xl">Your details</h3>
+
             <Formik
                 initialValues={{ email, username, password }}
                 validate={(values) => {
@@ -106,61 +114,70 @@ function Stage1(props) {
                 }}
             >
                 {({ isSubmitting }) => (
-                    <Form className="flex flex-col mt-6 w-full md:w-9/12 ">
-                        <h5 className="mt-8 font-extrabold">Your details</h5>
-                        <label className="mt-8 font-extrabold" htmlFor="email">
-                            Username
-                        </label>
-                        <ErrorMessage className="text-red-500" name="username" component="div" />
-                        <Field
-                            className={`form-input p-2 w-full border border-gray-400 rounded ${
-                                existsError === 'username' ? 'border-red-500' : 'border-gray-400'
-                            } focus:outline-none placeholder-gray-500 active:bg-white`}
-                            placeholder="Username"
-                            type="text"
-                            name="username"
-                            defaultValue={username}
-                            id="username"
-                            required
-                        />
+                    <Form className="flex flex-col mt-4 w-full space-y-4">
+                        <div className="">
+                            <label className="mt-8 font-semibold" htmlFor="email">
+                                Username
+                            </label>
+                            <ErrorMessage className="text-red-500" name="username" component="div" />
+                            <Field
+                                className={`form-input p-2 w-full border border-gray-400 rounded ${
+                                    existsError === 'username' ? 'border-red-500' : 'border-gray-400'
+                                } focus:outline-none placeholder-gray-500 active:bg-white`}
+                                placeholder="Username"
+                                type="text"
+                                name="username"
+                                defaultValue={username}
+                                id="username"
+                                required
+                            />
+                        </div>
+
                         {(details === null || details.externalId === undefined) && (
-                            <div>
-                                <label className="mt-8 font-extrabold" htmlFor="email">
-                                    Email address
-                                </label>
-                                <ErrorMessage className="text-red-500" name="email" component="div" />
-                                <Field
-                                    className={`form-input p-2 w-full border border-gray-400 rounded${
-                                        existsError === 'email' ? 'border-red-500' : 'border-gray-400'
-                                    } focus:outline-none placeholder-gray-500 active:bg-white`}
-                                    placeholder="Email"
-                                    type="email"
-                                    name="email"
-                                    defaultValue={email}
-                                    id="email"
-                                    required
-                                />
-                                <label className="mt-8 font-extrabold" htmlFor="email">
-                                    Password
-                                </label>
-                                <ErrorMessage className="text-red-500" name="password" component="div" />
-                                <Field
-                                    className={`form-input p-2 w-full border border-gray-400 rounded focus:outline-none placeholder-gray-500 active:bg-white`}
-                                    placeholder="••••••••••••••"
-                                    type="password"
-                                    name="password"
-                                    defaultValue={password}
-                                    id="password"
-                                    required
-                                />
+                            <div className="space-y-4">
+                                <div className="">
+                                    <label className="mt-8 font-semibold" htmlFor="email">
+                                        Email address
+                                    </label>
+                                    <ErrorMessage className="text-red-500" name="email" component="div" />
+                                    <Field
+                                        className={`form-input p-2 w-full border border-gray-400 rounded${
+                                            existsError === 'email' ? 'border-red-500' : 'border-gray-400'
+                                        } focus:outline-none placeholder-gray-500 active:bg-white`}
+                                        placeholder="Email"
+                                        type="email"
+                                        name="email"
+                                        defaultValue={email}
+                                        id="email"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="">
+                                    <label className="mt-8 font-semibold" htmlFor="email">
+                                        Password
+                                    </label>
+                                    <ErrorMessage className="text-red-500" name="password" component="div" />
+                                    <Field
+                                        className={`form-input p-2 w-full border border-gray-400 rounded focus:outline-none placeholder-gray-500 active:bg-white`}
+                                        placeholder="••••••••••••••"
+                                        type="password"
+                                        name="password"
+                                        defaultValue={password}
+                                        id="password"
+                                        required
+                                    />
+                                </div>
                             </div>
                         )}
 
-                        <h5 className="mt-5 mb-1 font-extrabold">Your location</h5>
-                        <select className="p-2 w-full border border-gray-400 rounded">
-                            <option>United Kingdom</option>
-                            <option>United States</option>
-                        </select>
+                        <div className="">
+                            <h5 className="mb-1 font-semibold">Your location</h5>
+                            <select className="p-2 w-full border border-gray-400 rounded">
+                                <option>United Kingdom</option>
+                                <option>United States</option>
+                            </select>
+                        </div>
 
                         <div className="mt-6 flex items-center">
                             <input className="mr-3 h-5 w-5" type="checkbox" name="updates" id="updates" />
@@ -181,7 +198,7 @@ function Stage1(props) {
                             </p>
                         )}
                         <button
-                            className="mt-7 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                            className="mt-10 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
                             disabled={isSubmitting}
                             type="submit"
                         >
