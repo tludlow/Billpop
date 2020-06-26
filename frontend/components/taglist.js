@@ -7,8 +7,8 @@ export default function TagList(props) {
     //TODO PASS UP TAGS TO PARENT FROM INSIDE HERE
 
     const addTag = (tag) => {
-        if (tags.length === 8) {
-            setWarning('You can only have 8 tags per product')
+        if (tags.length === 5) {
+            setWarning('You can only have 5 tags per product')
             return
         }
 

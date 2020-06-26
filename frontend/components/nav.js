@@ -71,7 +71,7 @@ export default function Nav() {
                     {/* Logo */}
                     <div className="flex justify-center">
                         <Link href="/">
-                            <div className="h-full flex items-center space-x-2 cursor-pointer">
+                            <div className="h-full flex items-center space-x-1 cursor-pointer">
                                 <svg
                                     className="h-8 w-8 text-red-600"
                                     fill="none"
@@ -152,13 +152,15 @@ export default function Nav() {
                                                     Profile
                                                 </a>
                                             </Link>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                role="menuitem"
-                                            >
-                                                Account Settings
-                                            </a>
+                                            <Link href="/accounts/overview">
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                    role="menuitem"
+                                                >
+                                                    Account Overview
+                                                </a>
+                                            </Link>
                                             <button
                                                 className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                                 role="menuitem"
