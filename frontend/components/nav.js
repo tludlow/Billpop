@@ -52,7 +52,7 @@ export default function Nav() {
             <nav className="sticky top-0 z-30 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
                 <div className="h-full px-2 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
-                    <div className="flex md:hidden items-center">
+                    <div className="flex md:hidden items-center w-1/3">
                         <button
                             id="nav-flyout-toggle"
                             className="font-extrabold"
@@ -69,7 +69,7 @@ export default function Nav() {
                     </div>
 
                     {/* Logo */}
-                    <div className="">
+                    <div className="w-1/3 flex justify-center">
                         <Link href="/">
                             <div className="h-full flex items-center space-x-2 cursor-pointer">
                                 <svg
@@ -89,7 +89,7 @@ export default function Nav() {
                     </div>
 
                     {/* Contents */}
-                    <div className="h-full flex items-center">
+                    <div className="h-full flex items-center w-1/3 justify-end">
                         <ul className="hidden md:flex items-center space-x-5 mr-12">
                             <li className="font-bold text-lg cursor-pointer hover:text-gray-600">
                                 <Link href="/search">
@@ -112,7 +112,7 @@ export default function Nav() {
                                 aria-expanded={dropdownActive}
                                 onClick={() => setDropdownActive(!dropdownActive)}
                             >
-                                <p className="font-semibold mr-2">{user.username}</p>
+                                <p className="hidden md:block font-semibold mr-2">{user.username}</p>
                                 <img
                                     className="h-10 w-10 mr-1 md:mr-1 rounded-full border border-gray-400 shadow select-none"
                                     src="/profile_img.png"
