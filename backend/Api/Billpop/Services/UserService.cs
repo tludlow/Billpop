@@ -73,7 +73,8 @@ namespace Api.Services
                 Username = request.Username,
                 Password = hashedPassword,
                 ExternalId = request.ExternalId,
-                PhoneNumber = request.PhoneNumber
+                PhoneNumber = request.PhoneNumber,
+                Created = DateTime.Now
             };
             return await _userRepository.AddUser(user);
         }
@@ -115,6 +116,11 @@ namespace Api.Services
                 return "Incorrect password";
             }
             return null;
+        }
+
+        public User GetUserById(int id)
+        {
+            return _userRepository.GetUserById(id);
         }
     }
 }
