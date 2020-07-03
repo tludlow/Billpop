@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { useEffect, useState, useRef } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { changeUser, logout } from '../actions/userActions'
+import { changeUser, logout } from '../../actions/userActions'
 
-export default function Nav() {
+export default function Nav(props) {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
@@ -83,7 +83,11 @@ export default function Nav() {
                                 >
                                     <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                 </svg>
-                                <h1 className="font-bold text-xl text-red-600">Billpop</h1>
+                                {props.admin ? (
+                                    <h1 className="font-bold text-xl text-red-600">ADMIN Billpop</h1>
+                                ) : (
+                                    <h1 className="font-bold text-xl text-red-600">Billpop</h1>
+                                )}
                             </div>
                         </Link>
                     </div>
@@ -113,6 +117,7 @@ export default function Nav() {
                                 onClick={() => setDropdownActive(!dropdownActive)}
                             >
                                 <p className="hidden md:block font-semibold mr-2">{user.username}</p>
+
                                 <img
                                     className="h-10 w-10 mr-1 md:mr-1 rounded-full border border-gray-400 shadow select-none"
                                     src="/profile_img.png"

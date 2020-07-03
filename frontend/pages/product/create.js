@@ -87,7 +87,7 @@ export default function CreateListing() {
                         <div className="flex flex-col">
                             <label htmlFor="price">Price</label>
                             <div className="flex">
-                                <p className="h-full w-4 flex items-center justify-center rounded-l rounded-r-none bg-gray-100 py-2 px-3 border border-gray-200">
+                                <p className="h-full w-4 flex items-center justify-center rounded-l rounded-r-none bg-white py-2 px-3 border border-gray-300">
                                     £
                                 </p>
                                 <input type="text" className="form-input border-r-0 rounded-none border-l-0" />
@@ -97,9 +97,10 @@ export default function CreateListing() {
                                 </select>
                             </div>
                         </div>
+                        <div className="w-4/5">
+                            <TagList setTags="" />
+                        </div>
                     </form>
-
-                    <TagList setTags="" />
                 </div>
             </div>
         </Layout>

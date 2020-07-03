@@ -5,9 +5,9 @@ export default function ProductPage() {
     // This page is coded weirdly, there is a different page layout for mobile entirely.
     return (
         <Layout title="PRODUCT SLUG HERE - Billpop" contained>
-            <div className="hidden md:block md:mt-8 md:grid md:grid-cols-2">
+            <div className="hidden md:mt-8 md:grid md:grid-cols-2 md:mb-32">
                 <div className="w-full space-y-4">
-                    <img
+                    {/* <img
                         src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                         alt=""
                     />
@@ -20,7 +20,85 @@ export default function ProductPage() {
                     <img
                         src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                         alt=""
-                    />
+                    /> */}
+                    <CarouselProvider
+                        className="mt-2 relative mb-5 w-4/5"
+                        naturalSlideWidth={100}
+                        naturalSlideHeight={100}
+                        totalSlides={3}
+                        isPlaying={true}
+                        interval={4000}
+                        infinite={true}
+                    >
+                        <Slider>
+                            <Slide index={0}>
+                                <img
+                                    src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                    alt=""
+                                />
+                            </Slide>
+                            <Slide index={1}>
+                                <img
+                                    src="https://images.unsplash.com/photo-1530651079803-50c9ac969e90?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                    alt=""
+                                />
+                            </Slide>
+                            <Slide index={2}>
+                                <img
+                                    src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                    alt=""
+                                />
+                            </Slide>
+                        </Slider>
+
+                        <ButtonBack>
+                            <div className="absolute left-2 top-5/12 bg-white rounded-full w-5 h-5 shadow flex items-center justify-center">
+                                <svg className="text-black w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                            </div>
+                        </ButtonBack>
+                        <ButtonNext>
+                            <div className="absolute right-5 top-5/12 bg-white rounded-full w-5 h-5 shadow flex items-center justify-center">
+                                <svg className="text-black w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                            </div>
+                        </ButtonNext>
+                        {/* <DotGroup className="-mt-3 flex items-center justify-center space-x-2"></DotGroup> */}
+
+                        <div className="flex space-x-1">
+                            <Dot slide={0} className="h-32 w-24 focus:outline-none" disabled={false}>
+                                <img
+                                    className="h-32 w-24"
+                                    src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                    alt=""
+                                />
+                            </Dot>
+                            <Dot slide={1} className="h-32 w-24 focus:outline-none" disabled={false}>
+                                <img
+                                    className="h-32 w-24"
+                                    src="https://images.unsplash.com/photo-1530651079803-50c9ac969e90?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                    alt=""
+                                />
+                            </Dot>
+                            <Dot slide={2} className="h-32 w-24 focus:outline-none" disabled={false}>
+                                <img
+                                    className="h-32 w-24"
+                                    src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                    alt=""
+                                />
+                            </Dot>
+                        </div>
+                    </CarouselProvider>
                 </div>
 
                 <div className="px-6 md:w-full lg:w-8/12">
@@ -29,6 +107,29 @@ export default function ProductPage() {
                             <img className="w-15 h-15 rounded-full" src="/profile_img.png" alt="Billy's Product" />
                             <h5 className="mt-1 font-bold">Billy</h5>
                             <p>Blackpool, Yorkshire, United Kingdom</p>
+
+                            <div className="mt-2 inline-flex items-center space-x-5">
+                                <div className="flex items-center space-x-1">
+                                    <svg className="h-3 w-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+                                            clipRule="evenodd"
+                                        ></path>
+                                    </svg>
+                                    <span className="text-sm text-gray-400 font-bold">351 SOLD</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                    <svg className="h-3 w-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                                            clipRule="evenodd"
+                                        ></path>
+                                    </svg>
+                                    <span className="text-sm text-gray-400 font-bold">ACTIVE TODAY</span>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="mt-8">
@@ -141,7 +242,30 @@ export default function ProductPage() {
                             </svg>
                         </div>
                     </ButtonNext>
-                    <DotGroup className="-mt-3 flex items-center justify-center space-x-2"></DotGroup>
+                    {/* <DotGroup className="-mt-3 flex items-center justify-center space-x-2"></DotGroup> */}
+                    <div className="flex space-x-1">
+                        <Dot slide={0} className="h-32 w-24 focus:outline-none" disabled={false}>
+                            <img
+                                className="h-32 w-24"
+                                src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                alt=""
+                            />
+                        </Dot>
+                        <Dot slide={1} className="h-32 w-24 focus:outline-none" disabled={false}>
+                            <img
+                                className="h-32 w-24"
+                                src="https://images.unsplash.com/photo-1530651079803-50c9ac969e90?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                alt=""
+                            />
+                        </Dot>
+                        <Dot slide={2} className="h-32 w-24 focus:outline-none" disabled={false}>
+                            <img
+                                className="h-32 w-24"
+                                src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                alt=""
+                            />
+                        </Dot>
+                    </div>
                 </CarouselProvider>
 
                 <p className="mt-2 text-sm leading-tight">

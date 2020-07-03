@@ -105,8 +105,10 @@ export function SalesLine() {
                         color: 'rgba(0, 0, 0, 0)',
                     },
                     ticks: {
-                        //Only include the first and last ticks
                         callback: function (value, index, values) {
+                            if (value % 10 == 0) {
+                                return '£' + value
+                            }
                             return ''
                         },
                     },
@@ -116,7 +118,7 @@ export function SalesLine() {
     }
 
     return (
-        <div className="relative chart-container w-full h-24 ">
+        <div className="mt-2 relative chart-container w-11/12 h-24 ">
             <Line options={lineOptions} data={lineData} />
         </div>
     )
@@ -125,11 +127,12 @@ export function SalesLine() {
 export default function AccountOverview() {
     return (
         <Layout title="Account Overview - Billpop" contained>
-            <section className="mt-6 grid grid-cols-12 gap-3 row-gap-2">
-                <div className="w-full col-span-8">
+            <h3 className="mt-6 mb-1 text-lg font-bold">Recent Activity</h3>
+            <section className="grid grid-cols-12 gap-3 row-gap-2">
+                <div className="w-full col-span-12 md:col-span-8">
                     <div className="px-3 py-1 rounded-lg rounded-b-none shadow border border-gray-300">
                         <div className="grid grid-cols-1 divide-y-2 divide-gray-200">
-                            <div className="h-20 p-2 flex justify-between cursor-pointer">
+                            <div className="px-2 py-4 flex justify-between cursor-pointer">
                                 <div className="flex items-center">
                                     <img
                                         className="h-16 w-16 shadow mr-3"
@@ -170,7 +173,7 @@ export default function AccountOverview() {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="h-20 p-2 flex justify-between cursor-pointer">
+                            <div className="px-2 py-4 flex justify-between cursor-pointer">
                                 <div className="flex items-center">
                                     <img
                                         className="h-16 w-16 shadow mr-3"
@@ -198,7 +201,7 @@ export default function AccountOverview() {
                                                     clip-rule="evenodd"
                                                 ></path>
                                             </svg>
-                                            <p className="text-gray-500">12 June 2020 - 21:08</p>
+                                            <p className="text-gray-500 text-sm">12 June 2020 - 21:08</p>
                                         </div>
                                         <p className="text-gray-500">£12.99</p>
                                     </div>
@@ -211,7 +214,7 @@ export default function AccountOverview() {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="h-20 p-2 flex justify-between cursor-pointer">
+                            <div className="px-2 py-4 flex justify-between cursor-pointer">
                                 <div className="flex items-center">
                                     <img
                                         className="h-16 w-16 shadow mr-3"
@@ -254,17 +257,15 @@ export default function AccountOverview() {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full h-8 flex justify-center items-center bg-gray-100 rounded-lg shadow border border-gray-200 border-t-0 rounded-t-none">
+                    <div className="w-full h-8 flex justify-center items-center bg-gray-100 rounded-lg shadow border border-gray-200 border-t-0 rounded-t-none cursor-pointer hover:bg-gray-200 hover:shadow-lg">
                         <p>View more</p>
                     </div>
                 </div>
 
-                <div className="w-full col-span-3 col-start-10 p-3 flex flex-col items-center rounded-lg shadow border border-gray-300">
+                <div className="w-full mt-6 md:mt-0 col-span-12 md:col-span-3 md:col-start-10 p-3 flex flex-col items-center rounded-lg shadow border border-gray-300">
                     <h5>Sales This Month</h5>
                     <p className="text-sm text-gray-600">By Week</p>
-                    <div className="mt-2">
-                        <SalesLine />
-                    </div>
+                    <SalesLine />
                 </div>
             </section>
         </Layout>

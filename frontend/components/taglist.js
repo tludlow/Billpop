@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-export default function TagList(props) {
-    const [tags, setTags] = useState(['Mens', 'Children', 'Summer'])
+export default function TagList() {
+    const [tags, setTags] = useState([])
     const [warning, setWarning] = useState('')
 
     //TODO PASS UP TAGS TO PARENT FROM INSIDE HERE
@@ -12,19 +12,22 @@ export default function TagList(props) {
             return
         }
 
+        setWarning('')
+
         let currentTags = [...tags]
         currentTags.push(tag)
         setTags(currentTags)
     }
 
     const onChange = (e) => {
-        if (e.target.value !== '' && (e.target.value.slice(-1) === ' ' || e.target.value.slice(-1) === ',')) {
-            addTag(e.target.value.slice(0, -1))
+        if (e.target.value.trim() !== '' && (e.target.value.slice(-1) === ' ' || e.target.value.slice(-1) === ',')) {
+            addTag(e.target.value.slice(0, -1).trim())
             e.target.value = ''
         }
     }
 
     const removeTag = (idx) => {
+        setWarning('')
         let currentTags = [...tags]
         currentTags.splice(idx, 1)
         setTags(currentTags)
@@ -58,16 +61,14 @@ export default function TagList(props) {
                 ))}
             </div>
             {warning.length > 0 && <p className="text-red-500 mt-3">{warning}</p>}
-            <form action="">
-                <input
-                    maxLength="16"
-                    disabled={tags.length === 8}
-                    onChange={(e) => onChange(e)}
-                    className="form-input w-3/4 disabled:border disabled:border-red-500 disabled:cursor-not-allowed"
-                    type="text"
-                    placeholder="Enter a tag, use a space or comma to seperate them"
-                />
-            </form>
+            <input
+                maxLength="16"
+                disabled={tags.length === 8}
+                onChange={(e) => onChange(e)}
+                className="form-input w-full disabled:border disabled:border-red-500 disabled:cursor-not-allowed"
+                type="text"
+                placeholder="Enter a tag, use a space or comma to seperate them"
+            />
         </div>
     )
 }
