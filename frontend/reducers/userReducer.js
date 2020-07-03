@@ -1,11 +1,5 @@
 const userReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'CHANGE_USERNAME':
-            return {
-                ...state,
-                username: 'Billy',
-                loggedIn: true,
-            }
         case 'LOGOUT_SUCCESS':
             return {
                 ...state,

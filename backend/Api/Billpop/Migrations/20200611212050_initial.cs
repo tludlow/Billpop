@@ -11,7 +11,8 @@ namespace Billpop.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),

@@ -11,5 +11,6 @@ namespace Billpop.Repositories
         public Task<User> GetUserIfEmailExists(string email);
         public Task<User> GetUserIfUsernameExists(string username);
         public Task<User> AddUser(User user);
+        public User GetUserById(int id);
     }
 }

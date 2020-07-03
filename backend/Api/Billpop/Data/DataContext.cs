@@ -10,5 +10,8 @@ namespace Api.Data
             : base(options) {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Listing> Listings { get; set; }
+        public DbSet<SearchTag> SearchTags { get; set; }
+        public DbSet<SearchTagType> SearchTagTypes { get; set; }
     }
 }

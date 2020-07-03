@@ -14,8 +14,10 @@ namespace Api.Installers
         {
             services.AddDbContext<DataContext>(options => { options.UseSqlServer(configuration.GetConnectionString("Database")); });
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IListingService, ListingService>();
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IListingRepository, ListingRepository>();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Api.Services
         public ClaimsPrincipal CreateClaimsPrinciple(User user);
         public Task<User> GetUserIfEmailExists(string email);
         public Task<User> GetUserIfUsernameExists(string username);
+        public User GetUserById(int id);
         public string GenerateJwt(Claim[] claims);
         public bool Verify(int level);
     }

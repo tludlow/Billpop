@@ -77,7 +77,7 @@ namespace Api.Controllers
         [HttpGet("test1")]
         public IActionResult Test1()
         {
-            var test = User.Claims.FirstOrDefault(x => x.Type.Equals("UserID"));
+            var test = User.Claims.FirstOrDefault(x => x.Type.Equals("UserId"));
             return Ok(new { test = test.Value });
         }
 
@@ -130,7 +130,7 @@ namespace Api.Controllers
                 return BadRequest(new { validationError });
             }
             AssignCookie(user);
-            return Ok(new {user.Username});
+            return Ok(new {user.Id, user.Username});
         }
 
         [HttpPost("logout")]
@@ -163,7 +163,7 @@ namespace Api.Controllers
             {
                 return BadRequest(new { Error = "Authentication code required" });
             }
-            FacebookToken token = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri={_configuration["url:ui"]}/accounts/facebookauth&client_secret={_facebookClientSecret}&code={code}");
+            FacebookToken token = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri={_configuration["url:ui"]}/accounts/facebook-auth&client_secret={_facebookClientSecret}&code={code}");
             FacebookToken profile = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/me?fields=email,name,picture&access_token={token.Access_Token}");
             return await HandleExternalProviderProfile((LoginProvider)profile);
         }
@@ -221,6 +221,13 @@ namespace Api.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(int id)
+        {
+            User user = _userService.GetUserById(id);
+            return Ok(new { user });
         }
     }
 }

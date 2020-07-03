@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { changeUser, logout } from '../../actions/userActions'
+import { logout } from '../actions/userActions'
 
 export default function Nav(props) {
     const user = useSelector((state) => state.user)

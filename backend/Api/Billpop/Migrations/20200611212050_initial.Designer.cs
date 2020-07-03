@@ -23,9 +23,9 @@ namespace Billpop.Migrations
 
             modelBuilder.Entity("Api.Models.Domain.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
