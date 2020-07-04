@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { changeUser, logout } from '../../actions/userActions'
-import { logout } from '../actions/userActions'
 
 export default function Nav(props) {
     const user = useSelector((state) => state.user)
@@ -53,7 +52,7 @@ export default function Nav(props) {
             <nav className="sticky top-0 z-30 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
                 <div className="h-full px-2 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
-                    <div className="flex flex-1 md:hidden items-center ">
+                    <div className="flex flex-1 lg:hidden items-center ">
                         <button
                             id="nav-flyout-toggle"
                             className="font-extrabold"
@@ -95,7 +94,7 @@ export default function Nav(props) {
 
                     {/* Contents */}
                     <div className="h-full flex items-center justify-end flex-1">
-                        <ul className="hidden md:flex items-center space-x-5 mr-12">
+                        <ul className="hidden lg:flex items-center space-x-5 mr-12">
                             <li className="font-bold text-lg cursor-pointer hover:text-gray-600">
                                 <Link href="/search">
                                     <a>Search</a>
@@ -190,7 +189,7 @@ export default function Nav(props) {
                         ref={flyoutRef}
                         className={`${
                             mobileFlyoutActive ? 'flyout-menu-open' : 'flyout-menu-closed'
-                        } fixed flyout-menu md:hidden top-0 bottom w-5/12 h-screen z-50 shadow-md bg-white pl-6 pr-3 pt-5`}
+                        } fixed flyout-menu lg:hidden top-0 bottom w-5/12 h-screen z-50 shadow-md bg-white pl-6 pr-3 pt-5`}
                     >
                         <div className="flex items-center justify-between">
                             <button id="flyout-toggle-close" onClick={() => setMobileFlyoutActive(false)}>

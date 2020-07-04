@@ -10,8 +10,8 @@ let store
 
 const exampleInitialState = {
     user: {
-        username: '',
-        loggedIn: false,
+        username: 'Testing',
+        loggedIn: true,
         registrationInfo: null,
     },
     cookies: {

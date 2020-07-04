@@ -75,7 +75,7 @@ export default function ProductPage() {
                         </ButtonNext>
                         {/* <DotGroup className="-mt-3 flex items-center justify-center space-x-2"></DotGroup> */}
 
-                        <div className="flex space-x-1">
+                        <div className="-mt-2 flex space-x-1">
                             <Dot slide={0} className="h-32 w-24 focus:outline-none" disabled={false}>
                                 <img
                                     className="h-32 w-24"
@@ -117,7 +117,7 @@ export default function ProductPage() {
                                             clipRule="evenodd"
                                         ></path>
                                     </svg>
-                                    <span className="text-sm text-gray-400 font-bold">351 SOLD</span>
+                                    <span className="text-sm text-gray-400 font-semibold">351 SOLD</span>
                                 </div>
                                 <div className="flex items-center space-x-1">
                                     <svg className="h-3 w-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
@@ -127,7 +127,7 @@ export default function ProductPage() {
                                             clipRule="evenodd"
                                         ></path>
                                     </svg>
-                                    <span className="text-sm text-gray-400 font-bold">ACTIVE TODAY</span>
+                                    <span className="text-sm text-gray-400 font-semibold">ACTIVE TODAY</span>
                                 </div>
                             </div>
                         </div>
