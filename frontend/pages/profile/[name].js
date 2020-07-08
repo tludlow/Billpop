@@ -1,5 +1,6 @@
 import Layout from '@/components/layout'
 import DownloadAppModal from '@/components/modals/downloadapp'
+import ReviewsModal from '@/components/modals/reviews'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
@@ -24,9 +25,14 @@ export default function ProfilePage() {
     const { name } = router.query
 
     const [downloadModalOpen, setDownloadModalOpen] = useState(false)
+    const [reviewModalOpen, setReviewModalOpen] = useState(false)
 
-    function handleClose() {
+    function handleCloseDownloadModal() {
         setDownloadModalOpen(false)
+    }
+
+    function handleCloseReviewModal() {
+        setReviewModalOpen(false)
     }
 
     return (
@@ -44,9 +50,12 @@ export default function ProfilePage() {
                             <span className="flex space-x-1">
                                 <Star /> <Star /> <EmptyStar /> <EmptyStar /> <EmptyStar />
                             </span>
-                            <p className="cursor-pointer hover:underline">
+                            <button
+                                onClick={() => setReviewModalOpen(!reviewModalOpen)}
+                                className="cursor-pointer hover:underline"
+                            >
                                 <span className="font-bold">101</span> Reviews
-                            </p>
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -100,7 +109,8 @@ export default function ProfilePage() {
                     </div>
                 </section>
             </Layout>
-            <DownloadAppModal modalOpen={downloadModalOpen} closeModal={handleClose} />
+            <DownloadAppModal modalOpen={downloadModalOpen} closeModal={handleCloseDownloadModal} />
+            <ReviewsModal modalOpen={reviewModalOpen} closeModal={handleCloseReviewModal} userName={name} />
         </>
     )
 }

@@ -18,7 +18,7 @@ export default function Search() {
                 <div
                     className={`${
                         showRecommends ? 'absolute' : 'hidden'
-                    } mt-2 w-full p-6 bg-white rounded-b-lg shadow z-30`}
+                    } mt-2 w-full p-6 bg-white rounded-b-lg shadow z-30 border border-gray-100`}
                 >
                     <h4 className="text-lg font-semibold">Recommended</h4>
 
@@ -74,33 +74,14 @@ export default function Search() {
             </form>
 
             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                <ClothesImage
-                    src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
-                />
-                <ClothesImage
-                    src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
-                />
-                <ClothesImage
-                    src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
-                    sold={true}
-                />
-                <ClothesImage
-                    src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
-                />
-
-                <ClothesImage
-                    src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
-                    sold={true}
-                />
-                <ClothesImage
-                    src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                    cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
-                />
+                {[...Array(60)].map((e, i) => (
+                    <ClothesImage
+                        key={i}
+                        sold={Math.random() < 0.3 ? true : false}
+                        src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
+                        cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
+                    />
+                ))}
             </div>
         </Layout>
     )
