@@ -2,7 +2,7 @@ import Link from 'next/link'
 export default function ClothesImages(props) {
     return (
         <Link href="/product/testing">
-            <div>
+            <div tabIndex="0" className="focus:shadow-outline-blue">
                 <div className="relative w-full bg-gray-200 cursor-pointer pb-full">
                     {/* Hover darkened effect */}
                     <div

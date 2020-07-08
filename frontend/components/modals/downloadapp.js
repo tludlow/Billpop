@@ -25,6 +25,9 @@ export default function DownloadApp(props) {
 
     return (
         <div
+            aria-modal="true"
+            tabIndex="0"
+            role="dialog"
             className={`${
                 props.modalOpen
                     ? 'fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center z-30'

@@ -71,7 +71,7 @@ export default function Nav(props) {
                     {/* Logo */}
                     <div className="flex justify-center">
                         <Link href="/">
-                            <div className="h-full flex items-center space-x-1 cursor-pointer">
+                            <div className="h-full flex items-center space-x-1 cursor-pointer" tabIndex="0">
                                 <svg
                                     className="h-8 w-8 text-red-600"
                                     fill="none"
@@ -108,13 +108,16 @@ export default function Nav(props) {
                         </ul>
 
                         {user.loggedIn ? (
-                            <div
+                            <button
                                 ref={dropdownRef}
                                 id="dropdown-menu"
                                 className="relative flex items-center cursor-pointer"
                                 aria-haspopup="true"
                                 aria-expanded={dropdownActive}
                                 onClick={() => setDropdownActive(!dropdownActive)}
+                                tabIndex="0"
+                                aria-haspopup="listbox"
+                                aria-expanded={dropdownActive}
                             >
                                 <p className="hidden md:block font-semibold mr-2">{user.username}</p>
 
@@ -140,6 +143,7 @@ export default function Nav(props) {
                                             ? 'block transition ease-out duration-100 transform opacity-100 scale-100'
                                             : 'hidden transition ease-in duration-75 transform opacity-0 scale-95'
                                     } origin-top-right absolute top-9 right-0 mt-2 w-56 rounded-md shadow-lg`}
+                                    tabIndex="-1"
                                 >
                                     <div className="rounded-md bg-white shadow-xs">
                                         <div
@@ -166,17 +170,24 @@ export default function Nav(props) {
                                                     Account Overview
                                                 </a>
                                             </Link>
-                                            <button
+                                            <Link
+                                                href="/"
                                                 className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                                 role="menuitem"
                                                 onClick={() => dispatch(logout())}
                                             >
-                                                Sign out
-                                            </button>
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                    role="menuitem"
+                                                >
+                                                    Sign out
+                                                </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </button>
                         ) : (
                             <Link href="/accounts/login">
                                 <button className="text-lg font-semibold">Login</button>
