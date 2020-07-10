@@ -111,7 +111,7 @@ export default function Nav(props) {
                             <button
                                 ref={dropdownRef}
                                 id="dropdown-menu"
-                                className="relative flex items-center cursor-pointer"
+                                className="relative flex items-center cursor-pointer focus:outline-none focus:border-blue-300 focus:shadow-outline-blue"
                                 aria-haspopup="true"
                                 aria-expanded={dropdownActive}
                                 onClick={() => setDropdownActive(!dropdownActive)}
@@ -142,7 +142,7 @@ export default function Nav(props) {
                                         dropdownActive
                                             ? 'block transition ease-out duration-100 transform opacity-100 scale-100'
                                             : 'hidden transition ease-in duration-75 transform opacity-0 scale-95'
-                                    } origin-top-right absolute top-9 right-0 mt-2 w-56 rounded-md shadow-lg`}
+                                    } origin-top-right absolute top-9 right-0 mt-2 w-56 rounded-md shadow-lg focus:outline-none active:outline-none`}
                                     tabIndex="-1"
                                 >
                                     <div className="rounded-md bg-white shadow-xs">
