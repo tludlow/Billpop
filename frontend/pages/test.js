@@ -9,7 +9,7 @@ export default function Test() {
     //     y: 123
     // }
     const [tags, setTags] = useState([])
-    const [showTags, setShowTags] = useState(false)
+    const [showTags, setShowTags] = useState(true)
     const tagParent = useRef()
 
     const getLocationRelativeToParent = (e) => {
@@ -93,6 +93,15 @@ export default function Test() {
                     <p className="mt-2 text-red-600">Tags Hidden</p>
                 )}
                 <p>Total tags: {tags.length}</p>
+            </section>
+            <section className="mt-12">
+                <div className="inline-flex relative px-2 py-1 bg-black text-white rounded">
+                    <span className="z-10">hello wow this is cool</span>
+                    <div
+                        className="absolute w-4 h-4 bg-black transform rotate-45"
+                        style={{ left: '45%', bottom: '-5px' }}
+                    ></div>
+                </div>
             </section>
         </Layout>
     )
