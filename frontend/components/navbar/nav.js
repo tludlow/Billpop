@@ -49,7 +49,10 @@ export default function Nav(props) {
 
     return (
         <>
-            <nav className="sticky top-0 z-30 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200">
+            <nav
+                id="navbar"
+                className="sticky top-0 z-30 h-16 md:h-13 w-full bg-white shadow-xs border border-b border-gray-200"
+            >
                 <div className="h-full px-2 lg:px-0 max-w-screen-xl mx-auto flex justify-between">
                     {/* Mobile flyout menu button (shown on mobile, hidden on medium and up) */}
                     <div className="flex flex-1 lg:hidden items-center ">
@@ -170,15 +173,12 @@ export default function Nav(props) {
                                                     Account Overview
                                                 </a>
                                             </Link>
-                                            <Link
-                                                href="/"
-                                                className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                role="menuitem"
-                                                onClick={() => dispatch(logout())}
-                                            >
+                                            <Link href="/">
                                                 <a
                                                     href="#"
                                                     className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                    role="menuitem"
+                                                    onClick={() => dispatch(logout())}
                                                     role="menuitem"
                                                 >
                                                     Sign out

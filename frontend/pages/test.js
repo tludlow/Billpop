@@ -5,15 +5,17 @@ export default function Test() {
     //Tag
     // {
     //     title: "testing",
-    //     x: 123
-    //     y: 123
+    //     x: 12  percent offset into parent
+    //     y: 15   percent offset into parent
     // }
+
+    //TODO FIX MOBILE BUG WHERE ON THE ACTUAL PHONE NOT A RESPONSIVE TAB THE TOP POSITION FOR THE TAG IS NEGATIVE WHEN IT SHOULD BE POSITIVE
+    //THE API FOR THE PHONE IS PROBABLY DIFFERENT FOR FINDING THE ELEMENT POSITIONS...
     const [tags, setTags] = useState([])
     const [showTags, setShowTags] = useState(true)
     const tagParent = useRef()
 
     const getLocationRelativeToParent = (e) => {
-        console.log(tagParent)
         const clickX = e.pageX
         const clickY = e.pageY
         const parentLeft = tagParent.current.x
@@ -22,19 +24,28 @@ export default function Test() {
         const parentHeight = tagParent.current.height
 
         // console.log('Adding tag at: (', clickX, clickY, ')')
-        // console.log(`relative tag position: (${clickX - parentLeft}, ${clickY - parentTop})`)
+        // console.log(`relative tag position: (${clickX - parentLeft}, ${clickY - window.pageYOffset})`)
+        // console.log(`scrolled: ${window.pageYOffset}`)
         // console.log(
         //     `percentage relative position: (${((clickX - parentLeft) / parentWidth) * 100}, ${
         //         ((clickY - parentTop) / parentHeight) * 100
         //     })`
         // )
 
+        //If the page has been scrolled at all the sticky/fixed navbar causes the placement of tags to be offset by twice the height of the navbar
+        //We take account for that and also the fact that on mobile the navbar is taller so we do it programatically
         let currentTags = [...tags]
         currentTags.push({
             title: 'Wow',
-            x: ((clickX - parentLeft) / parentWidth) * 100,
-            y: ((clickY - parentTop) / parentHeight) * 100,
+            x: ((clickX - Math.abs(parentLeft)) / parentWidth) * 100,
+            y:
+                window.pageYOffset > 0
+                    ? ((clickY - Math.abs(parentTop) - document.getElementById('navbar').clientHeight * 2) /
+                          parentHeight) *
+                      100
+                    : ((clickY - Math.abs(parentTop)) / parentHeight) * 100,
         })
+
         setTags(currentTags)
     }
 
@@ -48,7 +59,7 @@ export default function Test() {
         <Layout title="Testing - Billpop" contained>
             <section className="mt-12">
                 <h1 className="font-semibold text-lg mb-6">Click on the image to add a tag</h1>
-                <div className="w-1/2 h-1/2 relative">
+                <div className="w-full h-full lg:w-1/2 lg:h-1/2 relative">
                     <img
                         ref={tagParent}
                         onClick={(e) => getLocationRelativeToParent(e)}
@@ -61,9 +72,9 @@ export default function Test() {
                             <div
                                 key={i}
                                 className="tag absolute bg-black text-white flex items-center px-1 rounded transform -translate-x-1/2 -translate-y-1/2"
-                                style={{ left: `${tag.x}%`, top: `${tag.y}%` }}
+                                style={{ left: `${tag.x}%`, top: `${tag.y - 2.5}%` }}
                             >
-                                <span>
+                                <span className="z-10">
                                     {tag.title} ({i})
                                 </span>
                                 <svg
@@ -73,11 +84,16 @@ export default function Test() {
                                     viewBox="0 0 20 20"
                                 >
                                     <path
-                                        fill-rule="evenodd"
+                                        fillRule="evenodd"
                                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"
+                                        clipRule="evenodd"
                                     ></path>
                                 </svg>
+
+                                <div
+                                    className="absolute w-4 h-4 bg-black rounded transform rotate-45"
+                                    style={{ left: '43%', bottom: '-5px' }}
+                                ></div>
                             </div>
                         ))}
                 </div>
@@ -98,8 +114,8 @@ export default function Test() {
                 <div className="inline-flex relative px-2 py-1 bg-black text-white rounded">
                     <span className="z-10">hello wow this is cool</span>
                     <div
-                        className="absolute w-4 h-4 bg-black transform rotate-45"
-                        style={{ left: '45%', bottom: '-5px' }}
+                        className="absolute w-4 h-4 bg-black rounded transform rotate-45"
+                        style={{ left: '44%', bottom: '-5px' }}
                     ></div>
                 </div>
             </section>
