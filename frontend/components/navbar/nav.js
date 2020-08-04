@@ -126,7 +126,7 @@ export default function Nav(props) {
 
                                 <img
                                     className="h-10 w-10 mr-1 md:mr-1 rounded-full border border-gray-400 shadow select-none"
-                                    src="/profile_img.png"
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/u/${user.id}/profile`}
                                     alt={`${user.username}'s Profile Photo`}
                                 />
                                 <svg className="h-4 w-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">

@@ -1,10 +1,11 @@
 import Layout from '@/components/layout'
 import ExternalProviders from '@/components/external-providers'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { emailUsernameExist, createRegistrationSms, verifyRegistrationSms, register } from '../../actions/userActions'
+import api from '../../lib/api'
 
 function LoadingBar(props) {
     return (
@@ -132,7 +133,6 @@ function Stage1(props) {
                                 required
                             />
                         </div>
-
                         {(details === null || details.externalId === undefined) && (
                             <div className="space-y-4">
                                 <div className="">
@@ -178,7 +178,6 @@ function Stage1(props) {
                                 <option>United States</option>
                             </select>
                         </div>
-
                         <div className="mt-6 flex items-center">
                             <input className="mr-3 h-5 w-5" type="checkbox" name="updates" id="updates" />
                             <label className="text-xs leading-tight" htmlFor="updates">
@@ -448,6 +447,20 @@ function Stage4(props) {
 }
 
 function Stage5() {
+    const userId = useSelector((state) => state.user.id)
+    const [image, setImage] = useState()
+
+    const uploadProfileImage = async () => {
+        console.log(image)
+        const formData = new FormData()
+        formData.append('file', image[0])
+        let uploadImagesResponse = await api.post('/user/uploadimage', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+    }
+
     return (
         <SubLayout imgUrl="/signup-pic5.jpg">
             {/* Complete loading bar */}
@@ -460,6 +473,21 @@ function Stage5() {
                     ></path>
                 </svg>
             </div>
+            <div className="flex w-full items-center">
+                <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-dashed border-red-500 cursor-pointer hover:bg-red-500 hover:text-white">
+                    <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                    </svg>
+                    <span className="mt-2 text-md font-semibold">Select a profile image</span>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => setImage(e.currentTarget.files)}
+                    />
+                </label>
+            </div>
+            <button onClick={uploadProfileImage}>Upload</button>
 
             <h3 className="mt-8 font-extrabold text-2xl">GET READY</h3>
             <p className="text-gray-600 text-sm">Now you can buy and sell unique items of Billpop.</p>
@@ -505,6 +533,7 @@ export default function Signup() {
     const details = useSelector((state) => state.user.registrationInfo)
     const [stage, setStage] = useState(details === null ? 0 : 1)
     const [phoneNumber, setPhoneNumber] = useState('')
+    const [image, setImage] = useState()
 
     // Don't need to restrict the ability to go below stage 1 and above stage 5 because only exposing the ability to
     // change stages forwards and backwards where appropriate to each stage, aka stage 1 has no go back ability
@@ -520,7 +549,7 @@ export default function Signup() {
         <Layout title="Signup - Billpop" contained>
             <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2">
                 {stage === 0 && <Stage0 advanceStage={nextStage} />}
-                {stage === 1 && <Stage1 advanceStage={nextStage} retreatStage={decrementStage} />}
+                {stage === 1 && <Stage1 advanceStage={nextStage} retreatStage={decrementStage} setImage={setImage} />}
                 {stage === 2 && <Stage2 advanceStage={nextStage} retreatStage={decrementStage} />}
                 {stage === 3 && <Stage3 advanceStage={nextStage} retreatStage={decrementStage} />}
                 {stage === 4 && <Stage4 advanceStage={nextStage} retreatStage={decrementStage} />}

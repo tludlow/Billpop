@@ -3,6 +3,7 @@ import DownloadAppModal from '@/components/modals/downloadapp'
 import ReviewsModal from '@/components/modals/reviews'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 function Star() {
     return (
@@ -23,6 +24,7 @@ function EmptyStar() {
 export default function ProfilePage() {
     const router = useRouter()
     const { name } = router.query
+    const user = useSelector((state) => state.user)
 
     const [downloadModalOpen, setDownloadModalOpen] = useState(false)
     const [reviewModalOpen, setReviewModalOpen] = useState(false)
@@ -39,7 +41,11 @@ export default function ProfilePage() {
         <>
             <Layout title={`${name}'s Shop - Billpop`} contained>
                 <section className="mt-8 flex space-x-6">
-                    <img className="rounded-full h-24 w-24" src="/profile_img.png" alt="Profile" />
+                    <img
+                        className="rounded-full h-24 w-24"
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/u/${user.id}/profile`}
+                        alt="Profile"
+                    />
                     <div className="flex flex-col justify-between">
                         <div className="">
                             <h2 className="font-bold text-3xl leading-tight">{name}</h2>

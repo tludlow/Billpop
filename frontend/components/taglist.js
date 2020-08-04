@@ -1,22 +1,19 @@
 import { useState } from 'react'
 
-export default function TagList() {
-    const [tags, setTags] = useState([])
+export default function TagList(props) {
     const [warning, setWarning] = useState('')
 
-    //TODO PASS UP TAGS TO PARENT FROM INSIDE HERE
-
     const addTag = (tag) => {
-        if (tags.length === 5) {
-            setWarning('You can only have 5 tags per product')
+        if (props.tags.length === 5) {
+            setWarning('You can only have 5 tags per listing')
             return
         }
 
         setWarning('')
 
-        let currentTags = [...tags]
+        let currentTags = [...props.tags]
         currentTags.push(tag)
-        setTags(currentTags)
+        props.setTags(currentTags)
     }
 
     const onChange = (e) => {
@@ -28,16 +25,16 @@ export default function TagList() {
 
     const removeTag = (idx) => {
         setWarning('')
-        let currentTags = [...tags]
+        let currentTags = [...props.tags]
         currentTags.splice(idx, 1)
-        setTags(currentTags)
+        props.setTags(currentTags)
     }
 
     return (
         <div className="mt-5 flex flex-col">
             <p className="font-semibold">Tags</p>
             <div className="inline-flex flex-wrap mb-3 mt-1">
-                {tags.map((tag, index) => (
+                {props.tags.map((tag, index) => (
                     <div
                         onClick={() => removeTag(index)}
                         key={index}
@@ -63,7 +60,7 @@ export default function TagList() {
             {warning.length > 0 && <p className="text-red-500 mt-3">{warning}</p>}
             <input
                 maxLength="16"
-                disabled={tags.length === 8}
+                disabled={props.tags.length === 8}
                 onChange={(e) => onChange(e)}
                 className="form-input w-full disabled:border disabled:border-red-500 disabled:cursor-not-allowed"
                 type="text"

@@ -1,19 +1,40 @@
 import Layout from '@/components/layout'
 import ClothesImage from '@/components/clothes-image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import api from '../lib/api'
+import { useRouter } from 'next/router'
 
 export default function Search() {
+    const router = useRouter()
+    const initialQuery = router.query.query
     const [showRecommends, setShowRecommends] = useState(false)
+    const [searchQuery, setSearchQuery] = useState(initialQuery || '')
+    const [listings, setListings] = useState([])
+
+    useEffect(() => {
+        console.log('test')
+        const executeAsync = async () => {
+            setListings((await api.get(`/listing/search?query=${initialQuery || ''}&number=50`)).data.listings)
+        }
+        executeAsync()
+    }, [initialQuery])
+
+    const submit = async (e) => {
+        e.preventDefault()
+        router.push(`/search?query=${searchQuery}`, undefined, { shallow: true })
+    }
 
     return (
         <Layout title="Search - Billpop" contained>
-            <form className="relative mt-6 w-full" action="">
+            <form className="relative mt-6 w-full" onSubmit={submit} action="">
                 <input
                     className="w-full border-b border-gray-300 placeholder-gray-300 text-5xl font-bold focus:outline-none focus:border-gray-600"
                     type="text"
-                    placeholder="Search"
+                    placeholder={'Search'}
+                    defaultValue={initialQuery}
                     onFocus={() => setShowRecommends(true)}
                     onBlur={() => setShowRecommends(false)}
+                    onChange={(e) => setSearchQuery(e.currentTarget.value)}
                 />
                 <div
                     className={`${
@@ -24,7 +45,7 @@ export default function Search() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                         <div className="mt-4 flex flex-col space-y-2">
-                            <p>Products</p>
+                            <p>Listings</p>
                             <div className="h-16 py-1 flex cursor-pointer hover:bg-gray-50">
                                 <img
                                     className="h-16 w-16"
@@ -74,12 +95,14 @@ export default function Search() {
             </form>
 
             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {[...Array(60)].map((e, i) => (
+                {listings.map((listing, i) => (
                     <ClothesImage
                         key={i}
-                        sold={Math.random() < 0.3 ? true : false}
-                        src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
-                        cost={Math.floor(Math.random() * (1000 - 100) + 100) / 100}
+                        title={listing.title}
+                        cost={listing.price}
+                        listingId={listing.id}
+                        sold={false}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing.id}/0`}
                     />
                 ))}
             </div>

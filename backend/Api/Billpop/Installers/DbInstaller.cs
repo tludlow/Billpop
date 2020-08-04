@@ -16,6 +16,8 @@ namespace Api.Installers
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IListingService, ListingService>();
             services.AddScoped<IHttpService, HttpService>();
+            services.AddScoped<IAzureBlobService, AzureBlobService>();
+            services.AddScoped<IAzureBlobConnectionFactory, AzureBlobConnectionFactory>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IListingRepository, ListingRepository>();
         }

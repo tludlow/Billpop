@@ -31,7 +31,7 @@ namespace Billpop.Repositories
 
         public User GetUserById(int id)
         {
-            string sql = "SELECT * FROM LISTINGS WHERE Id = @id";
+            string sql = "SELECT Id, Username FROM Users WHERE Id = @id";
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
             {
                 return connection.QuerySingleOrDefault<User>(sql, new { id });

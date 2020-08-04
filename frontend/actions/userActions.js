@@ -21,6 +21,7 @@ export function register(registrationInfo) {
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(registrationInfo),
             types: ['REGISTER_REQUEST', 'REGISTER_SUCCESS', 'REGISTER_FAIL'],
+            credentials: 'include',
         },
     }
 }

@@ -52,6 +52,7 @@ const userReducer = (state = {}, action) => {
                 return {
                     ...state,
                     username: action.payload.username,
+                    id: action.payload.id,
                     loggedIn: true,
                 }
             }

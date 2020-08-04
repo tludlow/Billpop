@@ -11,7 +11,7 @@ namespace Billpop.Models.Requests.Listings
         public string Title { get; set; }
         public string About { get; set; }
         public decimal Price { get; set; }
-        public int CurrencyID { get; set; }
-        public List<SearchTag> SearchTags { get; set; }
+        public int CurrencyId { get; set; }
+        public List<string> SearchTags { get; set; }
     }
 }

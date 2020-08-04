@@ -4,9 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
-using Billpop.Models.Requests.Listings;
-using System.Security.Policy;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Billpop.Repositories
 {
@@ -21,24 +20,34 @@ namespace Billpop.Repositories
             _configuration = configuration;
         }
 
-        public int AddListing(Listing listing)
+        public async Task<int> AddListing(Listing listing)
         {
-            string sql = "INSERT INTO Listings (Title, About, Price, Currency, Created, UserId) OUTPUT INSERTED.Id VALUES (@Title, @About, @Price, @Currency, @Created, @UserId)";
+            string sql = "INSERT INTO Listings (Title, About, Price, Currency, Created, UserId, Status) OUTPUT INSERTED.Id VALUES (@Title, @About, @Price, @Currency, @Created, @UserId, @Status)";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
             {
-                return connection.QuerySingle<int>(sql, listing);
+                return await connection.QuerySingleAsync<int>(sql, listing);
             }
         }
 
-        public void AddSearchTags(List<SearchTag> searchTags, int listingId)
+        public async Task AddSearchTags(List<string> searchTags, int listingId)
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
             {
-                foreach(SearchTag searchTag in searchTags)
+                foreach(string searchTag in searchTags)
                 {
-                    connection.Execute(_insertSearchTag, new { searchTagTypeId = searchTag.SearchTagTypeId, listingId });
+                   await connection.ExecuteAsync(_insertSearchTag, new { searchTagTypeId = searchTag, listingId });
                 }
+            }
+        }
+
+        public async Task<List<SearchTagType>> GetRelatedSearchTagsForListing(int listingId)
+        {
+            string selectAllRelatedSearchTags = "SELECT st.Name, st.RelatedSearchTagTypeId FROM SearchTags AS s JOIN SearchTagTypes AS st ON st.Name = s.SearchTagTypeId JOIN Listings AS l ON l.Id = s.ListingId WHERE l.Id = @listingId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
+            {
+                return (await connection.QueryAsync<SearchTagType>(selectAllRelatedSearchTags, new { listingId })).ToList();
             }
         }
 
@@ -48,23 +57,23 @@ namespace Billpop.Repositories
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
             {
-                connection.Execute(sql, new { id, title, about, price});
+                connection.ExecuteAsync(sql, new { id, title, about, price});
             }
         }
 
-        public void UpdateSearchTags(int listingId, List<SearchTag> searchTags)
+        public async Task UpdateSearchTags(int listingId, List<SearchTag> searchTags)
         {
             string deleteSearchTag = "DELETE FROM SearchTags WHERE Id = @id";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
             {
-                List<SearchTag> searchTagsForListing = connection.Query<SearchTag>(_selectAllSearchTagsForListing, new { listingId }).ToList();
+                List<SearchTag> searchTagsForListing = (await connection.QueryAsync<SearchTag>(_selectAllSearchTagsForListing, new { listingId })).ToList();
                 List<SearchTag> filteredTagsForListing = searchTagsForListing;
                 foreach (SearchTag existingSearchTag in searchTagsForListing)
                 {
                     if (searchTags == null || searchTags.Find(x => x.SearchTagTypeId == existingSearchTag.SearchTagTypeId) == null)
                     {
-                        connection.Execute(deleteSearchTag, new { id = existingSearchTag.Id });
+                        _ = connection.ExecuteAsync(deleteSearchTag, new { id = existingSearchTag.Id });
                         filteredTagsForListing = filteredTagsForListing.Where(x => x.SearchTagTypeId != existingSearchTag.SearchTagTypeId).ToList();
                     }
                 }
@@ -76,42 +85,73 @@ namespace Billpop.Repositories
                 {
                     if(filteredTagsForListing.Find(x => x.SearchTagTypeId == searchTag.SearchTagTypeId) == null)
                     {
-                        connection.Execute(_insertSearchTag, new { searchTagTypeId = searchTag.SearchTagTypeId, listingId });
+                        _ = connection.ExecuteAsync(_insertSearchTag, new { searchTagTypeId = searchTag.SearchTagTypeId, listingId });
                     }
                 }
             }
         }
-        public Listing GetListingByIdWithSearchTags(int id)
+        public async Task<Listing> GetListingByIdWithSearchTags(int id)
         {
             string selectListing = "SELECT * FROM Listings WHERE Id = @id";
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
             {
-                Listing listing = connection.QuerySingleOrDefault<Listing>(selectListing, new { id });
-                listing.SearchTags = connection.Query<SearchTag>(_selectAllSearchTagsForListing, new { listingId = listing.Id }).ToList();
-                if(listing.Title == null)
-                {
-                    return null;
-                }
+                Listing listing = await connection.QuerySingleOrDefaultAsync<Listing>(selectListing, new { id });
+                listing.SearchTags = (await connection.QueryAsync<SearchTag>(_selectAllSearchTagsForListing, new { listingId = listing.Id })).ToList();
                 return listing;
             }
         }
 
-        public Listing GetListingById(int id)
+        public async Task<Listing> GetListingById(int id)
         {
             string selectListing = "SELECT * FROM Listings WHERE Id = @id";
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
             {
-                return connection.QuerySingleOrDefault<Listing>(selectListing, new { id });
+                return await connection.QuerySingleOrDefaultAsync<Listing>(selectListing, new { id });
+            }
+        }
+
+        public async Task<Listing> GetListingWithUserIdOnly(int id)
+        {
+            string selectListing = "SELECT UserId FROM Listings WHERE Id = @id";
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
+            {
+                return await connection.QuerySingleOrDefaultAsync<Listing>(selectListing, new { id });
             }
         }
 
         public void DeleteListing(int id)
         {
-            string sql = $"DELETE Listings WHERE Id = @id";
+            string deleteListingById = $"DELETE Listings WHERE Id = @id";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
             {
-                connection.Execute(sql, new { id });
+                connection.ExecuteAsync(deleteListingById, new { id });
+            }
+        }
+
+        public async Task<List<Listing>> GetListingsForUser(int userId)
+        {
+            string selectListingsForUser = $"SELECT * FROM Listings WHERE UserId = @userId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
+            {
+                List<Listing> listings = (await connection.QueryAsync<Listing>(selectListingsForUser, new { userId })).ToList();
+                for (int i = 0; i < listings.Count(); i++)
+                {
+                    listings[i].SearchTags = (await connection.QueryAsync<SearchTag>(_selectAllSearchTagsForListing, new { listingId = listings[i].Id })).ToList();
+                }
+                return listings;
+            }
+        }
+
+        public async Task<List<Listing>> GetListingsById(int[] ids)
+        {
+            string selectListings = $"SELECT * FROM Listings WHERE Id IN @ids";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Database")))
+            {
+                List<Listing> listings = (await connection.QueryAsync<Listing>(selectListings, new { ids })).ToList();
+                return listings;
             }
         }
     }

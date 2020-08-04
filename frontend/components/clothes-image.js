@@ -1,7 +1,7 @@
 import Link from 'next/link'
 export default function ClothesImages(props) {
     return (
-        <Link href="/product/testing">
+        <Link href={`/listing/${props.listingId}`}>
             <div tabIndex="0" className="focus:shadow-outline-blue">
                 <div className="relative w-full bg-gray-200 cursor-pointer pb-full">
                     {/* Hover darkened effect */}
@@ -20,7 +20,10 @@ export default function ClothesImages(props) {
 
                     <img className="absolute w-full h-full" src={props.src} alt="Blue Coat" />
                 </div>
-                <p className="text-sm font-bold tracking-tight">£{props.cost}</p>
+                <div className="flex justify-between">
+                    <p>{props.title}</p>
+                    <p className="text-sm font-bold tracking-tight">£{props.cost}</p>
+                </div>
             </div>
         </Link>
     )

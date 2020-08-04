@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Billpop.Models.ExternalProvider;
 using Billpop.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Twilio;
@@ -22,17 +24,19 @@ namespace Api.Controllers
     {
         private readonly IUserService _userService;
         private readonly IHttpService _httpService;
+        private readonly IAzureBlobService _azureBlobService;
         private readonly IConfiguration _configuration;
         private readonly string _googleClientId;
         private readonly string _googleClientSecret;
         private readonly string _facebookClientId;
         private readonly string _facebookClientSecret;
 
-        public UserController(IUserService userService, IHttpService httpService, IConfiguration configuration)
+        public UserController(IUserService userService, IHttpService httpService, IConfiguration configuration, IAzureBlobService azureBlobService)
         {
             _userService = userService;
             _configuration = configuration;
             _httpService = httpService;
+            _azureBlobService = azureBlobService;
             _googleClientId = _configuration["google:clientId"];
             _googleClientSecret = _configuration["google:clientSecret"];
             _facebookClientId = _configuration["facebook:clientId"];
@@ -62,7 +66,7 @@ namespace Api.Controllers
             if (user != null)
             {
                 AssignCookie(user);
-                return Ok(new { username = user.Username, registered = true });
+                return Ok(new { user.Id, username = user.Username, registered = true });
             }
             return Ok(profile);
         }
@@ -115,7 +119,7 @@ namespace Api.Controllers
             if (registeredUser != null)
             {
                 AssignCookie(registeredUser);
-                return Ok(new {request.Username});
+                return Ok(new {registeredUser.Id, registeredUser.Username});
             }
             return BadRequest();
         }
@@ -227,7 +231,22 @@ namespace Api.Controllers
         public IActionResult GetUserById(int id)
         {
             User user = _userService.GetUserById(id);
-            return Ok(new { user });
+            return Ok(new { Id = user.Id, username = user.Username });
+        }
+
+        [Authorize]
+        [HttpPost("uploadimage")]
+        public async Task<IActionResult> UploadImageAsync()
+        {
+            int userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type.Equals("UserId")).Value);
+            var request = await HttpContext.Request.ReadFormAsync();
+            List<IFormFile> files = request.Files.Where(x => x.ContentType.StartsWith("image")).ToList();
+            if(files == null || files.Count == 0)
+            {
+                return BadRequest();
+            }
+            await _azureBlobService.UploadAsync(files, $"u/{userId}/", "profile");
+            return Ok();
         }
     }
 }
