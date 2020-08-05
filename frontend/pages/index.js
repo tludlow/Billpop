@@ -20,7 +20,7 @@ export default function Index() {
                 >
                     <div className="h-full container mx-auto grid grid-cols-2">
                         <div className="pl-4 md:pl-0 w-full py-16 space-y-4 my-auto">
-                            <h1 className="font-black text-5xl leading-tight">
+                            <h1 className="font-black text-4xl md:text-5xl leading-tight">
                                 BUY. SELL. <br />
                                 DISCOVER UNIQUE FASHION.
                             </h1>

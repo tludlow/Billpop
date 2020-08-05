@@ -1,5 +1,5 @@
-import '@/css/tailwind.css'
 import 'pure-react-carousel/dist/react-carousel.es.css'
+import '@/css/tailwind.css'
 
 import Head from 'next/head'
 
@@ -7,8 +7,6 @@ import { Provider } from 'react-redux'
 import { useStore } from '../store'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-
-import CookieWarning from '@/components/cookie-warning'
 
 export default function App({ Component, pageProps }) {
     const store = useStore(pageProps.initialReduxState)

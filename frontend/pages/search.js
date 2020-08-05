@@ -21,6 +21,7 @@ export default function Search() {
 
     const submit = async (e) => {
         e.preventDefault()
+        setShowRecommends(false)
         router.push(`/search?query=${searchQuery}`, undefined, { shallow: true })
     }
 

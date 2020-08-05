@@ -1,6 +1,6 @@
 import Layout from '@/components/layout'
 import { useEffect, useState } from 'react'
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup, Dot } from 'pure-react-carousel'
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, Image, Dot } from 'pure-react-carousel'
 import { useRouter } from 'next/router'
 import api from '../../lib/api'
 import moment from 'moment'
@@ -27,7 +27,7 @@ export default function ListingPage() {
             <div className="hidden md:mt-8 md:grid md:grid-cols-2 md:mb-32">
                 <div className="w-full space-y-4">
                     <CarouselProvider
-                        className="mt-2 relative mb-5 w-4/5"
+                        className="w-11/12 mt-2 relative mb-5"
                         naturalSlideWidth={100}
                         naturalSlideHeight={100}
                         totalSlides={5}
@@ -37,37 +37,32 @@ export default function ListingPage() {
                     >
                         <Slider>
                             <Slide index={0}>
-                                <img
+                                <Image
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/0`}
-                                    style={{ height: '100%', width: '100%' }}
                                     alt=""
                                 />
                             </Slide>
                             <Slide index={1}>
-                                <img
+                                <Image
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/1`}
-                                    style={{ height: '100%', width: '100%' }}
                                     alt=""
                                 />
                             </Slide>
                             <Slide index={2}>
-                                <img
+                                <Image
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/2`}
-                                    style={{ height: '100%', width: '100%' }}
                                     alt=""
                                 />
                             </Slide>
                             <Slide index={3}>
-                                <img
+                                <Image
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/3`}
-                                    style={{ height: '100%', width: '100%' }}
                                     alt=""
                                 />
                             </Slide>
                             <Slide index={4}>
-                                <img
+                                <Image
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/4`}
-                                    style={{ height: '100%', width: '100%' }}
                                     alt=""
                                 />
                             </Slide>
@@ -99,35 +94,35 @@ export default function ListingPage() {
 
                         <div className="-mt-2 flex space-x-1">
                             <Dot slide={0} className="h-32 w-24 focus:outline-none" disabled={false}>
-                                <img
+                                <Image
                                     className="h-32 w-24"
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/0`}
                                     alt=""
                                 />
                             </Dot>
                             <Dot slide={1} className="h-32 w-24 focus:outline-none" disabled={false}>
-                                <img
+                                <Image
                                     className="h-32 w-24"
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/1`}
                                     alt=""
                                 />
                             </Dot>
                             <Dot slide={2} className="h-32 w-24 focus:outline-none" disabled={false}>
-                                <img
+                                <Image
                                     className="h-32 w-24"
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/2`}
                                     alt=""
                                 />
                             </Dot>
                             <Dot slide={3} className="h-32 w-24 focus:outline-none" disabled={false}>
-                                <img
+                                <Image
                                     className="h-32 w-24"
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/3`}
                                     alt=""
                                 />
                             </Dot>
                             <Dot slide={4} className="h-32 w-24 focus:outline-none" disabled={false}>
-                                <img
+                                <Image
                                     className="h-32 w-24"
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_STORE}/l/${listing && listing.id}/4`}
                                     alt=""
@@ -188,8 +183,13 @@ export default function ListingPage() {
                             <p>£{listing && listing.price}</p>
                         </div>
 
-                        <select className="mt-2 form-select w-full" name="sizing" id="sizing-select">
-                            <option value="Choose size" selected disabled>
+                        <select
+                            className="mt-2 form-select w-full"
+                            defaultValue="Choose size"
+                            name="sizing"
+                            id="sizing-select"
+                        >
+                            <option value="Choose size" disabled>
                                 Choose size
                             </option>
                             <option value="6">6</option>
@@ -221,6 +221,11 @@ export default function ListingPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Mobile view */}
+            {/* <div className="md:hidden">
+                <h2>billy is silly and deleted this page</h2>
+            </div> */}
         </Layout>
     )
 }

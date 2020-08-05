@@ -473,7 +473,7 @@ function Stage5() {
                     ></path>
                 </svg>
             </div>
-            <div className="flex w-full items-center">
+            <div className="mt-4 flex w-full justify-center items-center">
                 <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-dashed border-red-500 cursor-pointer hover:bg-red-500 hover:text-white">
                     <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
@@ -487,7 +487,12 @@ function Stage5() {
                     />
                 </label>
             </div>
-            <button onClick={uploadProfileImage}>Upload</button>
+            <button
+                className="w-7/12 mx-auto mt-4 px-4 py-2 bg-gray-600 text-white rounded"
+                onClick={uploadProfileImage}
+            >
+                Upload
+            </button>
 
             <h3 className="mt-8 font-extrabold text-2xl">GET READY</h3>
             <p className="text-gray-600 text-sm">Now you can buy and sell unique items of Billpop.</p>
@@ -505,7 +510,7 @@ function Stage5() {
                         <option value="+2">+2</option>
                     </select>
                     <input
-                        className="form-input w-full border border-gray-400 p-2 rounded-l-none focus:outline-none w-full"
+                        className="form-input w-full border border-gray-400 p-2 rounded-l-none focus:outline-none"
                         type="tel"
                         placeholder="Phone Number"
                         name="phone-number"
