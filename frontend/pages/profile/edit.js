@@ -2,9 +2,16 @@ import Layout from '@/components/layout'
 import AuthenticatedRoute from '@/components/HOC/AuthenticatedRoute'
 
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 function EditProfile() {
     const user = useSelector((state) => state.user)
+
+    const [profileFile, setProfileFile] = useState('https://billpopprodassets.blob.core.windows.net/images/u/3/profile')
+
+    const profileFileChange = (e) => {
+        setProfileFile(URL.createObjectURL(e.target.files[0]))
+    }
 
     return (
         <Layout title="Edit Profile" contained>
@@ -53,28 +60,38 @@ function EditProfile() {
                     </ul>
                 </div>
 
-                <div className="col-span-10 py-6 pl-32">
+                <div className="col-span-6 col-start-4 py-6">
                     <section className="flex items-center">
                         <div className="relative">
-                            <img
-                                className="h-32 w-32 rounded-full shadow-lg"
-                                src="https://billpopprodassets.blob.core.windows.net/images/u/3/profile"
-                                alt={user.username}
-                            />
-                            <div className="absolute right-0 bottom-4 h-6 w-6 flex items-center justify-center rounded-full bg-orange-500 cursor-pointer">
-                                <svg
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    className="pencil text-white w-4 h-4"
+                            <img className="h-32 w-32 rounded-full shadow-lg" src={profileFile} alt={user.username} />
+                            <div>
+                                <label
+                                    className="absolute right-0 bottom-4 h-6 w-6 flex items-center justify-center rounded-full bg-orange-500 cursor-pointer"
+                                    htmlFor="profile-file"
                                 >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                                    />
-                                </svg>
+                                    <svg
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        className="pencil text-white w-4 h-4"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                        />
+                                    </svg>
+                                </label>
+                                <input
+                                    className="hidden"
+                                    type="file"
+                                    name="profile-file"
+                                    id="profile-file"
+                                    multiple="false"
+                                    accept=".jpg,.jpeg,.png"
+                                    onChange={(e) => profileFileChange(e)}
+                                />
                             </div>
                         </div>
                         <div className="ml-16">
@@ -84,7 +101,7 @@ function EditProfile() {
                     </section>
 
                     <section className="mt-6">
-                        <form className="w-8/12 flex justify-between">
+                        <form className="flex justify-between">
                             <div className="flex flex-col">
                                 <label className="pl-2 text-gray-600 text-sm" htmlFor="name">
                                     Name
