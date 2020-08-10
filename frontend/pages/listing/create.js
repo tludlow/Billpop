@@ -187,7 +187,7 @@ export default function CreateListing() {
                             </p>
                         )}
                         <button
-                            className="mt-5 text-white bg-black w-full py-3 font-bold hover:bg-gray-900"
+                            className="w-4/5 mt-5 text-white bg-black py-3 font-bold hover:bg-gray-900"
                             type="submit"
                         >
                             Create

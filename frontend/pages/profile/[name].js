@@ -2,8 +2,9 @@ import Layout from '@/components/layout'
 import DownloadAppModal from '@/components/modals/downloadapp'
 import ReviewsModal from '@/components/modals/reviews'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import Link from 'next/link'
 
 function Star() {
     return (
@@ -37,6 +38,10 @@ export default function ProfilePage() {
         setReviewModalOpen(false)
     }
 
+    useEffect(() => {
+        console.log(user.username)
+    })
+
     return (
         <>
             <Layout title={`${name}'s Shop - Billpop`} contained>
@@ -47,7 +52,7 @@ export default function ProfilePage() {
                         alt="Profile"
                     />
                     <div className="flex flex-col justify-between">
-                        <div className="">
+                        <div>
                             <h2 className="font-bold text-3xl leading-tight">{name}</h2>
                             <p className="text-gray-400">@{name}</p>
                         </div>
@@ -80,6 +85,14 @@ export default function ProfilePage() {
                         >
                             Follow
                         </button>
+                        {/* If the profile is the same as the logged in account show them the edit profile button */}
+                        {user?.username === name && (
+                            <Link href="/profile/edit">
+                                <a className="bg-gray-700 text-white font-bold px-6 py-1 hover:bg-gray-500">
+                                    Edit Profile
+                                </a>
+                            </Link>
+                        )}
                     </div>
 
                     <div className="mt-3">

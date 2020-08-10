@@ -3,6 +3,7 @@ import ClothesImage from '@/components/clothes-image'
 import { useState, useEffect } from 'react'
 import api from '../lib/api'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export default function Search() {
     const router = useRouter()
@@ -27,6 +28,11 @@ export default function Search() {
 
     return (
         <Layout title="Search - Billpop" contained>
+            <Link href="/listing/create">
+                <a className="inline-block mt-4 px-4 py-2 rounded text-white bg-blue-600" href="">
+                    Create New Listing
+                </a>
+            </Link>
             <form className="relative mt-6 w-full" onSubmit={submit} action="">
                 <input
                     className="w-full border-b border-gray-300 placeholder-gray-300 text-5xl font-bold focus:outline-none focus:border-gray-600"
