@@ -11,7 +11,7 @@ let store
 const exampleInitialState = {
     user: {
         username: 'Testing',
-        loggedIn: false,
+        loggedIn: true,
         registrationInfo: null,
     },
     cookies: {
