@@ -4,7 +4,7 @@
     "description": "An online community driven marketplace",
     "main": "index.js",
     "scripts": {
-        "dev": "next",
+        "dev": "yarn && next",
         "build": "next build",
         "start": "next start",
         "starthttps": "node server.js",
