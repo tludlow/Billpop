@@ -9,6 +9,7 @@ using Api.Services;
 using Billpop.Models;
 using Billpop.Models.ExternalProvider;
 using Billpop.Services;
+using Billpop.Services.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,24 +24,18 @@ namespace Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IHttpService _httpService;
         private readonly IAzureBlobService _azureBlobService;
         private readonly IConfiguration _configuration;
-        private readonly string _googleClientId;
-        private readonly string _googleClientSecret;
-        private readonly string _facebookClientId;
-        private readonly string _facebookClientSecret;
+        private readonly GoogleHttpService _googleHttpService;
+        private readonly FacebookHttpService _facebookHttpService;
 
-        public UserController(IUserService userService, IHttpService httpService, IConfiguration configuration, IAzureBlobService azureBlobService)
+        public UserController(IUserService userService, IConfiguration configuration, IAzureBlobService azureBlobService, GoogleHttpService googleHttpService, FacebookHttpService facebookHttpService)
         {
             _userService = userService;
             _configuration = configuration;
-            _httpService = httpService;
             _azureBlobService = azureBlobService;
-            _googleClientId = _configuration["google:clientId"];
-            _googleClientSecret = _configuration["google:clientSecret"];
-            _facebookClientId = _configuration["facebook:clientId"];
-            _facebookClientSecret = _configuration["facebook:clientSecret"];
+            _googleHttpService = googleHttpService;
+            _facebookHttpService = facebookHttpService;
         }
 
         private async void AssignCookie(User user)
@@ -152,10 +147,7 @@ namespace Api.Controllers
             {
                 return BadRequest(new { Error = "Authentication code required" });
             }
-            string sessionId = RandomStringService.GenerateAlphaNumeric(30, new Random());
-            GoogleToken token = await _httpService.Post<GoogleToken>($"https://oauth2.googleapis.com/token?code={code}&client_id={_googleClientId}&client_secret={_googleClientSecret}&redirect_uri={_configuration["url:ui"]}/accounts/google-auth&grant_type=authorization_code&state={sessionId}");
-            _httpService.AddBearerToken(token.Access_Token);
-            GoogleToken profile = await _httpService.Get<GoogleToken>($"https://openidconnect.googleapis.com/v1/userinfo?state={sessionId}&scope=email profile email");
+            GoogleProfile profile = await _googleHttpService.GetProfile(code);
             return await HandleExternalProviderProfile((LoginProvider)profile);
         }
 
@@ -167,8 +159,8 @@ namespace Api.Controllers
             {
                 return BadRequest(new { Error = "Authentication code required" });
             }
-            FacebookToken token = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/v7.0/oauth/access_token?client_id={_facebookClientId}&redirect_uri={_configuration["url:ui"]}/accounts/facebook-auth&client_secret={_facebookClientSecret}&code={code}");
-            FacebookToken profile = await _httpService.Get<FacebookToken>($"https://graph.facebook.com/me?fields=email,name,picture&access_token={token.Access_Token}");
+            
+            FacebookProfile profile = await _facebookHttpService.GetProfile(code);
             return await HandleExternalProviderProfile((LoginProvider)profile);
         }
 

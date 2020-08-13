@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Billpop.Services
+namespace Billpop.Services.Http
 {
     public interface IHttpService
     {

@@ -4,18 +4,21 @@ using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 
-namespace Billpop.Services
+namespace Billpop.Services.Http
 {
-    public class HttpService : IHttpService
+    public class BaseHttpService : IHttpService
     {
-        private readonly HttpClient _client;
+        protected readonly HttpClient _client;
+        protected readonly IConfiguration _config;
 
-        public HttpService()
+        public BaseHttpService(HttpClient client, IConfiguration config)
         {
-            _client = new HttpClient();
+            _client = client;
+            _config = config;
         }
 
         public void AddBearerToken(string token)

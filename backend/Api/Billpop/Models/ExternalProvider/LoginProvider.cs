@@ -10,7 +10,7 @@ namespace Billpop.Models
         public string Picture { get; set; }
         public bool Registered = false;
 
-        public static explicit operator LoginProvider(GoogleToken v)
+        public static explicit operator LoginProvider(GoogleProfile v)
         {
             return new LoginProvider
             {
@@ -21,7 +21,7 @@ namespace Billpop.Models
             };
         }
 
-        public static explicit operator LoginProvider(FacebookToken v)
+        public static explicit operator LoginProvider(FacebookProfile v)
         {
             return new LoginProvider
             {

@@ -75,6 +75,10 @@ namespace Api.Controllers
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type.Equals("UserId")).Value);
             var request = await HttpContext.Request.ReadFormAsync();
+            if (!await _listingService.UserOwnsListing(userId, int.Parse(request["listingId"])))
+            {
+                return BadRequest(new { error = "You do not have sufficient permissions or the listing does not exist" });
+            }
             List<IFormFile> files = request.Files.Where(x => x.ContentType.StartsWith("image")).ToList();
             await _azureBlobService.UploadAsync(files, $"l/{request["listingId"]}/");
             return Ok();
