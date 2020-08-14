@@ -1,8 +1,5 @@
 import Layout from '@/components/layout'
 
-import Link from 'next/link'
-import Router from 'next/router'
-
 export default function Selling() {
     return (
         <Layout title="Selling - Billpop" contained>

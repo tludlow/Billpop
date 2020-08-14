@@ -257,84 +257,84 @@ export default function Index() {
                     <h3 className="font-bold text-3xl tracking-wide">Things we love</h3>
 
                     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
                             />
                             <p className="text-sm font-semibold">£35.00</p>
                         </div>
-                        <div className="h-full w-full" tabIndex="0">
+                        <div className="h-full w-full" tabIndex={0}>
                             <img
                                 src="https://d2h1pu99sxkfvn.cloudfront.net/b0/10762909/710872248_92f14dea3a324e6fb9cf8bad65152ca7/P8.jpg"
                                 alt=""
@@ -366,25 +366,25 @@ export default function Index() {
                     <h3 className="font-bold text-3xl tracking-wide">Meet sellers</h3>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="w-full h-full" tabIndex="0">
+                        <div className="w-full h-full" tabIndex={0}>
                             <img
                                 src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
                                 alt=""
                             />
                             <p className="font-semibold text-sm">@JEFFSOCOOL</p>
                         </div>
-                        <div className="w-full h-full" tabIndex="0">
+                        <div className="w-full h-full" tabIndex={0}>
                             <img
                                 src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
                                 alt=""
                             />
                             <p className="font-semibold text-sm">@JOSHWOW</p>
                         </div>
-                        <div className="w-full h-full" tabIndex="0">
+                        <div className="w-full h-full" tabIndex={0}>
                             <img src="/jasper.jpg" alt="" />
                             <p className="font-semibold text-sm">@JASPIEEE</p>
                         </div>
-                        <div className="w-full h-full" tabIndex="0">
+                        <div className="w-full h-full" tabIndex={0}>
                             <img
                                 src="https://d3170a3msf25m.cloudfront.net/assets/narrative/sellers/sadsac.jpg"
                                 alt=""

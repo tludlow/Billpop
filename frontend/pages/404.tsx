@@ -25,15 +25,15 @@ export default function FourOFour() {
                 <h2 className="font-bold text-2xl mt-6">Page not found</h2>
                 <p>This page doesnt exist, try going back</p>
 
-                <div className="mt-4 space-x-6">
+                <div className="mt-8 space-x-6">
                     <button
                         className="w-32 px-4 py-2 text-white rounded bg-black font-bold"
-                        onClick={() => Router.goBack()}
+                        onClick={() => Router.back()}
                     >
                         Go back
                     </button>
                     <Link href="/">
-                        <button className="w-32 px-4 py-2 text-white rounded bg-black font-bold">Home</button>
+                        <button className="w-32 px-4 py-2 text-white rounded bg-gray-900 font-bold">Home</button>
                     </Link>
                 </div>
             </div>

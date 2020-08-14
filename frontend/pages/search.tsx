@@ -5,12 +5,18 @@ import api from '../lib/api'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
+interface Listing {
+    id: number;
+    title: string;
+    price: number;
+}
+
 export default function Search() {
     const router = useRouter()
     const initialQuery = router.query.query
     const [showRecommends, setShowRecommends] = useState(false)
     const [searchQuery, setSearchQuery] = useState(initialQuery || '')
-    const [listings, setListings] = useState([])
+    const [listings, setListings] = useState<Listing[]>([])
 
     useEffect(() => {
         console.log('test')
@@ -20,7 +26,7 @@ export default function Search() {
         executeAsync()
     }, [initialQuery])
 
-    const submit = async (e) => {
+    const submit = async (e: React.FormEvent) => {
         e.preventDefault()
         setShowRecommends(false)
         router.push(`/search?query=${searchQuery}`, undefined, { shallow: true })

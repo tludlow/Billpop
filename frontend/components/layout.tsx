@@ -4,19 +4,23 @@ import Footer from '@/components/footer'
 
 import CookieWarning from '@/components/cookie-warning'
 
-export default function Layout(props) {
+type LayoutProps = {
+    title?: string,
+    contained: boolean,
+    admin: boolean,
+    children: React.ReactElement,
+}
+export default function Layout({ title, contained, admin, children }: LayoutProps) {
     return (
         <div className="text-black w-full">
             <Head>
-                <title>{props.title || 'Billpop'}</title>
+                <title>{title || 'Billpop'}</title>
             </Head>
 
-            <Nav admin={props.admin} />
+            <Nav admin={admin} />
 
             {/* Have the option to remove the container if wanted */}
-            <div className={`${props.contained ? 'container mx-auto px-4 mb-24 md:mb-0 md:px-0' : ''}`}>
-                {props.children}
-            </div>
+            <div className={`${contained ? 'container mx-auto px-4 mb-24 md:mb-0 md:px-0' : ''}`}>{children}</div>
 
             <div className="my-16"></div>
             <CookieWarning />
