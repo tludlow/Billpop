@@ -20,7 +20,7 @@ function EditProfile() {
                     <h3 className="font-bold text-lg">User Profile</h3>
 
                     <ul className="mt-6 space-y-2">
-                        <li className="flex items-center border-r-2 border-orange-500 -mr-px">
+                        <li className="flex items-center border-r-2 border-red-500 -mr-px">
                             <span>
                                 <svg
                                     fill="none"
@@ -63,10 +63,14 @@ function EditProfile() {
                 <div className="col-span-6 col-start-4 py-6">
                     <section className="flex items-center">
                         <div className="relative">
-                            <img className="h-32 w-32 rounded-full shadow-lg" src={profileFile} alt={user.username} />
+                            <img
+                                className="h-32 w-32 border border-gray-400 rounded-full shadow-lg"
+                                src={profileFile}
+                                alt={user.username}
+                            />
                             <div>
                                 <label
-                                    className="absolute right-0 bottom-4 h-6 w-6 flex items-center justify-center rounded-full bg-orange-500 cursor-pointer"
+                                    className="absolute right-0 bottom-4 h-6 w-6 flex items-center justify-center rounded-full bg-red-500 cursor-pointer"
                                     htmlFor="profile-file"
                                 >
                                     <svg
@@ -129,7 +133,7 @@ function EditProfile() {
                         </form>
                     </section>
 
-                    <button className="mt-12 px-3 py-2 font-semibold text-white bg-orange-500 rounded">
+                    <button className="mt-12 px-3 py-2 font-semibold text-white bg-red-500 rounded">
                         Save Changes
                     </button>
                 </div>
