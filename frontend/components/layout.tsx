@@ -6,8 +6,8 @@ import CookieWarning from '@/components/cookie-warning'
 
 type LayoutProps = {
     title?: string,
-    contained: boolean,
-    admin: boolean,
+    contained?: boolean,
+    admin?: boolean,
     children: React.ReactElement,
 }
 export default function Layout({ title, contained, admin, children }: LayoutProps) {
