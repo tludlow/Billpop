@@ -8,23 +8,22 @@ type LayoutProps = {
     title?: string,
     contained?: boolean,
     admin?: boolean,
-    children: React.ReactElement,
 }
-export default function Layout({ title, contained, admin, children }: LayoutProps) {
-    return (
-        <div className="text-black w-full">
-            <Head>
-                <title>{title || 'Billpop'}</title>
-            </Head>
+const Layout: React.FC<LayoutProps> = ({ title, contained, admin, children }) => (
+    <div className="text-black w-full">
+        <Head>
+            <title>{title || 'Billpop'}</title>
+        </Head>
 
-            <Nav admin={admin} />
+        <Nav admin={admin} />
 
-            {/* Have the option to remove the container if wanted */}
-            <div className={`${contained ? 'container mx-auto px-4 mb-24 md:mb-0 md:px-0' : ''}`}>{children}</div>
+        {/* Have the option to remove the container if wanted */}
+        <div className={`${contained ? 'container mx-auto px-4 mb-24 md:mb-0 md:px-0' : ''}`}>{children}</div>
 
-            <div className="my-16"></div>
-            <CookieWarning />
-            <Footer />
-        </div>
-    )
-}
+        <div className="my-16"></div>
+        <CookieWarning />
+        <Footer />
+    </div>
+)
+
+export default Layout
