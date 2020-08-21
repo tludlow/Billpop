@@ -30,6 +30,6 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "pages/_app.tsx", "reducers/cookieReducer.js", "store.js", "pages/profile/[name].js"
+    "**/*.tsx", "pages/_app.tsx", "reducers/cookieReducer.ts", "store.js", "pages/profile/[name].js"
   ]
 }
